@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Documentation Assistant</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📄 RAG Documentation Assistant</h1>
+            <p>Zadawaj pytania o dokumentację techniczną</p>
+        </header>
+
+        <!-- Upload Section -->
+        <div class="upload-section" id="uploadSection">
+            <input type="file" id="pdfFile" accept=".pdf">
+            <button onclick="uploadPDF()">Wgraj dokument</button>
+            <div id="uploadStatus"></div>
+        </div>
+
+        <!-- Chat Section (ukryte do momentu uploadu) -->
+        <div class="chat-section" id="chatSection" style="display:none;">
+            <div class="chat-messages" id="chatMessages"></div>
+            
+            <div class="chat-input">
+                <input type="text" id="questionInput" placeholder="Zadaj pytanie...">
+                <button onclick="askQuestion()">Wyślij</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/js/app.js"></script>
+</body>
+</html>
