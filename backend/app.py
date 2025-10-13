@@ -3,6 +3,9 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import os
 from src.rag_pipeline import RAGPipeline
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)  # Pozwól na requesty z frontendu
