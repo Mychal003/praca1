@@ -1,7 +1,8 @@
 """
 Prosty skrypt do tworzenia wykresów z wyników ewaluacji.
 """
-
+import matplotlib
+matplotlib.use('Agg')
 import json
 import matplotlib.pyplot as plt
 import sys

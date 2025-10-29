@@ -1,10 +1,14 @@
 import json
+import sys
 import time
 from datetime import datetime
 from typing import List, Dict
 import re
 from collections import Counter
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # ============================================================================
 # METRYKI
@@ -306,6 +310,11 @@ def run_experiments(pdf_path: str):
     """
     Uruchamia 3 podstawowe eksperymenty z różnymi konfiguracjami.
     """
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    parent_dir = os.path.dirname(current_dir)
+    if parent_dir not in sys.path:
+        sys.path.insert(0, parent_dir)
+    
     from src.rag_pipeline import RAGPipeline
     
     configs = [
