@@ -297,23 +297,19 @@ rag-doc-assistant/
 
 ## 📊 Wyniki
 
-### Najlepsza konfiguracja
-
 Na podstawie eksperymentów z dokumentacją TP-Link Archer D7:
 
-| Parametr | Wartość optymalna |
-|----------|-------------------|
-| **chunk_size** | 500-800 |
-| **chunk_overlap** | 100 |
-| **k (liczba dokumentów)** | 3 |
-| **ROUGE-1 F1** | ~0.36 |
-| **Średnia latencja** | ~2.5s |
+| Konfiguracja | chunk_size | ROUGE-1 F1 | Latencja |
+|--------------|------------|------------|----------|
+| Small chunks | 500        | **0.366**  | 4.04s    |
+| Medium chunks| 800        | 0.358      | 2.17s    |
+| Large chunks | 1200       | 0.352      | 2.13s    |
 
 ### Wnioski:
 
-1. **Chunk size:** Mniejsze chunki (500) dają lepszą jakość, ale większe (800) są szybsze
-2. **Overlap:** Moderate overlap (100) zapewnia najlepszy balans
-3. **K:** 3 dokumenty to sweet spot - więcej nie poprawia jakości znacząco
+1. **Small chunks (500) dają najwyższą jakość** (ROUGE-1: 0.366)
+2. **Large chunks (1200) są najszybsze** (2.13s)
+3. **Medium chunks (800) to dobry kompromis** - prawie równie dobre jak small, ale 2x szybsze
 
 **Trade-off:** Jakość vs Wydajność
 - Małe chunki (500): wyższa jakość (+2-3% ROUGE), wolniejsze (2x)
@@ -322,21 +318,6 @@ Na podstawie eksperymentów z dokumentacją TP-Link Archer D7:
 
 ---
 
-## 👤 Autor
-
-**Paweł [Nazwisko]**
-- GitHub: [@your-username](https://github.com/your-username)
-- Praca inżynierska: Politechnika Wrocławska, 2025
-
----
-
-## 📄 Licencja
-
-Ten projekt został stworzony na potrzeby pracy inżynierskiej.
-
----
-
----
 
 ## 📚 Dokumentacja dodatkowa
 
@@ -345,5 +326,3 @@ Ten projekt został stworzony na potrzeby pracy inżynierskiej.
 - [FAISS Documentation](https://github.com/facebookresearch/faiss)
 
 ---
-
-**⭐ Jeśli ten projekt był pomocny, zostaw gwiazdkę na GitHub!**

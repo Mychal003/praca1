@@ -8,7 +8,7 @@ from src.query_classifier import QueryClassifier
 import os
 
 class RAGPipeline:
-    def __init__(self, chunk_size=800, chunk_overlap=100, k=3):
+    def __init__(self, chunk_size=1200, chunk_overlap=100, k=7):
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
         self.k = k
