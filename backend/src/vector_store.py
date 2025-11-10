@@ -6,7 +6,7 @@ class VectorStoreManager:
     def __init__(self, embedding_model="text-embedding-3-small"):
         self.embeddings = OpenAIEmbeddings(model=embedding_model)
         self.text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=800,
+            chunk_size=1200,
             chunk_overlap=100
         )
     

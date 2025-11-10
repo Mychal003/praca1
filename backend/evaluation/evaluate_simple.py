@@ -73,9 +73,9 @@ TEST_DATASET = [
     },
     
     {
-        "question": "What are the default login credentials for the router?",
-        "expected_answer": "The default username and password are both 'admin'.",
-        "category": "factual"
+    "question": "What are the default login credentials for the router?",
+    "expected_answer": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+    "category": "factual"
     },
     
     {
@@ -113,15 +113,15 @@ TEST_DATASET = [
     # ============================================================================
     
     {
-        "question": "How do you perform a factory reset on the Archer D7?",
-        "expected_answer": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for about 10 seconds until all LEDs turn on momentarily, then release the button.",
-        "category": "procedural"
+    "question": "How do you perform a factory reset on the Archer D7?",
+    "expected_answer": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+    "category": "procedural"
     },
     
     {
-        "question": "How do you access the router's web interface for the first time?",
-        "expected_answer": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then log in with the default credentials (admin/admin) or set a new password.",
-        "category": "procedural"
+    "question": "How do you access the router's web interface for the first time?",
+    "expected_answer": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+    "category": "procedural"
     },
     
     {
@@ -143,9 +143,9 @@ TEST_DATASET = [
     },
     
     {
-        "question": "How do you access a USB disk connected to the router via network?",
-        "expected_answer": "For Windows, access via \\\\MyShare (or custom server name) in File Explorer. For Mac, access via smb://MyShare in Finder. First enable Network Neighborhood in USB Settings.",
-        "category": "procedural"
+    "question": "How do you access a USB disk connected to the router via network?",
+    "expected_answer": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+    "category": "procedural"
     },
     
     {
@@ -161,9 +161,9 @@ TEST_DATASET = [
     },
     
     {
-        "question": "How do you enable MAC Filtering to control wireless access?",
-        "expected_answer": "Go to Network Security > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
-        "category": "procedural"
+    "question": "How do you enable MAC Filtering to control wireless access?",
+    "expected_answer": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+    "category": "procedural"
     },
     
     # ============================================================================
@@ -177,9 +177,9 @@ TEST_DATASET = [
     },
     
     {
-        "question": "How do you recover access if you forgot the router's login password?",
-        "expected_answer": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 10 seconds. Then use the default credentials (admin/admin).",
-        "category": "troubleshooting"
+    "question": "How do you recover access if you forgot the router's login password?",
+    "expected_answer": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+    "category": "troubleshooting"
     },
     
     {
