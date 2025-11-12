@@ -8,7 +8,7 @@ from src.query_classifier import QueryClassifier
 import os
 
 class RAGPipeline:
-    def __init__(self, chunk_size=1200, chunk_overlap=100, k=7):
+    def __init__(self, chunk_size=800, chunk_overlap=100, k=7):
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
         self.k = k
@@ -16,8 +16,8 @@ class RAGPipeline:
         # Komponenty
         self.pdf_processor = PDFProcessor()
         self.classifier = QueryClassifier()
-        self.embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
-        self.llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+        self.embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
+        self.llm = ChatOpenAI(model="o4-mini", temperature=1)
         
         # Vector store (inicjalizowany po upload)
         self.vectorstore = None
@@ -39,29 +39,115 @@ class RAGPipeline:
         # 3. Embeddingi + FAISS
         self.vectorstore = FAISS.from_texts(chunks, self.embeddings)
         
-        # 4. Retrieval QA chain
-        self.qa_chain = RetrievalQA.from_chain_type(
-            llm=self.llm,
-            chain_type="stuff",  # "stuff" = wszystkie chunki w jednym promptcie
-            retriever=self.vectorstore.as_retriever(
-                search_kwargs={"k": self.k}
-            ),
-            return_source_documents=True
+        # 4. Retrieval (bez QA chain - będziemy używać dynamicznych promptów)
+        self.retriever = self.vectorstore.as_retriever(
+            search_kwargs={"k": self.k}
         )
     
     def classify_query(self, query: str) -> str:
         """Klasyfikuje typ pytania"""
         return self.classifier.classify(query)
     
+    def _get_prompt_template(self, category: str) -> PromptTemplate:
+        """Zwraca template promptu dostosowany do kategorii pytania"""
+        
+        if category == "factual":
+            template = """Use the following context to answer the factual question. Be precise and concise.
+
+INSTRUCTIONS FOR FACTUAL QUESTIONS:
+- State the fact directly in 1-2 sentences maximum
+- Include only the specific information requested
+- Use exact terms and values from the context
+- Do NOT add explanations or background information
+- If the information is not in the context, say "I don't have this information in the document"
+
+Context:
+{context}
+
+Question: {question}
+
+Answer:"""
+        
+        elif category == "procedural":
+            template = """Use the following context to provide step-by-step instructions. Be clear and concise.
+
+INSTRUCTIONS FOR PROCEDURAL QUESTIONS:
+- List the steps in logical order
+- Keep each step brief (one sentence)
+- Include only essential details
+- Maximum 5-6 steps
+- Do NOT add warnings, tips, or extra explanations unless critical
+- If the procedure is not in the context, say "I don't have this information in the document"
+
+Context:
+{context}
+
+Question: {question}
+
+Answer:"""
+        
+        elif category == "troubleshooting":
+            template = """Use the following context to diagnose the problem and suggest solutions. Be direct and practical.
+
+INSTRUCTIONS FOR TROUBLESHOOTING QUESTIONS:
+- Briefly state what the problem indicates (1 sentence)
+- List 2-4 specific solutions from the context
+- Keep solutions concise (one sentence each)
+- Focus on actionable steps
+- Do NOT add general advice not in the context
+- If the troubleshooting info is not in the context, say "I don't have this information in the document"
+
+Context:
+{context}
+
+Question: {question}
+
+Answer:"""
+        
+        else:
+            # Fallback dla niesklasyfikowanych
+            template = """Use the following context to answer the question. Be precise and concise.
+
+INSTRUCTIONS:
+- Answer directly in 2-3 sentences maximum
+- Use ONLY information from the context
+- Do NOT add extra details or explanations
+- If the information is not in the context, say "I don't have this information in the document"
+
+Context:
+{context}
+
+Question: {question}
+
+Answer:"""
+        
+        return PromptTemplate(
+            template=template,
+            input_variables=["context", "question"]
+        )
+    
     def query(self, question: str) -> str:
-        """Generuje odpowiedź na pytanie"""
-        if self.qa_chain is None:
+        """Generuje odpowiedź na pytanie z dynamicznym promptem"""
+        if self.vectorstore is None:
             raise ValueError("Brak przetworzonego dokumentu")
         
+        # 1. Klasyfikuj pytanie
         category = self.classify_query(question)
-        custom_prompt = self._get_prompt_for_category(category)
         
-        result = self.qa_chain({"query": question})
+        # 2. Pobierz odpowiedni prompt template
+        prompt_template = self._get_prompt_template(category)
+        
+        # 3. Stwórz QA chain z customowym promptem
+        qa_chain = RetrievalQA.from_chain_type(
+            llm=self.llm,
+            chain_type="stuff",
+            retriever=self.retriever,
+            return_source_documents=True,
+            chain_type_kwargs={"prompt": prompt_template}
+        )
+        
+        # 4. Wygeneruj odpowiedź
+        result = qa_chain({"query": question})
         return result["result"]
     
     def get_sources(self, question: str, k: int = 3) -> list:
@@ -71,12 +157,3 @@ class RAGPipeline:
         
         docs = self.vectorstore.similarity_search(question, k=k)
         return [{"text": doc.page_content, "score": i} for i, doc in enumerate(docs)]
-    
-    def _get_prompt_for_category(self, category: str) -> str:
-        """Customowy prompt w zależności od kategorii"""
-        prompts = {
-            "factual": "Odpowiedz krótko i precyzyjnie:",
-            "procedural": "Podaj instrukcję krok po kroku:",
-            "troubleshooting": "Zdiagnozuj problem i zaproponuj rozwiązanie:"
-        }
-        return prompts.get(category, "Odpowiedz na pytanie:")

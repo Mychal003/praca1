@@ -6,7 +6,7 @@ class VectorStoreManager:
     def __init__(self, embedding_model="text-embedding-3-small"):
         self.embeddings = OpenAIEmbeddings(model=embedding_model)
         self.text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1200,
+            chunk_size=800,
             chunk_overlap=100
         )
     
@@ -14,5 +14,5 @@ class VectorStoreManager:
         chunks = self.text_splitter.split_text(text)
         return FAISS.from_texts(chunks, self.embeddings)
     
-    def search(self, vectorstore: FAISS, query: str, k: int = 3):
+    def search(self, vectorstore: FAISS, query: str, k: int =7):
         return vectorstore.similarity_search(query, k=k)

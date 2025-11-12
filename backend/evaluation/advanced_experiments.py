@@ -20,7 +20,6 @@ from evaluation.evaluate_simple import evaluate_system, TEST_DATASET
 def run_comprehensive_experiments(pdf_path: str):
     """
     Kompleksowe eksperymenty testujące różne aspekty systemu RAG.
-    
     Testowane parametry:
     1. Rozmiar chunków (chunk_size)
     2. Liczba retrievanych dokumentów (k)

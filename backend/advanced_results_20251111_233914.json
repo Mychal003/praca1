@@ -1,0 +1,3037 @@
+{
+  "chunk_size_experiment": [
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.015072463768115942,
+        "avg_token_overlap": 0.01625,
+        "avg_latency": 4.248779840469361,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 7.575230836868286
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 6.172166585922241
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.461319208145142
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.3308937549591064
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.19405198097229
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.422576665878296
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.902421712875366
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.6211631298065186
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.914138078689575
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.411325216293335
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "ERROR",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.0232014656066895
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4932973384857178
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.3032147884368896
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.665847063064575
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.2681994438171387
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.403944492340088
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4686312675476074
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.7135486602783203
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8690319061279297
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "Cause: The unlit ADSL LED means your router failed to synchronize with the DSL line (no carrier signal).  \nSolution: Verify your phone‐line wiring and filters are correctly installed, reboot the modem, and if the issue persists, contact your ISP to ensure the DSL service is active.",
+          "rouge1_f1": 0.37681159420289856,
+          "token_overlap": 0.40625,
+          "latency": 3.8206725120544434
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.371491193771362
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.240938663482666
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.1932032108306885
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.811939001083374
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5670478343963623
+        }
+      ],
+      "config": {
+        "name": "Tiny chunks (300)",
+        "chunk_size": 300,
+        "chunk_overlap": 50,
+        "k": 3
+      }
+    },
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.0,
+        "avg_token_overlap": 0.0,
+        "avg_latency": 3.93520055770874,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5966930389404297
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.952868700027466
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6536505222320557
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.400859355926514
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.50554633140564
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 7.4416139125823975
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.073596715927124
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4684290885925293
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8248207569122314
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.30594801902771
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4368538856506348
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.159079551696777
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 6.267348527908325
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4488608837127686
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.083190441131592
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.7963767051696777
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.280850887298584
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 2.907405376434326
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.123255968093872
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.23774790763855
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.711848020553589
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5704901218414307
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.3529160022735596
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4505951404571533
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.3291680812835693
+        }
+      ],
+      "config": {
+        "name": "Small chunks (500)",
+        "chunk_size": 500,
+        "chunk_overlap": 100,
+        "k": 3
+      }
+    },
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.014666666666666666,
+        "avg_token_overlap": 0.020952380952380955,
+        "avg_latency": 3.947500820159912,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.254716157913208
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6692135334014893
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4822802543640137
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.795464277267456
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.394692659378052
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.154375314712524
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.9102065563201904
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 6.014531373977661
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.734229803085327
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "ERROR",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.645214319229126
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "1. Log in at http://tplinkmodem.net using your admin password.  \n2. Go to Quick Setup, pick your ISP (or “Other”), then click Next.  \n3. Follow the prompts—enter any ISP-specific info and, if desired, rename your SSID/password.  \n4. Review and click Save/Finish to apply settings.",
+          "rouge1_f1": 0.36666666666666664,
+          "token_overlap": 0.5238095238095238,
+          "latency": 3.441711664199829
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.074998378753662
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4152750968933105
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5118236541748047
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.178685665130615
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.610534429550171
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.051346302032471
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.862485408782959
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 2.9656169414520264
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.937324047088623
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 6.06962776184082
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.7889270782470703
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.504917860031128
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.453540325164795
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.7657816410064697
+        }
+      ],
+      "config": {
+        "name": "Medium chunks (800)",
+        "chunk_size": 800,
+        "chunk_overlap": 100,
+        "k": 3
+      }
+    },
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.0,
+        "avg_token_overlap": 0.0,
+        "avg_latency": 4.327671165466309,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.2027363777160645
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.563451766967773
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.344208478927612
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 6.34441351890564
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.148895740509033
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.987309217453003
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5502047538757324
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "ERROR",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.4130165576934814
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.9191997051239014
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.143394231796265
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4287209510803223
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.640958309173584
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5705769062042236
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.127195119857788
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5980587005615234
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.7011382579803467
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.912402629852295
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.090104341506958
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.3675320148468018
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.161170482635498
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.2736949920654297
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8037796020507812
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 9.670231103897095
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.1992785930633545
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.030106782913208
+        }
+      ],
+      "config": {
+        "name": "Large chunks (1200)",
+        "chunk_size": 1200,
+        "chunk_overlap": 150,
+        "k": 3
+      }
+    },
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.021818181818181816,
+        "avg_token_overlap": 0.025714285714285717,
+        "avg_latency": 4.033054838180542,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.223231554031372
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.058576583862305
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.7531490325927734
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.93827223777771
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.017472743988037
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.1111767292022705
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.544045925140381
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8323402404785156
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "1. Power on the Archer D7.  \n2. On the back panel, press and hold the RESET button with a pin or paperclip.  \n3. Keep holding for about 10 seconds until all LEDs blink.  \n4. Release and wait for the router to reboot to factory defaults.",
+          "rouge1_f1": 0.5454545454545454,
+          "token_overlap": 0.6428571428571429,
+          "latency": 3.836177349090576
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.208967685699463
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.250681400299072
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.636615753173828
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 2.9842369556427
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.996935129165649
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "ERROR",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.458800554275513
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6410772800445557
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6762897968292236
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.220138788223267
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.048701047897339
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 2.995833158493042
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.1089112758636475
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.620940208435059
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.887211322784424
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.96309232711792
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8134958744049072
+        }
+      ],
+      "config": {
+        "name": "Extra large (1500)",
+        "chunk_size": 1500,
+        "chunk_overlap": 200,
+        "k": 3
+      }
+    }
+  ],
+  "k_experiment": [
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.016551724137931035,
+        "avg_token_overlap": 0.021818181818181816,
+        "avg_latency": 4.014933433532715,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.5134665966033936
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.37634539604187
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.1465983390808105
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.562848091125488
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.275721788406372
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "The router’s USB port supports USB Storage Sharing and can function as a Print Server, an FTP Server, and a Media Server.",
+          "rouge1_f1": 0.41379310344827586,
+          "token_overlap": 0.5454545454545454,
+          "latency": 5.660829067230225
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.9806761741638184
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.3996260166168213
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.1522886753082275
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.82262110710144
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6926064491271973
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.037475347518921
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.9255876541137695
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.128566265106201
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.2785956859588623
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.084605693817139
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8354156017303467
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "ERROR",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 2.8922219276428223
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4187638759613037
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6572816371917725
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.180464744567871
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.979382038116455
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.7884294986724854
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.080466032028198
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5024521350860596
+        }
+      ],
+      "config": {
+        "name": "k=1",
+        "chunk_size": 800,
+        "chunk_overlap": 100,
+        "k": 1
+      }
+    },
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.05202797202797203,
+        "avg_token_overlap": 0.055428571428571424,
+        "avg_latency": 3.9698660278320315,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4016098976135254
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.077514410018921
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4166505336761475
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4942166805267334
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "The Archer D7 supports two operation modes: bridge mode and router mode.",
+          "rouge1_f1": 0.8461538461538461,
+          "token_overlap": 0.7857142857142857,
+          "latency": 3.6784615516662598
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.833635330200195
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.685816526412964
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.865849256515503
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6832897663116455
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5594725608825684
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8010666370391846
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.068702697753906
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.592834711074829
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.047708034515381
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.010448217391968
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6251220703125
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.530231237411499
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.214289903640747
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.316692352294922
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 6.9147326946258545
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.234269618988037
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.76358962059021
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8164608478546143
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "Access Control lets you block or allow specific client devices on both wired and wireless networks by maintaining a blacklist or whitelist of device identities. In contrast, MAC Filtering applies only to wireless clients, using each device’s unique 12-digit MAC address to permit or deny access.",
+          "rouge1_f1": 0.4545454545454546,
+          "token_overlap": 0.6,
+          "latency": 4.0516157150268555
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5623698234558105
+        }
+      ],
+      "config": {
+        "name": "k=2",
+        "chunk_size": 800,
+        "chunk_overlap": 100,
+        "k": 2
+      }
+    },
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.014814814814814814,
+        "avg_token_overlap": 0.025,
+        "avg_latency": 3.690701808929443,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8429887294769287
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "The modem router’s web management page can be accessed by entering http://tplinkmodem.net or http://192.168.1.1 into your browser’s address bar.",
+          "rouge1_f1": 0.37037037037037035,
+          "token_overlap": 0.625,
+          "latency": 2.9136104583740234
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.9192686080932617
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "ERROR",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.155678033828735
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.7708346843719482
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5820858478546143
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.807798624038696
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8030879497528076
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.806344747543335
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.04033637046814
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.330538511276245
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.474400997161865
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.7388100624084473
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.370105028152466
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.7959792613983154
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.2783007621765137
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.344784736633301
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.1070706844329834
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.337207078933716
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5293636322021484
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.007779359817505
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5317494869232178
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5011727809906006
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.934725046157837
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.3435237407684326
+        }
+      ],
+      "config": {
+        "name": "k=3",
+        "chunk_size": 800,
+        "chunk_overlap": 100,
+        "k": 3
+      }
+    },
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.08592720139494332,
+        "avg_token_overlap": 0.09873076923076923,
+        "avg_latency": 3.8798024368286135,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "The full model name is TP-LINK Archer D7 AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "rouge1_f1": 0.7741935483870969,
+          "token_overlap": 0.8,
+          "latency": 4.090944766998291
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "The default web address to access the router interface is http://tplinkmodem.net or http://192.168.1.1.",
+          "rouge1_f1": 0.7000000000000001,
+          "token_overlap": 0.875,
+          "latency": 3.0686402320861816
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.309797763824463
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.43438196182251
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.535059690475464
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8048183917999268
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.298571825027466
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.287558078765869
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.681971549987793
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.883467197418213
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.27512788772583
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.924734354019165
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.270693778991699
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.86186146736145
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5026133060455322
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.822110414505005
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.484396696090698
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.072963237762451
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.99330472946167
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "Cause: The ADSL LED off indicates your modem router failed to synchronize with the DSL line (no carrier signal or mis-wired connection).  \nSolution: Verify the phone cable and splitter are properly connected to the wall jack, reboot the modem, and if the LED remains off contact your ISP to confirm your DSL service is active.",
+          "rouge1_f1": 0.4864864864864864,
+          "token_overlap": 0.5625,
+          "latency": 4.243483304977417
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "Possible causes include weak or out-of-range Wi-Fi signal, hidden or mis-configured SSID (wrong channel/region), or the wireless adapter being disabled or having an outdated/missing driver. Authentication failures (wrong password or PIN) and interference from neighboring networks (non-optimal channel selection) can also prevent connections.",
+          "rouge1_f1": 0.18749999999999997,
+          "token_overlap": 0.23076923076923078,
+          "latency": 2.8174819946289062
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.712578535079956
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.409336566925049
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6327435970306396
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5764195919036865
+        }
+      ],
+      "config": {
+        "name": "k=5",
+        "chunk_size": 800,
+        "chunk_overlap": 100,
+        "k": 5
+      }
+    },
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.046014215418261346,
+        "avg_token_overlap": 0.0540952380952381,
+        "avg_latency": 3.8384782695770263,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "The full model name is TP-LINK’s Archer D7 AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "rouge1_f1": 0.7096774193548386,
+          "token_overlap": 0.7333333333333333,
+          "latency": 4.41719126701355
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.976201057434082
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.001465559005737
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.098273038864136
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.7044355869293213
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.9815778732299805
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.91457462310791
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.030222177505493
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.659662961959839
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.2005114555358887
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "1. Open http://tplinkmodem.net in a browser, log in with your router password.  \n2. Click Quick Setup, choose your ISP (or “Other”), then Next.  \n3. (Optional) Rename the Wi-Fi SSID and set a new wireless password.  \n4. Follow the remaining on-screen prompts to finish.",
+          "rouge1_f1": 0.44067796610169496,
+          "token_overlap": 0.6190476190476191,
+          "latency": 4.46328330039978
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.022030591964722
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.062637090682983
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4500534534454346
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8248257637023926
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.971245527267456
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.2025585174560547
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.3550264835357666
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4395031929016113
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.299321413040161
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.017721176147461
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.754960775375366
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.514651775360107
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.548721075057983
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.0513010025024414
+        }
+      ],
+      "config": {
+        "name": "k=7",
+        "chunk_size": 800,
+        "chunk_overlap": 100,
+        "k": 7
+      }
+    }
+  ],
+  "overlap_experiment": [
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.0,
+        "avg_token_overlap": 0.0,
+        "avg_latency": 3.718483600616455,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.514895439147949
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.486598253250122
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8286619186401367
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.379910945892334
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.137566328048706
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.850078344345093
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.595055103302002
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6172330379486084
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.225144863128662
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4040145874023438
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.277467727661133
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.656524419784546
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.0960490703582764
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.357377767562866
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5119991302490234
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "ERROR",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4825427532196045
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.423815965652466
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.294267416000366
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.27414608001709
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.13651180267334
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.361626148223877
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4637367725372314
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.128453493118286
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.339125871658325
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.1192867755889893
+        }
+      ],
+      "config": {
+        "name": "No overlap (0)",
+        "chunk_size": 800,
+        "chunk_overlap": 0,
+        "k": 3
+      }
+    },
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.0,
+        "avg_token_overlap": 0.0,
+        "avg_latency": 3.8981849575042724,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "ERROR",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.990175247192383
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.378060579299927
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.680184841156006
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.961625576019287
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5556600093841553
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.3944363594055176
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.142446994781494
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.473402261734009
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.117612600326538
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4236483573913574
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8338327407836914
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.724757671356201
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.584710597991943
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.4951963424682617
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.9393856525421143
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.054525375366211
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.21478009223938
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5611696243286133
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.341550588607788
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.633493423461914
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6229984760284424
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.533281087875366
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.266542434692383
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.9264914989471436
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.604655504226685
+        }
+      ],
+      "config": {
+        "name": "Small overlap (50)",
+        "chunk_size": 800,
+        "chunk_overlap": 50,
+        "k": 3
+      }
+    },
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.02057142857142857,
+        "avg_token_overlap": 0.0225,
+        "avg_latency": 4.364656000137329,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6188771724700928
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.349531650543213
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.199099779129028
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.931025266647339
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.311940431594849
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.020055055618286
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.45642614364624
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.739027261734009
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.859694004058838
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.83802342414856
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.771118640899658
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 7.7682411670684814
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.588165521621704
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.63551926612854
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6081717014312744
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.5182580947875977
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.215832710266113
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.9055962562561035
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.436631441116333
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "If the ADSL LED is off, it means the modem router failed to synchronize with the DSL line (no line sync). To fix this, verify that the splitter and phone jack wiring match the “Connect Your Modem Router” instructions, and if the LED remains off, contact your ISP to confirm that your DSL service is active.",
+          "rouge1_f1": 0.5142857142857142,
+          "token_overlap": 0.5625,
+          "latency": 3.4454078674316406
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.3889713287353516
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.876351833343506
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.998334884643555
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.483330011367798
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.152769088745117
+        }
+      ],
+      "config": {
+        "name": "Medium overlap (100)",
+        "chunk_size": 800,
+        "chunk_overlap": 100,
+        "k": 3
+      }
+    },
+    {
+      "summary": {
+        "avg_rouge1_f1": 0.0,
+        "avg_token_overlap": 0.0,
+        "avg_latency": 4.09923020362854,
+        "num_questions": 25
+      },
+      "detailed_results": [
+        {
+          "question": "What is the full model name and type of this router?",
+          "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.120715856552124
+        },
+        {
+          "question": "What is the default web address to access the router interface?",
+          "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.748539924621582
+        },
+        {
+          "question": "What are the default login credentials for the router?",
+          "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.080366373062134
+        },
+        {
+          "question": "What port is used to connect the router to the Internet?",
+          "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.507298707962036
+        },
+        {
+          "question": "How many operation modes does the Archer D7 support?",
+          "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.712791442871094
+        },
+        {
+          "question": "What USB features does the router support?",
+          "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+          "generated": "ERROR",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.5562584400177
+        },
+        {
+          "question": "What is the WPS button used for on the Archer D7?",
+          "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.0171732902526855
+        },
+        {
+          "question": "What wireless security functions does the router provide?",
+          "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.247191429138184
+        },
+        {
+          "question": "How do you perform a factory reset on the Archer D7?",
+          "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+          "generated": "ERROR",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.3483829498291016
+        },
+        {
+          "question": "How do you access the router's web interface for the first time?",
+          "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.246296167373657
+        },
+        {
+          "question": "How do you set up the router using Quick Setup Wizard?",
+          "expected": "Log in to the router interface, click Quick Setup, select your ISP from the dropdown list, then follow the on-screen instructions to complete the setup.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.776228666305542
+        },
+        {
+          "question": "How do you change the wireless network name and password?",
+          "expected": "During Quick Setup or in wireless settings, you can change the preset wireless network name (SSID) and wireless password. After changes, all wireless devices must use the new credentials to connect.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.251421689987183
+        },
+        {
+          "question": "How do you turn on or off the WiFi function on the router?",
+          "expected": "Use the WiFi ON/OFF switch button on the router's back panel to turn the WiFi function on or off.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.6980836391448975
+        },
+        {
+          "question": "How do you access a USB disk connected to the router via network?",
+          "expected": "For Windows, access via \\\\tplinkmodem.net or the default server name ARCHER_D7 in File Explorer. For Mac, access via smb://tplinkmodem.net in Finder. You can customize this name in USB Settings.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8532915115356445
+        },
+        {
+          "question": "How do you set up parental controls on the router?",
+          "expected": "Access the Parental Controls section in the router interface, enable the function, then configure what types of websites to block and set access schedules for specific devices.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.041258811950684
+        },
+        {
+          "question": "How do you customize the USB disk server name?",
+          "expected": "Log in to router, go to Advanced > USB Settings > Sharing Access, ensure Network Neighborhood is ticked, enter a custom Network/Media Server Name (e.g., MyShare), then click Save.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.808649778366089
+        },
+        {
+          "question": "How do you enable MAC Filtering to control wireless access?",
+          "expected": "Go to Advanced > Wireless > MAC Filtering in the router interface, enable the function, then add MAC addresses to either allow or block specific devices from accessing the wireless network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 5.972998380661011
+        },
+        {
+          "question": "What should you do if you cannot access the router's web interface?",
+          "expected": "Check that your device is connected to the router (wired or wireless), verify you're using the correct address (tplinkmodem.net or 192.168.1.1), try a different web browser, and ensure no firewall is blocking access.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.122258424758911
+        },
+        {
+          "question": "How do you recover access if you forgot the router's login password?",
+          "expected": "If you forgot the password, you must reset the router to factory defaults by pressing and holding the RESET button for 8 seconds. After reset, you'll need to set a new password when accessing the router.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.337044715881348
+        },
+        {
+          "question": "What does it mean if the ADSL LED is not lit on the router?",
+          "expected": "If the ADSL LED is not lit, it means there's no DSL connection. Check that the DSL cable is properly connected to the phone jack or splitter, verify the cable is not damaged, and confirm DSL service is active with your ISP.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.510927200317383
+        },
+        {
+          "question": "What are the possible causes if wireless devices cannot connect to the network?",
+          "expected": "Possible causes include: WiFi is turned off on the router, incorrect wireless password entered, MAC Filtering blocking the device, incompatible wireless standard, or router needs to be restarted.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.8027281761169434
+        },
+        {
+          "question": "Why might bandwidth control not work as expected?",
+          "expected": "Bandwidth control requires proper configuration of bandwidth rules for each device or IP range. Ensure you've set up rules correctly, assigned appropriate bandwidth limits, and that devices are properly identified in the system.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.020220994949341
+        },
+        {
+          "question": "What is the purpose of IP & MAC Binding feature?",
+          "expected": "IP & MAC Binding (ARP) prevents ARP spoofing and ARP attacks by binding specific IP addresses to specific MAC addresses, ensuring only authorized devices can use those IP addresses on the network.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.559880256652832
+        },
+        {
+          "question": "What is Access Control and how does it differ from MAC Filtering?",
+          "expected": "Access Control allows blocking or allowing specific devices for both wired and wireless networks, while MAC Filtering works only for wireless network access. Access Control uses blacklist or whitelist approach.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 3.9621658325195312
+        },
+        {
+          "question": "How can you remotely access USB storage connected to the router?",
+          "expected": "Enable the FTP Server feature in USB Settings. You can then access your USB disk remotely via FTP outside your local network, useful for sharing large files without cloud services.",
+          "generated": "",
+          "rouge1_f1": 0.0,
+          "token_overlap": 0.0,
+          "latency": 4.178582429885864
+        }
+      ],
+      "config": {
+        "name": "Large overlap (200)",
+        "chunk_size": 800,
+        "chunk_overlap": 200,
+        "k": 3
+      }
+    }
+  ],
+  "metadata": {
+    "pdf_path": "uploads/test.pdf",
+    "timestamp": "2025-11-11T23:39:14.321638",
+    "total_experiments": 14
+  }
+}
