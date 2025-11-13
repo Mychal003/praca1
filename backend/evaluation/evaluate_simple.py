@@ -313,16 +313,19 @@ def evaluate_system(rag_pipeline, test_dataset: List[Dict] = None):
         print(f"  ✓ ROUGE-1: {rouge1:.3f} | Overlap: {overlap:.3f} | Semantic: {semantic_sim:.3f} | {latency:.2f}s\n")  # ZMIENIONE
     
     # Średnie
+    # Średnie
     avg_rouge1 = sum(r['rouge1_f1'] for r in results) / len(results)
     avg_overlap = sum(r['token_overlap'] for r in results) / len(results)
+    avg_semantic = sum(r.get('semantic_similarity', 0) for r in results) / len(results)  # NOWE!
     avg_latency = sum(r['latency'] for r in results) / len(results)
     
     print(f"\n{'='*60}")
     print("📊 PODSUMOWANIE")
     print(f"{'='*60}")
-    print(f"Średnia ROUGE-1 F1:    {avg_rouge1:.3f}")
-    print(f"Średni Token Overlap:  {avg_overlap:.3f}")
-    print(f"Średnia latencja:      {avg_latency:.2f}s")
+    print(f"Średnia ROUGE-1 F1:          {avg_rouge1:.3f}")
+    print(f"Średni Token Overlap:        {avg_overlap:.3f}")
+    print(f"Średnia Semantic Similarity: {avg_semantic:.3f}")  # NOWE!
+    print(f"Średnia latencja:            {avg_latency:.2f}s")
     print(f"{'='*60}\n")
     
     return {
