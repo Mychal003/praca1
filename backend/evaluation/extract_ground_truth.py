@@ -3,16 +3,22 @@ Automatyczna ekstrakcja "ground truth" odpowiedzi bezpośrednio z dokumentu.
 Używa LLM do znalezienia najlepszej odpowiedzi w dokumencie.
 """
 
+import sys
+import os
+
+# Dodaj parent directory do sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+
 from langchain_openai import ChatOpenAI
 import json
 from typing import List, Dict
-#from src.rag_pipeline import RAGPipeline
-#from evaluation.evaluate_simple import evaluate_system, TEST_DATASET
-
-import sys
-import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
-from rag_pipeline import RAGPipeline
+from src.rag_pipeline import RAGPipeline
 
 class GroundTruthExtractor:
     """
@@ -21,7 +27,7 @@ class GroundTruthExtractor:
     """
     
     def __init__(self):
-        self.llm = ChatOpenAI(model="gpt-4", temperature=0)
+        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)  # ZMIANA: gpt-4 → gpt-4o-mini (tańszy)
     
     def extract_answer_from_chunks(self, question: str, chunks: List[str]) -> str:
         """
@@ -64,7 +70,7 @@ Extracted answer (word-for-word from document):"""
         self, 
         pipeline: RAGPipeline, 
         questions: List[str],
-        k: int = 5
+        k: int = 7
     ) -> List[Dict]:
         """
         Tworzy dataset z ground truth odpowiedziami.
@@ -83,21 +89,32 @@ Extracted answer (word-for-word from document):"""
         for i, question in enumerate(questions, 1):
             print(f"\n[{i}/{len(questions)}] Extracting: {question[:60]}...")
             
-            # Pobierz relevantne chunki
-            sources = pipeline.get_sources(question, k=k)
-            chunks = [s['text'] for s in sources]
-            
-            # Ekstrahuj odpowiedź
-            ground_truth = self.extract_answer_from_chunks(question, chunks)
-            
-            dataset.append({
-                "question": question,
-                "ground_truth_answer": ground_truth,
-                "source_chunks": chunks[:3],  # Zapisz top-3 dla referencji
-                "category": self._infer_category(question)
-            })
-            
-            print(f"   ✓ Extracted: {ground_truth[:80]}...")
+            try:
+                # Pobierz relevantne chunki
+                sources = pipeline.get_sources(question, k=k)
+                chunks = [s['text'] for s in sources]
+                
+                # Ekstrahuj odpowiedź
+                ground_truth = self.extract_answer_from_chunks(question, chunks)
+                
+                dataset.append({
+                    "question": question,
+                    "expected_answer": ground_truth,  # ZMIANA: ground_truth_answer → expected_answer (dla kompatybilności)
+                    "source_chunks": chunks[:3],  # Zapisz top-3 dla referencji
+                    "category": self._infer_category(question)
+                })
+                
+                print(f"   ✓ Extracted: {ground_truth[:80]}...")
+                
+            except Exception as e:
+                print(f"   ❌ Error: {e}")
+                # Dodaj placeholder jeśli błąd
+                dataset.append({
+                    "question": question,
+                    "expected_answer": "ERROR: Could not extract answer",
+                    "source_chunks": [],
+                    "category": self._infer_category(question)
+                })
         
         return dataset
     
@@ -152,7 +169,7 @@ def regenerate_test_dataset(pdf_path: str, questions: List[str], output_file: st
     
     for i, item in enumerate(dataset[:3], 1):
         print(f"\n{i}. Q: {item['question']}")
-        print(f"   A: {item['ground_truth_answer'][:150]}...")
+        print(f"   A: {item['expected_answer'][:150]}...")
     
     return dataset
 
@@ -162,7 +179,6 @@ def regenerate_test_dataset(pdf_path: str, questions: List[str], output_file: st
 # ============================================================================
 
 if __name__ == "__main__":
-    import sys
     
     # Tylko pytania, bez expected answers
     QUESTIONS_ONLY = [
@@ -208,7 +224,7 @@ Przykład:
 Co robi:
     1. Ładuje dokument
     2. Dla każdego pytania znajduje relevantne chunki
-    3. Używa GPT-4 do ekstrakcji DOKŁADNEJ odpowiedzi z tekstu
+    3. Używa GPT-4o-mini do ekstrakcji DOKŁADNEJ odpowiedzi z tekstu
     4. Zapisuje do test_dataset_ground_truth.json
         """)
         sys.exit(1)

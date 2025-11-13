@@ -7,9 +7,11 @@ import re
 from collections import Counter
 import os
 from dotenv import load_dotenv
-
+from sentence_transformers import SentenceTransformer, util
 load_dotenv()
-
+print("🤖 Ładuję model Semantic Similarity (to może potrwać chwilę przy pierwszym uruchomieniu)...")
+SEMANTIC_MODEL = SentenceTransformer('all-mpnet-base-v2')
+print("✅ Model załadowany!\n")
 # ============================================================================
 # METRYKI
 # ============================================================================
@@ -53,7 +55,36 @@ def token_overlap(prediction: str, reference: str) -> float:
     overlap = len(pred_words & ref_words)
     return overlap / len(ref_words)
 
-
+def semantic_similarity(prediction: str, reference: str) -> float:
+    """
+    Semantic Similarity: Miara podobieństwa semantycznego (0-1).
+    
+    Używa sentence-transformers do obliczenia jak bardzo dwa teksty
+    są semantycznie podobne, niezależnie od użytych słów.
+    
+    1.0 = semantycznie identyczne
+    0.0 = całkowicie różne
+    
+    Przykład:
+        "I don't have this info" vs "Document does not provide this information"
+        ROUGE-1: ~0.1 (słabe)
+        Semantic: ~0.85 (świetne!)
+    """
+    if not prediction or not reference:
+        return 0.0
+    
+    try:
+        # Embeddingi
+        emb1 = SEMANTIC_MODEL.encode(prediction, convert_to_tensor=True)
+        emb2 = SEMANTIC_MODEL.encode(reference, convert_to_tensor=True)
+        
+        # Cosine similarity
+        similarity = util.pytorch_cos_sim(emb1, emb2).item()
+        
+        return max(0.0, min(1.0, similarity))  # Clamp do [0, 1]
+    except Exception as e:
+        print(f"⚠️  Błąd semantic similarity: {e}")
+        return 0.0
 
 TEST_DATASET = [
     # ============================================================================
@@ -262,8 +293,10 @@ def evaluate_system(rag_pipeline, test_dataset: List[Dict] = None):
         latency = time.time() - start
         
         # Oblicz metryki
+        # Oblicz metryki
         rouge1 = rouge_1_f1(generated, item['expected_answer'])
         overlap = token_overlap(generated, item['expected_answer'])
+        semantic_sim = semantic_similarity(generated, item['expected_answer'])  # NOWE!
         
         result = {
             "question": item['question'],
@@ -271,12 +304,13 @@ def evaluate_system(rag_pipeline, test_dataset: List[Dict] = None):
             "generated": generated,
             "rouge1_f1": rouge1,
             "token_overlap": overlap,
+            "semantic_similarity": semantic_sim,  # NOWE!
             "latency": latency
         }
         
         results.append(result)
         
-        print(f"  ✓ ROUGE-1: {rouge1:.3f} | Overlap: {overlap:.3f} | {latency:.2f}s\n")
+        print(f"  ✓ ROUGE-1: {rouge1:.3f} | Overlap: {overlap:.3f} | Semantic: {semantic_sim:.3f} | {latency:.2f}s\n")  # ZMIENIONE
     
     # Średnie
     avg_rouge1 = sum(r['rouge1_f1'] for r in results) / len(results)
@@ -295,6 +329,7 @@ def evaluate_system(rag_pipeline, test_dataset: List[Dict] = None):
         "summary": {
             "avg_rouge1_f1": avg_rouge1,
             "avg_token_overlap": avg_overlap,
+            "avg_semantic_similarity": avg_semantic,  # NOWE!
             "avg_latency": avg_latency,
             "num_questions": len(results)
         },

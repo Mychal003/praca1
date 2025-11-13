@@ -6,6 +6,7 @@ from langchain.prompts import PromptTemplate
 from src.pdf_processor import PDFProcessor
 from src.query_classifier import QueryClassifier
 import os
+from src.advanced_retriever import HybridRetriever
 
 class RAGPipeline:
     def __init__(self, chunk_size=800, chunk_overlap=100, k=7):
