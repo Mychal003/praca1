@@ -8,6 +8,7 @@ from collections import Counter
 import os
 from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer, util
+from evaluation.retrieval_metrics import evaluate_retrieval
 load_dotenv()
 print("🤖 Ładuję model Semantic Similarity (to może potrwać chwilę przy pierwszym uruchomieniu)...")
 SEMANTIC_MODEL = SentenceTransformer('all-mpnet-base-v2')
@@ -258,13 +259,14 @@ TEST_DATASET = [
 # EVALUATOR
 # ============================================================================
 
-def evaluate_system(rag_pipeline, test_dataset: List[Dict] = None):
+def evaluate_system(rag_pipeline, test_dataset: List[Dict] = None, evaluate_retrieval_metrics: bool = True):
     """
-    Główna funkcja ewaluacji - prosta i przejrzysta.
+    Główna funkcja ewaluacji - z retrieval metrics!
     
     Args:
         rag_pipeline: Twój RAGPipeline
-        test_dataset: Lista pytań (jeśli None, użyje TEST_DATASET)
+        test_dataset: Lista pytań
+        evaluate_retrieval_metrics: Czy ewaluować retrieval (wymaga annotacji)
     
     Returns:
         Dict z wynikami
@@ -274,9 +276,14 @@ def evaluate_system(rag_pipeline, test_dataset: List[Dict] = None):
     
     print(f"\n{'='*60}")
     print(f"🚀 EWALUACJA - {len(test_dataset)} pytań")
+    if evaluate_retrieval_metrics:
+        print("   (Including RETRIEVAL METRICS)")
     print(f"{'='*60}\n")
     
     results = []
+    
+    # Aggregated retrieval metrics
+    all_retrieval_metrics = []
     
     for i, item in enumerate(test_dataset, 1):
         print(f"[{i}/{len(test_dataset)}] {item['question'][:50]}...")
@@ -292,11 +299,10 @@ def evaluate_system(rag_pipeline, test_dataset: List[Dict] = None):
         
         latency = time.time() - start
         
-        # Oblicz metryki
-        # Oblicz metryki
+        # GENERATION METRICS
         rouge1 = rouge_1_f1(generated, item['expected_answer'])
         overlap = token_overlap(generated, item['expected_answer'])
-        semantic_sim = semantic_similarity(generated, item['expected_answer'])  # NOWE!
+        semantic_sim = semantic_similarity(generated, item['expected_answer'])
         
         result = {
             "question": item['question'],
@@ -304,38 +310,77 @@ def evaluate_system(rag_pipeline, test_dataset: List[Dict] = None):
             "generated": generated,
             "rouge1_f1": rouge1,
             "token_overlap": overlap,
-            "semantic_similarity": semantic_sim,  # NOWE!
+            "semantic_similarity": semantic_sim,
             "latency": latency
         }
         
-        results.append(result)
+        # RETRIEVAL METRICS (jeśli dostępne)
+        if evaluate_retrieval_metrics and 'relevant_chunk_indices' in item:
+            # Pobierz retrieved chunks
+            retrieved_sources = rag_pipeline.get_sources(item['question'], k=20)
+            retrieved_indices = list(range(len(retrieved_sources)))
+            
+            relevant_indices = item['relevant_chunk_indices']
+            
+            # Oblicz retrieval metrics
+            ret_metrics = evaluate_retrieval(
+                retrieved_indices, 
+                relevant_indices,
+                k_values=[1, 3, 5, 10]
+            )
+            
+            result['retrieval_metrics'] = ret_metrics
+            all_retrieval_metrics.append(ret_metrics)
+            
+            print(f"  ✓ ROUGE: {rouge1:.3f} | Semantic: {semantic_sim:.3f} | P@5: {ret_metrics['precision@5']:.3f} | R@5: {ret_metrics['recall@5']:.3f} | {latency:.2f}s\n")
+        else:
+            print(f"  ✓ ROUGE: {rouge1:.3f} | Semantic: {semantic_sim:.3f} | {latency:.2f}s\n")
         
-        print(f"  ✓ ROUGE-1: {rouge1:.3f} | Overlap: {overlap:.3f} | Semantic: {semantic_sim:.3f} | {latency:.2f}s\n")  # ZMIENIONE
+        results.append(result)
     
-    # Średnie
-    # Średnie
+    # Średnie - Generation
     avg_rouge1 = sum(r['rouge1_f1'] for r in results) / len(results)
     avg_overlap = sum(r['token_overlap'] for r in results) / len(results)
-    avg_semantic = sum(r.get('semantic_similarity', 0) for r in results) / len(results)  # NOWE!
+    avg_semantic = sum(r.get('semantic_similarity', 0) for r in results) / len(results)
     avg_latency = sum(r['latency'] for r in results) / len(results)
     
+    summary = {
+        "avg_rouge1_f1": avg_rouge1,
+        "avg_token_overlap": avg_overlap,
+        "avg_semantic_similarity": avg_semantic,
+        "avg_latency": avg_latency,
+        "num_questions": len(results)
+    }
+    
+    # Średnie - Retrieval (jeśli dostępne)
+    if all_retrieval_metrics:
+        # Oblicz średnią dla każdej metryki
+        metric_keys = all_retrieval_metrics[0].keys()
+        for key in metric_keys:
+            avg_value = sum(m[key] for m in all_retrieval_metrics) / len(all_retrieval_metrics)
+            summary[f'avg_{key}'] = avg_value
+    
+    # Podsumowanie
     print(f"\n{'='*60}")
     print("📊 PODSUMOWANIE")
     print(f"{'='*60}")
-    print(f"Średnia ROUGE-1 F1:          {avg_rouge1:.3f}")
-    print(f"Średni Token Overlap:        {avg_overlap:.3f}")
-    print(f"Średnia Semantic Similarity: {avg_semantic:.3f}")  # NOWE!
-    print(f"Średnia latencja:            {avg_latency:.2f}s")
+    print("\n🎯 GENERATION METRICS:")
+    print(f"  ROUGE-1 F1:          {avg_rouge1:.3f}")
+    print(f"  Token Overlap:       {avg_overlap:.3f}")
+    print(f"  Semantic Similarity: {avg_semantic:.3f}")
+    print(f"  Latencja:            {avg_latency:.2f}s")
+    
+    if all_retrieval_metrics:
+        print("\n🔍 RETRIEVAL METRICS:")
+        for key, value in summary.items():
+            if key.startswith('avg_') and 'retrieval' not in key.lower() and key not in ['avg_rouge1_f1', 'avg_token_overlap', 'avg_semantic_similarity', 'avg_latency']:
+                metric_name = key.replace('avg_', '')
+                print(f"  {metric_name:<20} {value:.3f}")
+    
     print(f"{'='*60}\n")
     
     return {
-        "summary": {
-            "avg_rouge1_f1": avg_rouge1,
-            "avg_token_overlap": avg_overlap,
-            "avg_semantic_similarity": avg_semantic,  # NOWE!
-            "avg_latency": avg_latency,
-            "num_questions": len(results)
-        },
+        "summary": summary,
         "detailed_results": results
     }
 
