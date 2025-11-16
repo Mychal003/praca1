@@ -16,19 +16,40 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from src.rag_pipeline import RAGPipeline
 from evaluation.evaluate_simple import evaluate_system, TEST_DATASET
 
+# Wczytaj ground truth dataset
+try:
+    with open('test_dataset_ground_truth.json', 'r', encoding='utf-8') as f:
+        GROUND_TRUTH_DATASET = json.load(f)
+    GROUND_TRUTH_AVAILABLE = True
+except FileNotFoundError:
+    GROUND_TRUTH_DATASET = None
+    GROUND_TRUTH_AVAILABLE = False
+    print("⚠️  WARNING: test_dataset_ground_truth.json not found. Using manual dataset only.")
 
-def run_comprehensive_experiments(pdf_path: str):
+
+def run_comprehensive_experiments(pdf_path: str, use_ground_truth: bool = True):
     """
     Kompleksowe eksperymenty testujące różne aspekty systemu RAG.
-    Testowane parametry:
-    1. Rozmiar chunków (chunk_size)
-    2. Liczba retrievanych dokumentów (k)
-    3. Overlap między chunkami
-    """
     
-    print(f"\n{'='*70}")
-    print("🔬 KOMPLEKSOWE EKSPERYMENTY RAG")
-    print(f"{'='*70}\n")
+    Args:
+        pdf_path: Ścieżka do PDF
+        use_ground_truth: Czy użyć ground truth dataset (True) czy manual (False)
+    """
+# Wybierz dataset
+    if use_ground_truth and GROUND_TRUTH_AVAILABLE:
+        dataset = GROUND_TRUTH_DATASET
+        dataset_name = "Ground Truth Dataset"
+        print(f"\n{'='*70}")
+        print("🔬 KOMPLEKSOWE EKSPERYMENTY RAG")
+        print(f"📊 Dataset: {dataset_name} (wyekstrahowany z dokumentu)")
+        print(f"{'='*70}\n")
+    else:
+        dataset = TEST_DATASET
+        dataset_name = "Manual Dataset"
+        print(f"\n{'='*70}")
+        print("🔬 KOMPLEKSOWE EKSPERYMENTY RAG")
+        print(f"📊 Dataset: {dataset_name} (ręczne expected answers)")
+        print(f"{'='*70}\n")
     
     # =========================================================================
     # EKSPERYMENT 1: Wpływ rozmiaru chunków
@@ -46,7 +67,7 @@ def run_comprehensive_experiments(pdf_path: str):
     print("📦 EKSPERYMENT 1: Wpływ rozmiaru chunków")
     print("="*70)
     
-    chunk_results = run_config_batch(pdf_path, chunk_size_configs, "chunk_size")
+    chunk_results = run_config_batch(pdf_path, chunk_size_configs, "chunk_size", dataset)
     
     # =========================================================================
     # EKSPERYMENT 2: Wpływ liczby retrievanych dokumentów (k)
@@ -64,7 +85,7 @@ def run_comprehensive_experiments(pdf_path: str):
     print("🔍 EKSPERYMENT 2: Wpływ liczby retrievanych dokumentów (k)")
     print("="*70)
     
-    k_results = run_config_batch(pdf_path, k_configs, "k")
+    k_results = run_config_batch(pdf_path, k_configs, "k", dataset)
     
     # =========================================================================
     # EKSPERYMENT 3: Wpływ overlap
@@ -81,8 +102,7 @@ def run_comprehensive_experiments(pdf_path: str):
     print("🔗 EKSPERYMENT 3: Wpływ overlap między chunkami")
     print("="*70)
     
-    overlap_results = run_config_batch(pdf_path, overlap_configs, "overlap")
-    
+    overlap_results = run_config_batch(pdf_path, overlap_configs, "overlap", dataset)
     # =========================================================================
     # PODSUMOWANIE WSZYSTKICH EKSPERYMENTÓW
     # =========================================================================
@@ -93,6 +113,7 @@ def run_comprehensive_experiments(pdf_path: str):
         "overlap_experiment": overlap_results,
         "metadata": {
             "pdf_path": pdf_path,
+            "dataset_used": dataset_name,
             "timestamp": datetime.now().isoformat(),
             "total_experiments": len(chunk_results) + len(k_results) + len(overlap_results)
         }
@@ -136,7 +157,7 @@ def run_comprehensive_experiments(pdf_path: str):
     return all_results
 
 
-def run_config_batch(pdf_path: str, configs: List[Dict], experiment_name: str) -> List[Dict]:
+def run_config_batch(pdf_path: str, configs: List[Dict], experiment_name: str, dataset: List[Dict]) -> List[Dict]:
     """
     Uruchamia batch eksperymentów dla danej listy konfiguracji.
     
@@ -144,6 +165,7 @@ def run_config_batch(pdf_path: str, configs: List[Dict], experiment_name: str) -
         pdf_path: Ścieżka do PDF
         configs: Lista konfiguracji do przetestowania
         experiment_name: Nazwa eksperymentu (do logowania)
+        dataset: Dataset do użycia w ewaluacji
     
     Returns:
         Lista wyników dla każdej konfiguracji
@@ -166,7 +188,8 @@ def run_config_batch(pdf_path: str, configs: List[Dict], experiment_name: str) -
             pipeline.process_document(pdf_path)
             
             # Ewaluacja
-            result = evaluate_system(pipeline, TEST_DATASET)
+            # Ewaluacja
+            result = evaluate_system(pipeline, dataset)
             result['config'] = config
             results.append(result)
             
@@ -248,17 +271,22 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("""
 ═══════════════════════════════════════════════════════════════
-         ROZSZERZONE EKSPERYMENTY RAG -
+         ROZSZERZONE EKSPERYMENTY RAG
+═══════════════════════════════════════════════════════════════
 Użycie:
 
-1. Uruchom wszystkie eksperymenty:
+1. Uruchom wszystkie eksperymenty (GROUND TRUTH - domyślnie):
    python evaluation/advanced_experiments.py <pdf_path>
 
-2. Analizuj błędy z istniejącego pliku wyników:
+2. Uruchom z MANUAL dataset:
+   python evaluation/advanced_experiments.py <pdf_path> --manual
+
+3. Analizuj błędy z istniejącego pliku wyników:
    python evaluation/advanced_experiments.py --analyze <results.json>
 
-Przykład:
+Przykłady:
    python evaluation/advanced_experiments.py uploads/Archer_D7UN_V1_UG.pdf
+   python evaluation/advanced_experiments.py uploads/Archer_D7UN_V1_UG.pdf --manual
 
 ═══════════════════════════════════════════════════════════════
         """)
@@ -271,7 +299,16 @@ Przykład:
         analyze_error_patterns(sys.argv[2])
     else:
         pdf_path = sys.argv[1]
-        results = run_comprehensive_experiments(pdf_path)
+        
+        # Sprawdź czy użytkownik chce manual dataset
+        use_ground_truth = True
+        if len(sys.argv) > 2 and sys.argv[2] == '--manual':
+            use_ground_truth = False
+            print("📝 Używam MANUAL dataset (ręczne expected answers)")
+        else:
+            print("📊 Używam GROUND TRUTH dataset (domyślnie)")
+        
+        results = run_comprehensive_experiments(pdf_path, use_ground_truth=use_ground_truth)
         
         # Automatyczna analiza błędów
         print("\n🔄 Uruchamiam analizę błędów...")
