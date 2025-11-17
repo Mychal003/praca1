@@ -45,7 +45,7 @@ if not os.path.exists(pdf_path):
     print(f"❌ ERROR: PDF not found: {pdf_path}")
     sys.exit(1)
 
-pipeline = RAGPipeline(chunk_size=800, chunk_overlap=100, k=7)
+pipeline = RAGPipeline(chunk_size=800, chunk_overlap=100, k=5)
 pipeline.process_document(pdf_path)
 
 print("✅ Pipeline ready!")
