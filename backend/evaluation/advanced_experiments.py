@@ -217,7 +217,7 @@ def run_comprehensive_experiments(pdf_path: str, use_ground_truth: bool = True):
     print(f"   Latencja: {best_overlap['summary']['avg_latency']:.2f}s\n")
     
     # 🆕 Podsumowanie Retrieval (baseline)
-    if 'retrieval_metrics' in baseline_result['summary']:
+    if 'avg_precision@5' in baseline_result.get('summary', {}):
         print(f"{'='*70}")
         print("🎯 RETRIEVAL METRICS (Baseline Config)")
         print(f"{'='*70}\n")
@@ -357,61 +357,6 @@ def run_config_batch(
     
     return results
 
-
-def run_config_batch(pdf_path: str, configs: List[Dict], experiment_name: str, dataset: List[Dict]) -> List[Dict]:
-    """
-    Uruchamia batch eksperymentów dla danej listy konfiguracji.
-    
-    Args:
-        pdf_path: Ścieżka do PDF
-        configs: Lista konfiguracji do przetestowania
-        experiment_name: Nazwa eksperymentu (do logowania)
-        dataset: Dataset do użycia w ewaluacji
-    
-    Returns:
-        Lista wyników dla każdej konfiguracji
-    """
-    results = []
-    
-    for i, config in enumerate(configs, 1):
-        print(f"\n[{i}/{len(configs)}] {config['name']}")
-        print(f"   chunk_size={config['chunk_size']}, overlap={config['chunk_overlap']}, k={config['k']}")
-        
-        try:
-            # Stwórz pipeline
-            pipeline = RAGPipeline(
-                chunk_size=config['chunk_size'],
-                chunk_overlap=config['chunk_overlap'],
-                k=config['k']
-            )
-            
-            # Przetwórz dokument
-            pipeline.process_document(pdf_path)
-            
-            # Ewaluacja
-            # Ewaluacja
-            result = evaluate_system(pipeline, dataset)
-            result['config'] = config
-            results.append(result)
-            
-        except Exception as e:
-            print(f"   ❌ Błąd: {e}")
-            continue
-    
-    # Mini podsumowanie dla tego batcha
-    print(f"\n{'─'*70}")
-    print(f"📊 Podsumowanie: {experiment_name}")
-    print(f"{'─'*70}")
-    print(f"{'Konfiguracja':<25} {'ROUGE-1':<12} {'Latency'}")
-    print("─" * 70)
-    
-    for res in results:
-        name = res['config']['name']
-        rouge = res['summary']['avg_rouge1_f1']
-        latency = res['summary']['avg_latency']
-        print(f"{name:<25} {rouge:<12.3f} {latency:.2f}s")
-    
-    return results
 
 
 def analyze_error_patterns(results_file: str):
