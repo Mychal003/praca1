@@ -63,18 +63,10 @@ Respond with ONLY "YES" or "NO".
         self, 
         pipeline: RAGPipeline, 
         questions: List[Dict],
-        k: int = 20  # Pobierz więcej chunków do annotacji
+        k: int = 20
     ) -> List[Dict]:
         """
-        Annotuje dataset z relevant chunks dla każdego pytania.
-        
-        Args:
-            pipeline: RAGPipeline z załadowanym dokumentem
-            questions: Lista pytań z datasetu
-            k: Liczba chunków do rozważenia
-            
-        Returns:
-            Dataset z dodanymi relevant_chunk_indices
+        Annotuje dataset z relevant chunks (używając chunk_id).
         """
         annotated_dataset = []
         
@@ -87,30 +79,32 @@ Respond with ONLY "YES" or "NO".
             print(f"[{i}/{len(questions)}] {question[:60]}...")
             
             try:
-                # Pobierz top-k chunków
+                # Pobierz top-k chunków Z CHUNK IDs
                 all_chunks = pipeline.get_sources(question, k=k)
                 
-                # Sprawdź relevance każdego chunku
-                relevant_indices = []
-                for j, chunk_data in enumerate(all_chunks):
+                # 🆕 Sprawdź relevance każdego chunku i zapisz CHUNK_ID
+                relevant_chunk_ids = []
+                
+                for chunk_data in all_chunks:
+                    chunk_id = chunk_data['chunk_id']
                     chunk_text = chunk_data['text']
+                    
                     is_relevant = self.is_chunk_relevant(question, chunk_text)
                     
                     if is_relevant:
-                        relevant_indices.append(j)
-                        print(f"   ✓ Chunk {j} is relevant")
+                        relevant_chunk_ids.append(chunk_id)  # ← chunk_id, nie index!
+                        print(f"   ✓ Chunk {chunk_id} is relevant")
                 
                 # Dodaj annotacje do datasetu
                 annotated_item = item.copy()
-                annotated_item['relevant_chunk_indices'] = relevant_indices
+                annotated_item['relevant_chunk_indices'] = relevant_chunk_ids  # Nazwa zostaje (legacy)
                 annotated_item['total_chunks_evaluated'] = k
                 annotated_dataset.append(annotated_item)
                 
-                print(f"   → Found {len(relevant_indices)} relevant chunks\n")
+                print(f"   → Found {len(relevant_chunk_ids)} relevant chunks: {relevant_chunk_ids}\n")
                 
             except Exception as e:
                 print(f"   ❌ Error: {e}\n")
-                # Dodaj bez annotacji
                 annotated_item = item.copy()
                 annotated_item['relevant_chunk_indices'] = []
                 annotated_item['total_chunks_evaluated'] = 0
@@ -122,6 +116,9 @@ Respond with ONLY "YES" or "NO".
 def annotate_test_dataset(pdf_path: str, input_dataset_path: str, output_path: str):
     """
     Główna funkcja: annotuje istniejący dataset.
+    
+    WAŻNE: Używa BASELINE CONFIG (chunk_size=800, overlap=100)
+    Annotacje będą prawidłowe TYLKO dla tej konfiguracji!
     """
     # 1. Wczytaj dataset
     with open(input_dataset_path, 'r', encoding='utf-8') as f:
@@ -129,9 +126,20 @@ def annotate_test_dataset(pdf_path: str, input_dataset_path: str, output_path: s
     
     print(f"Loaded {len(dataset)} questions from {input_dataset_path}")
     
+    # 🆕 BASELINE CONFIG (musi się zgadzać z advanced_experiments.py!)
+    BASELINE_CHUNK_SIZE = 800
+    BASELINE_OVERLAP = 100
+    
     # 2. Załaduj dokument
     print("\n🔧 Initializing RAG pipeline...")
-    pipeline = RAGPipeline(chunk_size=800, chunk_overlap=100, k=20)
+    print(f"   ⚠️  Using BASELINE config: chunk_size={BASELINE_CHUNK_SIZE}, overlap={BASELINE_OVERLAP}")
+    print(f"   These annotations will be valid ONLY for this configuration!")
+    
+    pipeline = RAGPipeline(
+        chunk_size=BASELINE_CHUNK_SIZE,  # ← STAŁE
+        chunk_overlap=BASELINE_OVERLAP,  # ← STAŁE
+        k=20
+    )
     pipeline.process_document(pdf_path)
     
     # 3. Annotuj

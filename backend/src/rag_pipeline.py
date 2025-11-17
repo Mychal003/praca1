@@ -24,7 +24,7 @@ class RAGPipeline:
         self.qa_chain = None
     
     def process_document(self, pdf_path: str):
-        """Przetwarza PDF i tworzy vector store"""
+        """Przetwarza PDF i tworzy vector store Z CHUNK IDs"""
         # 1. Ekstrakcja tekstu
         text = self.pdf_processor.extract_text(pdf_path)
         
@@ -36,10 +36,28 @@ class RAGPipeline:
         )
         chunks = text_splitter.split_text(text)
         
-        # 3. Embeddingi + FAISS
-        self.vectorstore = FAISS.from_texts(chunks, self.embeddings)
         
-        # 4. Retrieval (bez QA chain - będziemy używać dynamicznych promptów)
+        from langchain.schema import Document
+        
+        documents = [
+            Document(
+                page_content=chunk,
+                metadata={
+                    "chunk_id": i,  # ← KLUCZOWE: globalny ID
+                    "chunk_size": self.chunk_size,
+                    "chunk_overlap": self.chunk_overlap
+                }
+            )
+            for i, chunk in enumerate(chunks)
+        ]
+        
+        # 4. Embeddingi + FAISS (z Documents, nie plain text)
+        self.vectorstore = FAISS.from_documents(documents, self.embeddings)
+        
+        # 5. Zapisz liczbę chunków (przydatne do debugowania)
+        self.num_chunks = len(chunks)
+        
+        # 6. Retriever
         self.retriever = self.vectorstore.as_retriever(
             search_kwargs={"k": self.k}
         )
@@ -151,9 +169,19 @@ Answer:"""
         return result["result"]
     
     def get_sources(self, question: str, k: int = 3) -> list:
-        """Zwraca źródłowe chunki dla pytania"""
+        """Zwraca źródłowe chunki dla pytania Z CHUNK IDs"""
         if self.vectorstore is None:
             return []
         
-        docs = self.vectorstore.similarity_search(question, k=k)
-        return [{"text": doc.page_content, "score": i} for i, doc in enumerate(docs)]
+        # 🆕 Użyj similarity_search_with_score zamiast similarity_search
+        docs_with_scores = self.vectorstore.similarity_search_with_score(question, k=k)
+        
+        return [
+            {
+                "chunk_id": doc.metadata.get("chunk_id", -1),  # ← KLUCZOWE
+                "text": doc.page_content,
+                "similarity_score": float(score),  # Prawdziwy score z FAISS
+                "rank": i  # Pozycja w rankingu (0 = najbardziej relevant)
+            }
+            for i, (doc, score) in enumerate(docs_with_scores)
+        ]

@@ -1,0 +1,78 @@
+### Ograniczenia ewaluacji retrieval
+
+Ze względu na architekturę systemu RAG, **retrieval metrics są zależne od 
+konfiguracji chunkingu**. Różne wartości `chunk_size` generują różne 
+zbiory dokumentów, przez co annotacje relevant chunks nie są transferowalne 
+między konfiguracjami.
+
+**Rozwiązanie:**
+- Generation metrics (ROUGE-1, Semantic Similarity): ewaluowane dla 
+  **wszystkich** konfiguracji
+- Retrieval metrics (Precision@k, Recall@k, MRR, NDCG): ewaluowane 
+  **tylko** dla konfiguracji bazowej (chunk_size=800, overlap=100, k=5)
+
+Ta metodologia pozwala na:
+1. Porównanie **jakości odpowiedzi** między różnymi konfiguracjami
+2. Głęboką analizę **jakości retrieval** dla optymalnej konfiguracji
+3. Uniknięcie błędnych wniosków z niezgodnych annotacji
+```
+
+---
+
+## Przykładowy output
+```
+═══════════════════════════════════════════════════════════════
+         ROZSZERZONE EKSPERYMENTY RAG
+═══════════════════════════════════════════════════════════════
+📊 Dataset: Ground Truth Dataset (wyekstrahowany z dokumentu)
+═══════════════════════════════════════════════════════════════
+
+══════════════════════════════════════════════════════════════
+🎯 KONFIGURACJA BAZOWA (z retrieval metrics)
+══════════════════════════════════════════════════════════════
+   chunk_size=800
+   overlap=100
+   k=5
+
+   ℹ️  Retrieval metrics będą ewaluowane TYLKO dla tej konfiguracji,
+      ponieważ różne chunk_size generują różne zbiory dokumentów.
+══════════════════════════════════════════════════════════════
+
+🔧 Tworzę pipeline: BASELINE (for retrieval metrics)
+   chunk_size=800, overlap=100, k=5
+   📊 Chunks created: 142
+
+[1/25] What is the full model name...
+  ✓ ROUGE: 0.850 | Semantic: 0.912 | P@5: 0.800 | R@5: 1.000 | 2.34s
+
+...
+
+══════════════════════════════════════════════════════════════
+📦 EKSPERYMENT 1: Wpływ rozmiaru chunków
+   (GENERATION METRICS ONLY)
+══════════════════════════════════════════════════════════════
+
+[1/5] Tiny chunks (300)
+   chunk_size=300, overlap=50, k=3
+   (NO retrieval metrics - incompatible chunk sets)
+
+...
+
+══════════════════════════════════════════════════════════════
+🏆 NAJLEPSZE KONFIGURACJE (Generation Metrics)
+══════════════════════════════════════════════════════════════
+
+📦 Najlepszy chunk_size: 800
+   ROUGE-1 F1: 0.723
+   Semantic Sim: 0.856
+   Latencja: 2.12s
+
+══════════════════════════════════════════════════════════════
+🎯 RETRIEVAL METRICS (Baseline Config)
+══════════════════════════════════════════════════════════════
+
+   Precision@5:  0.680
+   Recall@5:     0.850
+   F1@5:         0.756
+   MRR:          0.792
+   NDCG@5:       0.814

@@ -9,6 +9,7 @@ import os
 from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer, util
 from evaluation.retrieval_metrics import evaluate_retrieval
+from collections import Counter
 load_dotenv()
 print("🤖 Ładuję model Semantic Similarity (to może potrwać chwilę przy pierwszym uruchomieniu)...")
 SEMANTIC_MODEL = SentenceTransformer('all-mpnet-base-v2')
@@ -17,26 +18,21 @@ print("✅ Model załadowany!\n")
 # METRYKI
 # ============================================================================
 
+from collections import Counter
+
 def rouge_1_f1(prediction: str, reference: str) -> float:
-    """
-    ROUGE-1 F1: Miara pokrycia pojedynczych słów.
-    Najprostsza i najważniejsza metryka do pracy.
-    """
-    # Tokenizacja
-    pred_words = set(prediction.lower().split())
-    ref_words = set(reference.lower().split())
+    pred_words = Counter(prediction.lower().split())
+    ref_words = Counter(reference.lower().split())
     
     if not pred_words or not ref_words:
         return 0.0
     
-    # Overlap
-    overlap = len(pred_words & ref_words)
+    # Overlap = suma minimum counts dla każdego słowa
+    overlap = sum((pred_words & ref_words).values())
     
-    # Precision & Recall
-    precision = overlap / len(pred_words)
-    recall = overlap / len(ref_words)
+    precision = overlap / sum(pred_words.values())
+    recall = overlap / sum(ref_words.values())
     
-    # F1
     if precision + recall == 0:
         return 0.0
     
@@ -261,15 +257,7 @@ TEST_DATASET = [
 
 def evaluate_system(rag_pipeline, test_dataset: List[Dict] = None, evaluate_retrieval_metrics: bool = True):
     """
-    Główna funkcja ewaluacji - z retrieval metrics!
-    
-    Args:
-        rag_pipeline: Twój RAGPipeline
-        test_dataset: Lista pytań
-        evaluate_retrieval_metrics: Czy ewaluować retrieval (wymaga annotacji)
-    
-    Returns:
-        Dict z wynikami
+    Główna funkcja ewaluacji - z POPRAWNYMI retrieval metrics!
     """
     if test_dataset is None:
         test_dataset = TEST_DATASET
@@ -281,8 +269,6 @@ def evaluate_system(rag_pipeline, test_dataset: List[Dict] = None, evaluate_retr
     print(f"{'='*60}\n")
     
     results = []
-    
-    # Aggregated retrieval metrics
     all_retrieval_metrics = []
     
     for i, item in enumerate(test_dataset, 1):
@@ -314,18 +300,32 @@ def evaluate_system(rag_pipeline, test_dataset: List[Dict] = None, evaluate_retr
             "latency": latency
         }
         
-        # RETRIEVAL METRICS (jeśli dostępne)
+        # RETRIEVAL METRICS (POPRAWIONE!)
         if evaluate_retrieval_metrics and 'relevant_chunk_indices' in item:
-            # Pobierz retrieved chunks
+            # Pobierz retrieved chunks z ich chunk_id
             retrieved_sources = rag_pipeline.get_sources(item['question'], k=20)
-            retrieved_indices = list(range(len(retrieved_sources)))
             
-            relevant_indices = item['relevant_chunk_indices']
+            # PRAWIDŁOWE: wyciągnij chunk_id z retrieved sources
+            retrieved_chunk_ids = [src['chunk_id'] for src in retrieved_sources]
             
-            # Oblicz retrieval metrics
+            # Ground truth relevant chunk IDs
+            relevant_chunk_ids = item['relevant_chunk_indices']
+            
+            # 🔍 DEBUG: Sprawdź czy chunk_ids mają sens
+            if -1 in retrieved_chunk_ids:
+                print(f"  ⚠️  WARNING: Some chunks have chunk_id=-1!")
+            
+            # Sprawdź czy chunk_ids są w sensownym zakresie
+            if retrieved_chunk_ids and max(retrieved_chunk_ids) >= rag_pipeline.num_chunks:
+                print(f"  ⚠️  WARNING: chunk_id out of range!")
+            
+            # DEBUG: pokaż pierwsze 3
+            print(f"  📌 Retrieved: {retrieved_chunk_ids[:3]}")
+            print(f"  📌 Relevant:  {relevant_chunk_ids[:3]}")
+            
             ret_metrics = evaluate_retrieval(
-                retrieved_indices, 
-                relevant_indices,
+                retrieved_chunk_ids,  # ← [5, 12, 3, 18, ...]
+                relevant_chunk_ids,   # ← [3, 5, 12, ...]
                 k_values=[1, 3, 5, 10]
             )
             

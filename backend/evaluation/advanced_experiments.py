@@ -31,11 +31,10 @@ def run_comprehensive_experiments(pdf_path: str, use_ground_truth: bool = True):
     """
     Kompleksowe eksperymenty testujące różne aspekty systemu RAG.
     
-    Args:
-        pdf_path: Ścieżka do PDF
-        use_ground_truth: Czy użyć ground truth dataset (True) czy manual (False)
+    WAŻNE: Retrieval metrics są ewaluowane TYLKO dla konfiguracji bazowej,
+    ponieważ różne chunk_size generują różne zbiory dokumentów.
     """
-# Wybierz dataset
+    # Wybierz dataset
     if use_ground_truth and GROUND_TRUTH_AVAILABLE:
         dataset = GROUND_TRUTH_DATASET
         dataset_name = "Ground Truth Dataset"
@@ -52,7 +51,33 @@ def run_comprehensive_experiments(pdf_path: str, use_ground_truth: bool = True):
         print(f"{'='*70}\n")
     
     # =========================================================================
-    # EKSPERYMENT 1: Wpływ rozmiaru chunków
+    # 🆕 KONFIGURACJA BAZOWA (dla retrieval metrics)
+    # =========================================================================
+    BASE_CONFIG = {
+        "name": "BASELINE (for retrieval metrics)",
+        "chunk_size": 800,
+        "chunk_overlap": 100,
+        "k": 5
+    }
+    
+    print("\n" + "="*70)
+    print("🎯 KONFIGURACJA BAZOWA (z retrieval metrics)")
+    print("="*70)
+    print(f"   chunk_size={BASE_CONFIG['chunk_size']}")
+    print(f"   overlap={BASE_CONFIG['chunk_overlap']}")
+    print(f"   k={BASE_CONFIG['k']}")
+    print(f"\n   ℹ️  Retrieval metrics będą ewaluowane TYLKO dla tej konfiguracji,")
+    print(f"      ponieważ różne chunk_size generują różne zbiory dokumentów.")
+    print("="*70)
+    
+    baseline_result = run_single_config_with_retrieval(
+        pdf_path, 
+        BASE_CONFIG, 
+        dataset
+    )
+    
+    # =========================================================================
+    # EKSPERYMENT 1: Wpływ rozmiaru chunków (BEZ retrieval metrics)
     # =========================================================================
     
     chunk_size_configs = [
@@ -65,9 +90,16 @@ def run_comprehensive_experiments(pdf_path: str, use_ground_truth: bool = True):
     
     print("\n" + "="*70)
     print("📦 EKSPERYMENT 1: Wpływ rozmiaru chunków")
+    print("   (GENERATION METRICS ONLY)")
     print("="*70)
     
-    chunk_results = run_config_batch(pdf_path, chunk_size_configs, "chunk_size", dataset)
+    chunk_results = run_config_batch(
+        pdf_path, 
+        chunk_size_configs, 
+        "chunk_size", 
+        dataset,
+        evaluate_retrieval=False  # 🆕 Wyłącz retrieval
+    )
     
     # =========================================================================
     # EKSPERYMENT 2: Wpływ liczby retrievanych dokumentów (k)
@@ -83,9 +115,16 @@ def run_comprehensive_experiments(pdf_path: str, use_ground_truth: bool = True):
     
     print("\n" + "="*70)
     print("🔍 EKSPERYMENT 2: Wpływ liczby retrievanych dokumentów (k)")
+    print("   (GENERATION METRICS ONLY)")
     print("="*70)
     
-    k_results = run_config_batch(pdf_path, k_configs, "k", dataset)
+    k_results = run_config_batch(
+        pdf_path, 
+        k_configs, 
+        "k", 
+        dataset,
+        evaluate_retrieval=False  # 🆕 Wyłącz retrieval
+    )
     
     # =========================================================================
     # EKSPERYMENT 3: Wpływ overlap
@@ -100,14 +139,34 @@ def run_comprehensive_experiments(pdf_path: str, use_ground_truth: bool = True):
     
     print("\n" + "="*70)
     print("🔗 EKSPERYMENT 3: Wpływ overlap między chunkami")
+    print("   (GENERATION METRICS ONLY)")
     print("="*70)
     
-    overlap_results = run_config_batch(pdf_path, overlap_configs, "overlap", dataset)
+    overlap_results = run_config_batch(
+        pdf_path, 
+        overlap_configs, 
+        "overlap", 
+        dataset,
+        evaluate_retrieval=False  # 🆕 Wyłącz retrieval
+    )
+    
+    # =========================================================================
+    # 🆕 EKSPERYMENT 4: Retrieval Quality (TYLKO baseline config)
+    # =========================================================================
+    
+    print("\n" + "="*70)
+    print("🔍 EKSPERYMENT 4: Retrieval Quality Analysis")
+    print("   (BASELINE CONFIG WITH FULL RETRIEVAL METRICS)")
+    print("="*70)
+    
+    # baseline_result już obliczony wcześniej
+    
     # =========================================================================
     # PODSUMOWANIE WSZYSTKICH EKSPERYMENTÓW
     # =========================================================================
     
     all_results = {
+        "baseline_with_retrieval": baseline_result,  # 🆕 Osobna sekcja
         "chunk_size_experiment": chunk_results,
         "k_experiment": k_results,
         "overlap_experiment": overlap_results,
@@ -115,7 +174,9 @@ def run_comprehensive_experiments(pdf_path: str, use_ground_truth: bool = True):
             "pdf_path": pdf_path,
             "dataset_used": dataset_name,
             "timestamp": datetime.now().isoformat(),
-            "total_experiments": len(chunk_results) + len(k_results) + len(overlap_results)
+            "total_experiments": len(chunk_results) + len(k_results) + len(overlap_results) + 1,
+            "baseline_config": BASE_CONFIG,  # 🆕 Zapisz baseline
+            "note": "Retrieval metrics evaluated only for baseline config due to chunk incompatibility"
         }
     }
     
@@ -132,29 +193,169 @@ def run_comprehensive_experiments(pdf_path: str, use_ground_truth: bool = True):
     print(f"Plik: {filename}")
     print(f"Całkowita liczba eksperymentów: {all_results['metadata']['total_experiments']}")
     
-    # Najlepsze konfiguracje
+    # Najlepsze konfiguracje (GENERATION tylko)
     print(f"\n{'='*70}")
-    print("🏆 NAJLEPSZE KONFIGURACJE")
+    print("🏆 NAJLEPSZE KONFIGURACJE (Generation Metrics)")
     print(f"{'='*70}\n")
     
     best_chunk = max(chunk_results, key=lambda x: x['summary']['avg_rouge1_f1'])
     print(f"📦 Najlepszy chunk_size: {best_chunk['config']['chunk_size']}")
     print(f"   ROUGE-1 F1: {best_chunk['summary']['avg_rouge1_f1']:.3f}")
+    print(f"   Semantic Sim: {best_chunk['summary']['avg_semantic_similarity']:.3f}")
     print(f"   Latencja: {best_chunk['summary']['avg_latency']:.2f}s\n")
     
     best_k = max(k_results, key=lambda x: x['summary']['avg_rouge1_f1'])
     print(f"🔍 Najlepsze k: {best_k['config']['k']}")
     print(f"   ROUGE-1 F1: {best_k['summary']['avg_rouge1_f1']:.3f}")
+    print(f"   Semantic Sim: {best_k['summary']['avg_semantic_similarity']:.3f}")
     print(f"   Latencja: {best_k['summary']['avg_latency']:.2f}s\n")
     
     best_overlap = max(overlap_results, key=lambda x: x['summary']['avg_rouge1_f1'])
     print(f"🔗 Najlepszy overlap: {best_overlap['config']['chunk_overlap']}")
     print(f"   ROUGE-1 F1: {best_overlap['summary']['avg_rouge1_f1']:.3f}")
+    print(f"   Semantic Sim: {best_overlap['summary']['avg_semantic_similarity']:.3f}")
     print(f"   Latencja: {best_overlap['summary']['avg_latency']:.2f}s\n")
+    
+    # 🆕 Podsumowanie Retrieval (baseline)
+    if 'retrieval_metrics' in baseline_result['summary']:
+        print(f"{'='*70}")
+        print("🎯 RETRIEVAL METRICS (Baseline Config)")
+        print(f"{'='*70}\n")
+        print(f"   Precision@5:  {baseline_result['summary'].get('avg_precision@5', 0):.3f}")
+        print(f"   Recall@5:     {baseline_result['summary'].get('avg_recall@5', 0):.3f}")
+        print(f"   F1@5:         {baseline_result['summary'].get('avg_f1@5', 0):.3f}")
+        print(f"   MRR:          {baseline_result['summary'].get('avg_mrr', 0):.3f}")
+        print(f"   NDCG@5:       {baseline_result['summary'].get('avg_ndcg@5', 0):.3f}\n")
     
     print(f"{'='*70}\n")
     
     return all_results
+
+
+def run_single_config_with_retrieval(
+    pdf_path: str, 
+    config: Dict, 
+    dataset: List[Dict]
+) -> Dict:
+    """
+    Uruchamia POJEDYNCZĄ konfigurację Z retrieval metrics.
+    Używane tylko dla baseline config.
+    
+    Args:
+        pdf_path: Ścieżka do PDF
+        config: Konfiguracja (chunk_size, overlap, k)
+        dataset: Dataset z annotacjami
+    
+    Returns:
+        Wyniki ewaluacji z retrieval metrics
+    """
+    print(f"\n🔧 Tworzę pipeline: {config['name']}")
+    print(f"   chunk_size={config['chunk_size']}, overlap={config['chunk_overlap']}, k={config['k']}")
+    
+    try:
+        # Stwórz pipeline
+        pipeline = RAGPipeline(
+            chunk_size=config['chunk_size'],
+            chunk_overlap=config['chunk_overlap'],
+            k=config['k']
+        )
+        
+        # Przetwórz dokument
+        pipeline.process_document(pdf_path)
+        
+        print(f"   📊 Chunks created: {pipeline.num_chunks}")
+        
+        # 🆕 Ewaluacja Z retrieval metrics
+        result = evaluate_system(
+            pipeline, 
+            dataset, 
+            evaluate_retrieval_metrics=True  # ← WŁĄCZ retrieval
+        )
+        
+        result['config'] = config
+        
+        print(f"\n   ✅ Ewaluacja zakończona:")
+        print(f"      ROUGE-1: {result['summary']['avg_rouge1_f1']:.3f}")
+        print(f"      Semantic: {result['summary']['avg_semantic_similarity']:.3f}")
+        
+        if 'avg_precision@5' in result['summary']:
+            print(f"      P@5: {result['summary']['avg_precision@5']:.3f}")
+            print(f"      R@5: {result['summary']['avg_recall@5']:.3f}")
+        
+        return result
+        
+    except Exception as e:
+        print(f"   ❌ Błąd: {e}")
+        import traceback
+        traceback.print_exc()
+        raise
+
+
+def run_config_batch(
+    pdf_path: str, 
+    configs: List[Dict], 
+    experiment_name: str, 
+    dataset: List[Dict],
+    evaluate_retrieval: bool = False  # 🆕 Parametr kontrolny
+) -> List[Dict]:
+    """
+    Uruchamia batch eksperymentów dla danej listy konfiguracji.
+    
+    Args:
+        pdf_path: Ścieżka do PDF
+        configs: Lista konfiguracji do przetestowania
+        experiment_name: Nazwa eksperymentu (do logowania)
+        dataset: Dataset do użycia w ewaluacji
+        evaluate_retrieval: Czy ewaluować retrieval metrics (domyślnie False)
+    
+    Returns:
+        Lista wyników dla każdej konfiguracji
+    """
+    results = []
+    
+    for i, config in enumerate(configs, 1):
+        print(f"\n[{i}/{len(configs)}] {config['name']}")
+        print(f"   chunk_size={config['chunk_size']}, overlap={config['chunk_overlap']}, k={config['k']}")
+        
+        try:
+            # Stwórz pipeline
+            pipeline = RAGPipeline(
+                chunk_size=config['chunk_size'],
+                chunk_overlap=config['chunk_overlap'],
+                k=config['k']
+            )
+            
+            # Przetwórz dokument
+            pipeline.process_document(pdf_path)
+            
+            # 🆕 Ewaluacja (z lub bez retrieval)
+            result = evaluate_system(
+                pipeline, 
+                dataset,
+                evaluate_retrieval_metrics=evaluate_retrieval  # ← Kontrola retrieval
+            )
+            result['config'] = config
+            results.append(result)
+            
+        except Exception as e:
+            print(f"   ❌ Błąd: {e}")
+            continue
+    
+    # Mini podsumowanie dla tego batcha
+    print(f"\n{'─'*70}")
+    print(f"📊 Podsumowanie: {experiment_name}")
+    print(f"{'─'*70}")
+    print(f"{'Konfiguracja':<25} {'ROUGE-1':<12} {'Semantic':<12} {'Latency'}")
+    print("─" * 70)
+    
+    for res in results:
+        name = res['config']['name']
+        rouge = res['summary']['avg_rouge1_f1']
+        semantic = res['summary'].get('avg_semantic_similarity', 0)
+        latency = res['summary']['avg_latency']
+        print(f"{name:<25} {rouge:<12.3f} {semantic:<12.3f} {latency:.2f}s")
+    
+    return results
 
 
 def run_config_batch(pdf_path: str, configs: List[Dict], experiment_name: str, dataset: List[Dict]) -> List[Dict]:
