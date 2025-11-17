@@ -371,16 +371,26 @@ def analyze_error_patterns(results_file: str):
     print("🔍 ANALIZA BŁĘDÓW")
     print(f"{'='*70}\n")
     
-    # Zbierz wszystkie wyniki z różnych eksperymentów
+    # 🆕 Zbierz wyniki z baseline (pojedynczy dict)
     all_detailed = []
     
-    for exp_name, exp_results in data.items():
-        if exp_name == 'metadata':
+    if 'baseline_with_retrieval' in data:
+        baseline = data['baseline_with_retrieval']
+        if 'detailed_results' in baseline:
+            all_detailed.extend(baseline['detailed_results'])
+    
+    # Zbierz wyniki z eksperymentów (listy)
+    for exp_name in ['chunk_size_experiment', 'k_experiment', 'overlap_experiment']:
+        if exp_name not in data:
             continue
         
-        for result in exp_results:
+        for result in data[exp_name]:
             if 'detailed_results' in result:
                 all_detailed.extend(result['detailed_results'])
+    
+    if not all_detailed:
+        print("⚠️  Brak detailed_results w danych!")
+        return
     
     # Grupuj po pytaniach
     questions_performance = {}

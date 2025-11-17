@@ -9,13 +9,13 @@
     ],
     "category": "factual",
     "relevant_chunk_indices": [
+      15,
       0,
-      1,
-      3,
-      6,
-      9,
-      10,
-      19
+      19,
+      16,
+      179,
+      13,
+      17
     ],
     "total_chunks_evaluated": 20
   },
@@ -29,18 +29,18 @@
     ],
     "category": "factual",
     "relevant_chunk_indices": [
-      1,
-      2,
-      6,
-      7,
-      10,
-      11,
-      13,
-      14,
-      15,
-      17,
-      18,
-      19
+      32,
+      138,
+      139,
+      90,
+      137,
+      34,
+      136,
+      96,
+      95,
+      135,
+      89,
+      155
     ],
     "total_chunks_evaluated": 20
   },
@@ -66,9 +66,9 @@
     ],
     "category": "factual",
     "relevant_chunk_indices": [
-      1,
-      10,
-      11
+      25,
+      156,
+      18
     ],
     "total_chunks_evaluated": 20
   },
@@ -82,8 +82,8 @@
     ],
     "category": "procedural",
     "relevant_chunk_indices": [
-      5,
-      12
+      156,
+      98
     ],
     "total_chunks_evaluated": 20
   },
@@ -97,18 +97,19 @@
     ],
     "category": "factual",
     "relevant_chunk_indices": [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      13,
-      14,
-      16,
+      21,
+      53,
+      52,
+      22,
+      65,
+      51,
       18,
-      19
+      59,
+      149,
+      17,
+      56,
+      63,
+      25
     ],
     "total_chunks_evaluated": 20
   },
@@ -122,11 +123,11 @@
     ],
     "category": "factual",
     "relevant_chunk_indices": [
-      0,
-      1,
-      3,
-      12,
-      16
+      101,
+      31,
+      104,
+      25,
+      30
     ],
     "total_chunks_evaluated": 20
   },
@@ -140,15 +141,15 @@
     ],
     "category": "factual",
     "relevant_chunk_indices": [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5,
-      14,
-      15,
-      17
+      21,
+      100,
+      43,
+      110,
+      104,
+      46,
+      45,
+      44,
+      97
     ],
     "total_chunks_evaluated": 20
   },
@@ -162,12 +163,13 @@
     ],
     "category": "procedural",
     "relevant_chunk_indices": [
-      0,
-      1,
-      2,
-      10,
-      12,
-      13
+      150,
+      26,
+      135,
+      134,
+      133,
+      152,
+      25
     ],
     "total_chunks_evaluated": 20
   },
@@ -181,12 +183,11 @@
     ],
     "category": "procedural",
     "relevant_chunk_indices": [
-      0,
-      1,
-      7,
-      8,
-      9,
-      16
+      32,
+      34,
+      136,
+      60,
+      33
     ],
     "total_chunks_evaluated": 20
   },
@@ -200,9 +201,9 @@
     ],
     "category": "procedural",
     "relevant_chunk_indices": [
-      0,
-      1,
-      3
+      33,
+      34,
+      2
     ],
     "total_chunks_evaluated": 20
   },
@@ -216,12 +217,12 @@
     ],
     "category": "procedural",
     "relevant_chunk_indices": [
-      0,
-      2,
-      3,
-      4,
-      8,
-      10
+      97,
+      75,
+      159,
+      151,
+      34,
+      96
     ],
     "total_chunks_evaluated": 20
   },
@@ -235,12 +236,12 @@
     ],
     "category": "procedural",
     "relevant_chunk_indices": [
-      0,
-      4,
-      10,
-      13,
-      16,
-      17
+      104,
+      25,
+      97,
+      105,
+      96,
+      23
     ],
     "total_chunks_evaluated": 20
   },
@@ -254,23 +255,23 @@
     ],
     "category": "procedural",
     "relevant_chunk_indices": [
-      0,
-      1,
-      2,
-      3,
+      53,
+      54,
+      52,
+      65,
+      59,
+      62,
+      55,
+      64,
+      61,
+      60,
+      63,
+      51,
+      66,
+      58,
       4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      17
+      56,
+      57
     ],
     "total_chunks_evaluated": 20
   },
@@ -284,11 +285,10 @@
     ],
     "category": "procedural",
     "relevant_chunk_indices": [
-      0,
-      1,
-      4,
-      7,
-      8
+      71,
+      47,
+      70,
+      5
     ],
     "total_chunks_evaluated": 20
   },
@@ -302,8 +302,8 @@
     ],
     "category": "procedural",
     "relevant_chunk_indices": [
-      0,
-      9
+      58,
+      67
     ],
     "total_chunks_evaluated": 20
   },
@@ -317,10 +317,10 @@
     ],
     "category": "procedural",
     "relevant_chunk_indices": [
-      0,
-      1,
-      2,
-      4
+      46,
+      43,
+      45,
+      47
     ],
     "total_chunks_evaluated": 20
   },
@@ -334,11 +334,11 @@
     ],
     "category": "troubleshooting",
     "relevant_chunk_indices": [
-      0,
-      1,
-      2,
-      4,
-      11
+      153,
+      152,
+      151,
+      154,
+      26
     ],
     "total_chunks_evaluated": 20
   },
@@ -352,11 +352,11 @@
     ],
     "category": "procedural",
     "relevant_chunk_indices": [
-      0,
-      1,
-      2,
-      3,
-      8
+      150,
+      151,
+      135,
+      152,
+      26
     ],
     "total_chunks_evaluated": 20
   },
@@ -370,8 +370,8 @@
     ],
     "category": "factual",
     "relevant_chunk_indices": [
-      0,
-      1
+      24,
+      23
     ],
     "total_chunks_evaluated": 20
   },
@@ -385,13 +385,13 @@
     ],
     "category": "troubleshooting",
     "relevant_chunk_indices": [
-      0,
-      1,
-      2,
-      3,
-      4,
-      6,
-      9
+      159,
+      163,
+      162,
+      161,
+      160,
+      153,
+      98
     ],
     "total_chunks_evaluated": 20
   },
@@ -417,10 +417,10 @@
     ],
     "category": "factual",
     "relevant_chunk_indices": [
-      0,
-      1,
-      2,
-      3
+      48,
+      43,
+      49,
+      44
     ],
     "total_chunks_evaluated": 20
   },
@@ -434,8 +434,8 @@
     ],
     "category": "procedural",
     "relevant_chunk_indices": [
-      0,
-      1
+      43,
+      46
     ],
     "total_chunks_evaluated": 20
   },
@@ -449,22 +449,21 @@
     ],
     "category": "procedural",
     "relevant_chunk_indices": [
-      0,
-      2,
-      3,
+      53,
+      59,
+      65,
+      62,
+      51,
+      64,
+      54,
+      55,
+      61,
       4,
-      5,
-      6,
-      7,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      19
+      63,
+      58,
+      56,
+      18,
+      57
     ],
     "total_chunks_evaluated": 20
   }

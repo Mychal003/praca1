@@ -295,11 +295,18 @@ def create_summary_stats(results_file: str):
     all_rouge = []
     all_latency = []
     
-    for exp_name, exp_results in data.items():
-        if exp_name == 'metadata':
+    # 🆕 Dodaj baseline (pojedynczy wynik)
+    if 'baseline_with_retrieval' in data:
+        baseline = data['baseline_with_retrieval']
+        all_rouge.append(baseline['summary']['avg_rouge1_f1'])
+        all_latency.append(baseline['summary']['avg_latency'])
+    
+    # Dodaj wyniki z eksperymentów (listy)
+    for exp_name in ['chunk_size_experiment', 'k_experiment', 'overlap_experiment']:
+        if exp_name not in data:
             continue
         
-        for result in exp_results:
+        for result in data[exp_name]:
             all_rouge.append(result['summary']['avg_rouge1_f1'])
             all_latency.append(result['summary']['avg_latency'])
     
