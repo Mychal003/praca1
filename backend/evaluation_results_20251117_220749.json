@@ -1,0 +1,578 @@
+[
+  {
+    "summary": {
+      "avg_rouge1_f1": 0.4257086435896505,
+      "avg_token_overlap": 0.4648419064595535,
+      "avg_semantic_similarity": 0.6827456079423427,
+      "avg_latency": 5.3900381565094,
+      "num_questions": 10,
+      "avg_llm_correctness": 0.7,
+      "avg_llm_completeness": 0.67,
+      "avg_llm_relevance": 0.79,
+      "avg_llm_groundedness": 0.8,
+      "avg_llm_overall": 0.67,
+      "avg_llm_average": 0.726
+    },
+    "detailed_results": [
+      {
+        "question": "What is the full model name and type of this router?",
+        "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+        "generated": "The full model name and type is TP-LINK’s Archer D7 AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+        "rouge1_f1": 0.6666666666666666,
+        "token_overlap": 0.7333333333333333,
+        "semantic_similarity": 0.792036771774292,
+        "latency": 7.267016172409058,
+        "llm_judge_scores": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.9800000000000001
+        }
+      },
+      {
+        "question": "What is the default web address to access the router interface?",
+        "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+        "generated": "The default web address to access the router interface is http://192.168.1.1.",
+        "rouge1_f1": 0.5263157894736842,
+        "token_overlap": 0.625,
+        "semantic_similarity": 0.7232171893119812,
+        "latency": 3.761859655380249,
+        "llm_judge_scores": {
+          "correctness": 0.9,
+          "completeness": 0.7,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.7,
+          "average": 0.86
+        }
+      },
+      {
+        "question": "What are the default login credentials for the router?",
+        "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+        "generated": "I don’t have this information in the document.",
+        "rouge1_f1": 0.07142857142857144,
+        "token_overlap": 0.058823529411764705,
+        "semantic_similarity": 0.04634198546409607,
+        "latency": 4.658036947250366,
+        "llm_judge_scores": {
+          "correctness": 0.4,
+          "completeness": 0.0,
+          "relevance": 0.0,
+          "groundedness": 0.0,
+          "overall": 0.3,
+          "average": 0.13999999999999999
+        }
+      },
+      {
+        "question": "What port is used to connect the router to the Internet?",
+        "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+        "generated": "The ADSL port (RJ11) is used to connect the modem router to the Internet.",
+        "rouge1_f1": 0.6857142857142857,
+        "token_overlap": 0.5294117647058824,
+        "semantic_similarity": 0.8782728314399719,
+        "latency": 5.471590757369995,
+        "llm_judge_scores": {
+          "correctness": 0.9,
+          "completeness": 0.7,
+          "relevance": 0.9,
+          "groundedness": 1.0,
+          "overall": 0.7,
+          "average": 0.8400000000000001
+        }
+      },
+      {
+        "question": "How many operation modes does the Archer D7 support?",
+        "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+        "generated": "I don't have this information in the document",
+        "rouge1_f1": 0.08695652173913045,
+        "token_overlap": 0.07142857142857142,
+        "semantic_similarity": 0.05027060955762863,
+        "latency": 3.2414889335632324,
+        "llm_judge_scores": {
+          "correctness": 0.0,
+          "completeness": 0.0,
+          "relevance": 0.0,
+          "groundedness": 0.0,
+          "overall": 0.0,
+          "average": 0.0
+        }
+      },
+      {
+        "question": "What USB features does the router support?",
+        "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+        "generated": "The router supports USB Storage Sharing, Print Server, FTP Server and Media Server.",
+        "rouge1_f1": 0.42857142857142855,
+        "token_overlap": 0.5454545454545454,
+        "semantic_similarity": 0.8735408782958984,
+        "latency": 3.439483165740967,
+        "llm_judge_scores": {
+          "correctness": 0.7,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.9199999999999999
+        }
+      },
+      {
+        "question": "What is the WPS button used for on the Archer D7?",
+        "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+        "generated": "The WPS button on the Archer D7 is used to initiate a Wi-Fi Protected Setup process to quickly add a new wireless device to your existing network.",
+        "rouge1_f1": 0.4444444444444445,
+        "token_overlap": 0.5294117647058824,
+        "semantic_similarity": 0.8537630438804626,
+        "latency": 4.873683929443359,
+        "llm_judge_scores": {
+          "correctness": 0.9,
+          "completeness": 0.9,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.9400000000000001
+        }
+      },
+      {
+        "question": "What wireless security functions does the router provide?",
+        "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+        "generated": "The router provides MAC Filtering, Access Control, and IP & MAC Binding.",
+        "rouge1_f1": 0.8148148148148148,
+        "token_overlap": 0.7142857142857143,
+        "semantic_similarity": 0.9801504015922546,
+        "latency": 7.756565809249878,
+        "llm_judge_scores": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 1.0,
+          "average": 1.0
+        }
+      },
+      {
+        "question": "How do you perform a factory reset on the Archer D7?",
+        "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+        "generated": "1. Open a web browser and go to http://tplinkmodem.net.  \n2. Log in with your admin password.  \n3. Navigate to Advanced > System Tools > Backup & Restore.  \n4. Click Factory Restore and confirm.  \n5. Wait for the router to reset and reboot automatically.",
+        "rouge1_f1": 0.21333333333333332,
+        "token_overlap": 0.2857142857142857,
+        "semantic_similarity": 0.7291530966758728,
+        "latency": 8.012939453125,
+        "llm_judge_scores": {
+          "correctness": 0.3,
+          "completeness": 0.4,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.4,
+          "average": 0.62
+        }
+      },
+      {
+        "question": "How do you access the router's web interface for the first time?",
+        "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+        "generated": "1. Ensure your computer’s TCP/IP setting is set to obtain an IP address automatically.  \n2. Open a web browser and navigate to http://tplinkmodem.net or http://192.168.1.1.  \n3. When prompted, create a strong admin password (1–15 characters) and click Save.  \n4. Reopen the login page, enter your new password, and click Login.",
+        "rouge1_f1": 0.3188405797101449,
+        "token_overlap": 0.5555555555555556,
+        "semantic_similarity": 0.9007092714309692,
+        "latency": 5.41771674156189,
+        "llm_judge_scores": {
+          "correctness": 0.9,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.96
+        }
+      }
+    ],
+    "config": {
+      "name": "Small chunks",
+      "chunk_size": 500,
+      "k": 3
+    }
+  },
+  {
+    "summary": {
+      "avg_rouge1_f1": 0.48063694694309617,
+      "avg_token_overlap": 0.5277690773279009,
+      "avg_semantic_similarity": 0.755689212679863,
+      "avg_latency": 5.716816234588623,
+      "num_questions": 10,
+      "avg_llm_correctness": 0.74,
+      "avg_llm_completeness": 0.73,
+      "avg_llm_relevance": 0.8699999999999999,
+      "avg_llm_groundedness": 1.0,
+      "avg_llm_overall": 0.72,
+      "avg_llm_average": 0.812
+    },
+    "detailed_results": [
+      {
+        "question": "What is the full model name and type of this router?",
+        "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+        "generated": "TP-LINK’s Archer D7 AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+        "rouge1_f1": 0.6923076923076923,
+        "token_overlap": 0.6,
+        "semantic_similarity": 0.7788543701171875,
+        "latency": 3.081982135772705,
+        "llm_judge_scores": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.9800000000000001
+        }
+      },
+      {
+        "question": "What is the default web address to access the router interface?",
+        "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+        "generated": "The default web address to access the router interface is http://tplinkmodem.net or http://192.168.1.1.",
+        "rouge1_f1": 0.6666666666666667,
+        "token_overlap": 0.875,
+        "semantic_similarity": 0.8858267068862915,
+        "latency": 2.5173842906951904,
+        "llm_judge_scores": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 1.0,
+          "average": 1.0
+        }
+      },
+      {
+        "question": "What are the default login credentials for the router?",
+        "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+        "generated": "I don’t have this information in the document.",
+        "rouge1_f1": 0.07142857142857144,
+        "token_overlap": 0.058823529411764705,
+        "semantic_similarity": 0.04634198546409607,
+        "latency": 5.3869547843933105,
+        "llm_judge_scores": {
+          "correctness": 0.4,
+          "completeness": 0.0,
+          "relevance": 0.0,
+          "groundedness": 1.0,
+          "overall": 0.3,
+          "average": 0.33999999999999997
+        }
+      },
+      {
+        "question": "What port is used to connect the router to the Internet?",
+        "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+        "generated": "The ADSL port is used to connect the modem router to the Internet.",
+        "rouge1_f1": 0.7058823529411765,
+        "token_overlap": 0.5294117647058824,
+        "semantic_similarity": 0.98006272315979,
+        "latency": 2.655596971511841,
+        "llm_judge_scores": {
+          "correctness": 0.9,
+          "completeness": 0.7,
+          "relevance": 0.9,
+          "groundedness": 1.0,
+          "overall": 0.7,
+          "average": 0.8400000000000001
+        }
+      },
+      {
+        "question": "How many operation modes does the Archer D7 support?",
+        "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+        "generated": "The Archer D7 supports two operation modes: bridge mode and router function.",
+        "rouge1_f1": 0.7407407407407408,
+        "token_overlap": 0.7142857142857143,
+        "semantic_similarity": 0.8249861001968384,
+        "latency": 3.32271671295166,
+        "llm_judge_scores": {
+          "correctness": 0.3,
+          "completeness": 0.4,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.4,
+          "average": 0.62
+        }
+      },
+      {
+        "question": "What USB features does the router support?",
+        "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+        "generated": "The router supports USB Storage Sharing, Print Server, FTP Server and Media Server.",
+        "rouge1_f1": 0.42857142857142855,
+        "token_overlap": 0.5454545454545454,
+        "semantic_similarity": 0.8735408782958984,
+        "latency": 4.829931259155273,
+        "llm_judge_scores": {
+          "correctness": 0.7,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.9199999999999999
+        }
+      },
+      {
+        "question": "What is the WPS button used for on the Archer D7?",
+        "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+        "generated": "The WPS button is used to add a new wireless device to your existing network by initiating the Wi-Fi Protected Setup process.",
+        "rouge1_f1": 0.45,
+        "token_overlap": 0.47058823529411764,
+        "semantic_similarity": 0.9100879430770874,
+        "latency": 6.7721335887908936,
+        "llm_judge_scores": {
+          "correctness": 0.9,
+          "completeness": 0.9,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.9400000000000001
+        }
+      },
+      {
+        "question": "What wireless security functions does the router provide?",
+        "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+        "generated": "The router provides WPA-PSK/WPA2-PSK data security with TKIP/AES encryption, 64/128-bit WEP encryption and wireless LAN ACL, as well as MAC Filtering, Access Control and IP & MAC Binding.",
+        "rouge1_f1": 0.46511627906976744,
+        "token_overlap": 0.6428571428571429,
+        "semantic_similarity": 0.7054297924041748,
+        "latency": 15.575042486190796,
+        "llm_judge_scores": {
+          "correctness": 0.9,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.96
+        }
+      },
+      {
+        "question": "How do you perform a factory reset on the Archer D7?",
+        "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+        "generated": "1. Connect a PC to the Archer D7 and open a browser to http://tplinkmodem.net.  \n2. Log in with your administrator username and password.  \n3. Go to Advanced > System Tools > Backup & Restore.  \n4. Click Factory Restore.  \n5. Wait for the router to reset and reboot automatically.",
+        "rouge1_f1": 0.225,
+        "token_overlap": 0.2857142857142857,
+        "semantic_similarity": 0.6726841926574707,
+        "latency": 7.662075757980347,
+        "llm_judge_scores": {
+          "correctness": 0.4,
+          "completeness": 0.4,
+          "relevance": 0.9,
+          "groundedness": 1.0,
+          "overall": 0.4,
+          "average": 0.62
+        }
+      },
+      {
+        "question": "How do you access the router's web interface for the first time?",
+        "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+        "generated": "1. Set your computer’s TCP/IP settings to “Obtain an IP address automatically.”  \n2. Open a web browser and go to http://tplinkmodem.net or http://192.168.1.1.  \n3. When prompted, enter a strong password (1–15 characters) and click Save.  \n4. Re-enter the password and click Login.",
+        "rouge1_f1": 0.3606557377049181,
+        "token_overlap": 0.5555555555555556,
+        "semantic_similarity": 0.8790774345397949,
+        "latency": 5.364344358444214,
+        "llm_judge_scores": {
+          "correctness": 0.9,
+          "completeness": 0.9,
+          "relevance": 0.9,
+          "groundedness": 1.0,
+          "overall": 0.8,
+          "average": 0.9
+        }
+      }
+    ],
+    "config": {
+      "name": "Medium chunks",
+      "chunk_size": 800,
+      "k": 3
+    }
+  },
+  {
+    "summary": {
+      "avg_rouge1_f1": 0.381205347521137,
+      "avg_token_overlap": 0.4091696375519905,
+      "avg_semantic_similarity": 0.655332637950778,
+      "avg_latency": 5.328987050056457,
+      "num_questions": 10,
+      "avg_llm_correctness": 0.675,
+      "avg_llm_completeness": 0.67,
+      "avg_llm_relevance": 0.74,
+      "avg_llm_groundedness": 0.8,
+      "avg_llm_overall": 0.6799999999999999,
+      "avg_llm_average": 0.713
+    },
+    "detailed_results": [
+      {
+        "question": "What is the full model name and type of this router?",
+        "expected": "The router is TP-Link Archer D7, an AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+        "generated": "The full model name and type is TP-LINK’s Archer D7 AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+        "rouge1_f1": 0.6666666666666666,
+        "token_overlap": 0.7333333333333333,
+        "semantic_similarity": 0.792036771774292,
+        "latency": 3.8983397483825684,
+        "llm_judge_scores": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.9800000000000001
+        }
+      },
+      {
+        "question": "What is the default web address to access the router interface?",
+        "expected": "The default web address is http://tplinkmodem.net or 192.168.1.1.",
+        "generated": "The default web address to access the router interface is http://tplinkmodem.net.",
+        "rouge1_f1": 0.5263157894736842,
+        "token_overlap": 0.625,
+        "semantic_similarity": 0.8707506656646729,
+        "latency": 5.338845491409302,
+        "llm_judge_scores": {
+          "correctness": 0.85,
+          "completeness": 0.7,
+          "relevance": 0.7,
+          "groundedness": 1.0,
+          "overall": 0.7,
+          "average": 0.7899999999999999
+        }
+      },
+      {
+        "question": "What are the default login credentials for the router?",
+        "expected": "The router has no default credentials. You must set your own password when accessing the router for the first time.",
+        "generated": "I don't have this information in the document.",
+        "rouge1_f1": 0.07142857142857144,
+        "token_overlap": 0.058823529411764705,
+        "semantic_similarity": 0.05223799869418144,
+        "latency": 7.150089979171753,
+        "llm_judge_scores": {
+          "correctness": 0.4,
+          "completeness": 0.0,
+          "relevance": 0.0,
+          "groundedness": 0.0,
+          "overall": 0.3,
+          "average": 0.13999999999999999
+        }
+      },
+      {
+        "question": "What port is used to connect the router to the Internet?",
+        "expected": "The ADSL port is used to connect the modem router to the Internet via DSL cable to phone jack or splitter.",
+        "generated": "The ADSL port is used to connect the router to the Internet.",
+        "rouge1_f1": 0.6666666666666667,
+        "token_overlap": 0.47058823529411764,
+        "semantic_similarity": 0.9493378400802612,
+        "latency": 3.2594499588012695,
+        "llm_judge_scores": {
+          "correctness": 0.7,
+          "completeness": 0.7,
+          "relevance": 0.7,
+          "groundedness": 1.0,
+          "overall": 0.7,
+          "average": 0.76
+        }
+      },
+      {
+        "question": "How many operation modes does the Archer D7 support?",
+        "expected": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+        "generated": "The Archer D7 supports two operation modes.",
+        "rouge1_f1": 0.5454545454545455,
+        "token_overlap": 0.42857142857142855,
+        "semantic_similarity": 0.6348809599876404,
+        "latency": 2.9633595943450928,
+        "llm_judge_scores": {
+          "correctness": 0.9,
+          "completeness": 0.7,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.7,
+          "average": 0.86
+        }
+      },
+      {
+        "question": "What USB features does the router support?",
+        "expected": "The router supports USB storage device sharing and USB printer sharing through the USB port.",
+        "generated": "The router supports USB Storage Sharing, Print Server, FTP Server and Media Server.",
+        "rouge1_f1": 0.42857142857142855,
+        "token_overlap": 0.5454545454545454,
+        "semantic_similarity": 0.8735408782958984,
+        "latency": 3.2616982460021973,
+        "llm_judge_scores": {
+          "correctness": 0.7,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.9199999999999999
+        }
+      },
+      {
+        "question": "What is the WPS button used for on the Archer D7?",
+        "expected": "The WPS button is used to quickly establish a secure wireless connection between the router and WPS-enabled devices.",
+        "generated": "The WPS button initiates the Wi-Fi Protected Setup process to add a new wireless device to your existing network.",
+        "rouge1_f1": 0.37837837837837834,
+        "token_overlap": 0.35294117647058826,
+        "semantic_similarity": 0.8977363705635071,
+        "latency": 4.14640212059021,
+        "llm_judge_scores": {
+          "correctness": 0.9,
+          "completeness": 0.9,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.9400000000000001
+        }
+      },
+      {
+        "question": "What wireless security functions does the router provide?",
+        "expected": "The router provides MAC Filtering, Access Control, and IP & MAC Binding for network security.",
+        "generated": "The router provides WPA-PSK/WPA2-PSK data security with TKIP/AES encryption, 64/128-bit WEP encryption security, and wireless LAN ACL (Access Control List).",
+        "rouge1_f1": 0.2285714285714286,
+        "token_overlap": 0.2857142857142857,
+        "semantic_similarity": 0.6363624334335327,
+        "latency": 6.34581446647644,
+        "llm_judge_scores": {
+          "correctness": 0.4,
+          "completeness": 0.7,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.8,
+          "average": 0.78
+        }
+      },
+      {
+        "question": "How do you perform a factory reset on the Archer D7?",
+        "expected": "With the router powered on, use a pin to press and hold the RESET button on the rear panel for 8 seconds until all LEDs turn on momentarily, then release the button.",
+        "generated": "I don't have this information in the document.",
+        "rouge1_f1": 0.05,
+        "token_overlap": 0.03571428571428571,
+        "semantic_similarity": 0.0,
+        "latency": 2.4653337001800537,
+        "llm_judge_scores": {
+          "correctness": 0.0,
+          "completeness": 0.0,
+          "relevance": 0.0,
+          "groundedness": 0.0,
+          "overall": 0.0,
+          "average": 0.0
+        }
+      },
+      {
+        "question": "How do you access the router's web interface for the first time?",
+        "expected": "Visit http://tplinkmodem.net or 192.168.1.1 in a web browser, then set a strong password using 1-15 characters and click Save.",
+        "generated": "1. Connect your computer to the modem router via Ethernet or wirelessly using the default SSID and password.  \n2. Configure your computer’s TCP/IP settings to obtain an IP address and DNS server address automatically.  \n3. Launch a web browser and go to http://tplinkmodem.net or http://192.168.1.1.  \n4. When prompted, enter a new strong password (1–15 characters) and click Save.  \n5. Re-enter the password on the login screen and click Login.",
+        "rouge1_f1": 0.24999999999999997,
+        "token_overlap": 0.5555555555555556,
+        "semantic_similarity": 0.846442461013794,
+        "latency": 14.460537195205688,
+        "llm_judge_scores": {
+          "correctness": 0.9,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.96
+        }
+      }
+    ],
+    "config": {
+      "name": "Large chunks",
+      "chunk_size": 1200,
+      "k": 3
+    }
+  }
+]
