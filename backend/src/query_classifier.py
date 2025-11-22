@@ -1,4 +1,4 @@
-from langchain_openai import ChatOpenAI
+from langchain_ollama import ChatOllama
 
 class QueryClassifier:
     """
@@ -12,14 +12,14 @@ class QueryClassifier:
         "troubleshooting": "Pytanie o rozwiązanie problemu"
     }
     
-    def __init__(self, model: str = "gpt-3.5-turbo"):
+    def __init__(self, model: str = "qwen2.5:7b-instruct"):
         """
         Inicjalizacja klasyfikatora.
         
         Args:
-            model: Nazwa modelu OpenAI do użycia
+            model: Nazwa modelu Ollama do użycia
         """
-        self.llm = ChatOpenAI(model=model, temperature=0)
+        self.llm = ChatOllama(model=model, temperature=0)
     
     def classify(self, query: str) -> str:
         """
@@ -45,14 +45,14 @@ Odpowiedz TYLKO nazwą kategorii (factual, procedural lub troubleshooting), bez 
         try:
             response = self.llm.predict(prompt).strip().lower()
             
-            # Walidacja - jeśli odpowiedź nie jest poprawną kategorią, zwróć domyślną
+            # Walidacja
             if response not in self.CATEGORIES:
-                return "factual"  # Domyślna kategoria
+                return "factual"
             
             return response
         except Exception as e:
             print(f"Błąd klasyfikacji: {e}")
-            return "factual"  # Domyślna kategoria w przypadku błędu
+            return "factual"
     
     def get_category_description(self, category: str) -> str:
         """Zwraca opis kategorii"""

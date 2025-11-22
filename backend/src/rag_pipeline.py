@@ -1,4 +1,5 @@
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_ollama import ChatOllama
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import RetrievalQA
@@ -16,8 +17,8 @@ class RAGPipeline:
         # Komponenty
         self.pdf_processor = PDFProcessor()
         self.classifier = QueryClassifier()
-        self.embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
-        self.llm = ChatOpenAI(model="o4-mini", temperature=1)
+        self.embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+        self.llm = ChatOllama(model="qwen2.5:7b-instruct", temperature=0.7)
         
         # Vector store (inicjalizowany po upload)
         self.vectorstore = None
@@ -43,7 +44,7 @@ class RAGPipeline:
             Document(
                 page_content=chunk,
                 metadata={
-                    "chunk_id": i,  # ← KLUCZOWE: globalny ID
+                    "chunk_id": i,
                     "chunk_size": self.chunk_size,
                     "chunk_overlap": self.chunk_overlap
                 }
@@ -51,10 +52,10 @@ class RAGPipeline:
             for i, chunk in enumerate(chunks)
         ]
         
-        # 4. Embeddingi + FAISS (z Documents, nie plain text)
+        # 4. Embeddingi + FAISS
         self.vectorstore = FAISS.from_documents(documents, self.embeddings)
         
-        # 5. Zapisz liczbę chunków (przydatne do debugowania)
+        # 5. Zapisz liczbę chunków
         self.num_chunks = len(chunks)
         
         # 6. Retriever
@@ -123,7 +124,6 @@ Question: {question}
 Answer:"""
         
         else:
-            # Fallback dla niesklasyfikowanych
             template = """Use the following context to answer the question. Be precise and concise.
 
 INSTRUCTIONS:
@@ -173,15 +173,14 @@ Answer:"""
         if self.vectorstore is None:
             return []
         
-        # 🆕 Użyj similarity_search_with_score zamiast similarity_search
         docs_with_scores = self.vectorstore.similarity_search_with_score(question, k=k)
         
         return [
             {
-                "chunk_id": doc.metadata.get("chunk_id", -1),  # ← KLUCZOWE
+                "chunk_id": doc.metadata.get("chunk_id", -1),
                 "text": doc.page_content,
-                "similarity_score": float(score),  # Prawdziwy score z FAISS
-                "rank": i  # Pozycja w rankingu (0 = najbardziej relevant)
+                "similarity_score": float(score),
+                "rank": i
             }
             for i, (doc, score) in enumerate(docs_with_scores)
         ]

@@ -2,13 +2,10 @@ flask
 flask-cors
 werkzeug
 langchain
-langchain-openai
-openai
+langchain-ollama
+langchain-huggingface
+langchain-community
 faiss-cpu
 pymupdf
 sentence-transformers
-streamlit
-python-dotenv
 tiktoken
-langchain_community
-matplotlib
