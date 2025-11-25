@@ -17,7 +17,7 @@ class RAGPipeline:
         self.pdf_processor = PDFProcessor()
         self.classifier = QueryClassifier()
         self.embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
-        self.llm = ChatOpenAI(model="o4-mini", temperature=1)
+        self.llm = ChatOpenAI(model="chatgpt-4o-latest", temperature=0)
         
         # Vector store (inicjalizowany po upload)
         self.vectorstore = None
