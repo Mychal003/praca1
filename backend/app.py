@@ -216,8 +216,8 @@ def stats():
             'chunk_overlap': pipeline.chunk_overlap,
             'k': pipeline.k,
             'vectorstore_size': vectorstore_size,
-            'model': 'gpt-3.5-turbo',
-            'embedding_model': 'text-embedding-3-small'
+            'model': 'gpt-4o',
+            'embedding_model': 'text-embedding-3-large'
         }), 200
         
     except Exception as e:

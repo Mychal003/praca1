@@ -22,7 +22,7 @@ class RelevanceAnnotator:
     """
     
     def __init__(self):
-        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+        self.llm = ChatOpenAI(model="gpt-4o", temperature=0)
     
     def is_chunk_relevant(self, question: str, chunk: str, threshold: float = 0.7) -> bool:
         """

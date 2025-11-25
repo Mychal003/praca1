@@ -12,7 +12,7 @@ class QueryClassifier:
         "troubleshooting": "Pytanie o rozwiązanie problemu"
     }
     
-    def __init__(self, model: str = "gpt-3.5-turbo"):
+    def __init__(self, model: str = "gpt-4o"):
         """
         Inicjalizacja klasyfikatora.
         
