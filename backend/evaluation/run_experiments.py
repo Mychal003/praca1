@@ -16,6 +16,7 @@ import time
 from datetime import datetime
 from typing import List, Dict
 from collections import Counter
+import numpy as np
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -286,7 +287,7 @@ Testuje:
     
     # Automatyczna analiza błędów
     print("\n🔍 Uruchamiam analizę błędów...")
-    analyze_error_patterns(save_results)
+    analyze_error_patterns(results)
 
 
 # ============================================================================

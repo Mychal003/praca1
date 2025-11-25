@@ -1,328 +1,315 @@
-# RAG Documentation Assistant
+# 📊 System Ewaluacji RAG - Instrukcja Użycia
 
-> Retrieval-Augmented Generation system for answering questions about technical documentation
-
-[![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Flask-3.0-green)](https://flask.palletsprojects.com/)
-[![LangChain](https://img.shields.io/badge/LangChain-0.1-orange)](https://www.langchain.com/)
-[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--3.5-purple)](https://openai.com/)
-
-## 📋 Spis treści
-
-- [O projekcie](#o-projekcie)
-- [Architektura](#architektura)
-- [Funkcjonalności](#funkcjonalności)
-- [Wymagania](#wymagania)
-- [Instalacja](#instalacja)
-- [Użycie](#użycie)
-- [Ewaluacja](#ewaluacja)
-- [Struktura projektu](#struktura-projektu)
-- [Technologie](#technologie)
-- [Wyniki](#wyniki)
-- [Autor](#autor)
-
----
-
-## 🎯 O projekcie
-
-System RAG (Retrieval-Augmented Generation) umożliwiający użytkownikom zadawanie pytań w języku naturalnym o zawartość dokumentacji technicznej w formacie PDF. System automatycznie:
-
-1. **Przetwarza dokumenty PDF** - ekstrahuje tekst i dzieli na semantyczne fragmenty
-2. **Indeksuje wiedzę** - tworzy wektorową bazę danych z embeddingami
-3. **Retrieval** - wyszukuje najbardziej relevantne fragmenty do pytania
-4. **Generuje odpowiedzi** - wykorzystuje LLM do syntezy odpowiedzi na podstawie znalezionych fragmentów
-
-**Grupa docelowa:** 
-- Klienci firm potrzebujący wsparcia technicznego
-- Pracownicy działu wsparcia technicznego
-- Użytkownicy urządzeń technicznych
-
----
-
-## 🏗️ Architektura
+## 📁 Struktura plików
 
 ```
-┌─────────────┐
-│   Frontend  │  (HTML/CSS/JS)
-│  Interface  │
-└──────┬──────┘
-       │
-       │ HTTP API
-       ▼
-┌─────────────────────────────────────────┐
-│          Flask Backend                  │
-├─────────────────────────────────────────┤
-│  ┌──────────────────────────────────┐   │
-│  │      RAG Pipeline                │   │
-│  │  ┌────────────────────────────┐  │   │
-│  │  │  1. PDF Processor          │  │   │
-│  │  │     (PyMuPDF)              │  │   │
-│  │  └────────────────────────────┘  │   │
-│  │  ┌────────────────────────────┐  │   │
-│  │  │  2. Text Chunking          │  │   │
-│  │  │     (RecursiveTextSplitter)│  │   │
-│  │  └────────────────────────────┘  │   │
-│  │  ┌────────────────────────────┐  │   │
-│  │  │  3. Embeddings             │  │   │
-│  │  │     (OpenAI text-embed-3)  │  │   │
-│  │  └────────────────────────────┘  │   │
-│  │  ┌────────────────────────────┐  │   │
-│  │  │  4. Vector Store (FAISS)   │  │   │
-│  │  └────────────────────────────┘  │   │
-│  │  ┌────────────────────────────┐  │   │
-│  │  │  5. Query Classifier       │  │   │
-│  │  │     (GPT-3.5 zero-shot)    │  │   │
-│  │  └────────────────────────────┘  │   │
-│  │  ┌────────────────────────────┐  │   │
-│  │  │  6. LLM Generator          │  │   │
-│  │  │     (GPT-3.5-turbo)        │  │   │
-│  │  └────────────────────────────┘  │   │
-│  └──────────────────────────────────┘   │
-└─────────────────────────────────────────┘
-```
-
-### Przepływ danych:
-
-1. **Upload dokumentu** → PDF → Ekstrakcja tekstu → Chunking → Embeddings → Vector Store
-2. **Zadanie pytania** → Klasyfikacja → Retrieval → Generacja odpowiedzi → Zwrócenie wyniku
-
----
-
-## ✨ Funkcjonalności
-
-### Core Features:
-- ✅ **Upload PDF** - wgrywanie dokumentacji technicznej
-- ✅ **Semantic Search** - wyszukiwanie semantyczne z FAISS
-- ✅ **Query Classification** - klasyfikacja pytań (factual/procedural/troubleshooting)
-- ✅ **Context-aware Answers** - odpowiedzi uwzględniające kontekst
-- ✅ **Source Attribution** - wskazanie źródeł informacji w dokumencie
-
-### Advanced Features:
-- 🔬 **Evaluation System** - automatyczna ewaluacja z metrykami ROUGE-1, Token Overlap
-- 📊 **Experimentation Framework** - testowanie różnych konfiguracji
-- 📈 **Visualization Tools** - generowanie wykresów i tabel
-- 🎯 **Custom Prompts** - dostosowane prompty dla różnych typów pytań
-
----
-
-## 📦 Wymagania
-
-- **Python:** 3.9 lub nowszy
-- **Node.js:** (opcjonalnie, dla development frontendu)
-- **OpenAI API Key:** wymagany do działania systemu
-
-### Zależności Python:
-```
-flask>=3.0
-flask-cors>=4.0
-langchain>=0.1.0
-langchain-openai>=0.0.5
-openai>=1.0.0
-faiss-cpu>=1.7.4
-pymupdf>=1.23.0
-python-dotenv>=1.0.0
-matplotlib>=3.7.0
-numpy>=1.24.0
+backend/evaluation/
+├── prepare_dataset.py      # Przygotowanie datasetu (GT + annotacje)
+├── evaluate_retrieval.py   # Metryki retrieval (P@k, R@k, MRR, NDCG)
+├── evaluate_generation.py  # Metryki generation (ROUGE, Semantic, LLM Judge)
+├── run_experiments.py      # Eksperymenty (chunk_size, k, overlap)
+├── run_all.py              # Menu interaktywne
+├── visualize.py            # Wizualizacja + tabele LaTeX
+└── metrics/
+    ├── __init__.py
+    ├── retrieval_metrics.py
+    └── llm_judge.py
 ```
 
 ---
 
-## 🚀 Instalacja
+## 🚀 Szybki start
 
-### 1. Klonowanie repozytorium
-
-```bash
-git clone https://github.com/your-username/rag-doc-assistant.git
-cd rag-doc-assistant
-```
-
-### 2. Utworzenie środowiska wirtualnego
-
-```bash
-# Windows
-python -m venv venv
-venv\Scripts\activate
-
-# Linux/Mac
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### 3. Instalacja zależności
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Konfiguracja klucza API
-
-Utwórz plik `.env` w katalogu `backend/`:
-
-```env
-OPENAI_API_KEY=sk-your-api-key-here
-```
-
-⚠️ **Ważne:** Dodaj `.env` do `.gitignore` (już dodane w projekcie)
-
----
-
-## 💻 Użycie
-
-### Uruchomienie backendu
+### Opcja 1: Menu interaktywne (najłatwiejsza)
 
 ```bash
 cd backend
-python app.py
+python evaluation/run_all.py
 ```
 
-Backend wystartuje na `http://localhost:5000`
+Wybierz opcję z menu (0-6).
 
-### Uruchomienie frontendu
+### Opcja 2: Komendy ręczne (więcej kontroli)
 
-Otwórz `frontend/index.html` w przeglądarce lub użyj Live Server:
-
-```bash
-cd frontend
-# Jeśli masz Python:
-python -m http.server 8000
-# Następnie otwórz: http://localhost:8000
-```
-
-### Korzystanie z aplikacji
-
-1. **Wgraj dokument PDF** - kliknij "Wybierz plik" i wybierz PDF z dokumentacją
-2. **Poczekaj na przetworzenie** - system podzieli dokument i utworzy indeks wektorowy
-3. **Zadawaj pytania** - wpisz pytanie w języku naturalnym
-4. **Otrzymaj odpowiedź** - system zwróci odpowiedź wraz ze źródłami
+Patrz sekcje poniżej.
 
 ---
 
-## 🧪 Ewaluacja
+## 📋 Krok po kroku
 
-### Podstawowa ewaluacja (3 konfiguracje)
+### 1️⃣ Przygotowanie datasetu (WYMAGANE NA POCZĄTEK)
 
 ```bash
 cd backend
-python evaluation/evaluate_simple.py uploads/your_document.pdf
+python evaluation/prepare_dataset.py uploads/Archer_D7UN_V1_UG.pdf
 ```
 
-Wyniki zostaną zapisane w pliku `evaluation_results_TIMESTAMP.json`
+**Co robi:**
+- Ekstrahuje ground truth answers z dokumentu (GPT-4o)
+- Annotuje relevant chunks dla każdego pytania (GPT-4o)
+- Kategoryzuje pytania (factual/procedural/troubleshooting)
 
-### Wizualizacja wyników
+**Output:** `dataset_ready.json`
+
+**Czas:** ~5-10 minut (25 pytań × 2 wywołania LLM)
+
+**Koszt:** ~$0.50-1.00 (GPT-4o)
+
+---
+
+### 2️⃣ Ewaluacja Retrieval
 
 ```bash
-python evaluation/visualize_simple.py evaluation_results_TIMESTAMP.json
+python evaluation/evaluate_retrieval.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json
 ```
 
-Generuje:
-- Wykres PNG z porównaniem konfiguracji
-- Tabelę tekstową gotową do wklejenia w pracę
+**Co robi:**
+- Mierzy jakość retrievalu (czy system znajduje właściwe chunki)
+- Oblicza: Precision@k, Recall@k, F1@k, MRR, NDCG@k
 
-### Rozszerzone eksperymenty (14 konfiguracji)
+**Output:** `retrieval_results_YYYYMMDD_HHMMSS.json`
+
+**Czas:** ~1-2 minuty
+
+**Koszt:** ~$0.10 (tylko embeddingi)
+
+---
+
+### 3️⃣ Ewaluacja Generation (bez LLM Judge)
 
 ```bash
-python evaluation/advanced_experiments.py uploads/your_document.pdf
+python evaluation/evaluate_generation.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json
 ```
 
-Testuje:
-- **Chunk size:** 300, 500, 800, 1200, 1500
-- **K (liczba dokumentów):** 1, 2, 3, 5, 7
-- **Overlap:** 0, 50, 100, 200
+**Co robi:**
+- Generuje odpowiedzi na wszystkie pytania
+- Oblicza: ROUGE-1 F1, Semantic Similarity, Token Overlap
+- Raportuje metryki per kategoria
 
-⏱️ **Czas wykonania:** ~45-60 minut
+**Output:** `generation_results_YYYYMMDD_HHMMSS.json`
 
-### Metryki ewaluacji
+**Czas:** ~3-5 minut
 
-- **ROUGE-1 F1:** Miara pokrycia słów między wygenerowaną a oczekiwaną odpowiedzią
-- **Token Overlap:** Procent wspólnych tokenów
-- **Latency:** Czas odpowiedzi w sekundach
+**Koszt:** ~$0.50 (GPT-4o generation)
 
 ---
 
-## 📁 Struktura projektu
+### 4️⃣ Ewaluacja Generation + LLM Judge (pełna)
 
-```
-rag-doc-assistant/
-│
-├── backend/
-│   ├── app.py                      # Flask backend
-│   ├── .env                        # Klucz API (NIE commituj!)
-│   │
-│   ├── src/
-│   │   ├── pdf_processor.py        # Ekstrakcja tekstu z PDF
-│   │   ├── query_classifier.py     # Klasyfikacja pytań
-│   │   ├── rag_pipeline.py         # Główny pipeline RAG
-│   │   └── vector_store.py         # Zarządzanie FAISS
-│   │
-│   ├── evaluation/
-│   │   ├── evaluate_simple.py      # Podstawowa ewaluacja
-│   │   ├── visualize_simple.py     # Wizualizacja wyników
-│   │   ├── advanced_experiments.py # Rozszerzone eksperymenty
-│   │   └── visualize_advanced.py   # Zaawansowane wykresy
-│   │
-│   └── uploads/                    # Folder na PDF-y
-│
-├── frontend/
-│   ├── index.html                  # Interfejs użytkownika
-│   └── static/
-│       ├── css/style.css
-│       └── js/app.js
-│
-├── requirements.txt                # Zależności Python
-├── .gitignore
-└── README.md
+```bash
+python evaluation/evaluate_generation.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json --llm-judge
 ```
 
----
+**Co robi:**
+- Wszystko z punktu 3
+- Dodatkowo: LLM Judge ocenia każdą odpowiedź w 5 wymiarach
+- Analiza korelacji między metrykami
 
-## 🛠️ Technologie
+**Output:** `generation_results_with_llm_judge_YYYYMMDD_HHMMSS.json`
 
-### Backend:
-- **Flask** - framework webowy
-- **LangChain** - framework do budowy aplikacji LLM
-- **OpenAI API** - embeddings (text-embedding-3-small) i generacja (GPT-3.5-turbo)
-- **FAISS** - wektorowa baza danych (Facebook AI Similarity Search)
-- **PyMuPDF** - ekstrakcja tekstu z PDF
+**Czas:** ~10-15 minut
 
-### Frontend:
-- **HTML5/CSS3/JavaScript** - interfejs użytkownika
-- **Fetch API** - komunikacja z backendem
-
-### Evaluation:
-- **Matplotlib** - generowanie wykresów
-- **NumPy** - obliczenia numeryczne
-- **Custom metrics** - implementacja ROUGE-1 F1
+**Koszt:** ~$2-3 (GPT-4o generation + 5× judge per pytanie)
 
 ---
 
-## 📊 Wyniki
+### 5️⃣ Eksperymenty (chunk_size, k, overlap)
 
-Na podstawie eksperymentów z dokumentacją TP-Link Archer D7:
+```bash
+python evaluation/run_experiments.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json
+```
 
-| Konfiguracja | chunk_size | ROUGE-1 F1 | Latencja |
-|--------------|------------|------------|----------|
-| Small chunks | 500        | **0.366**  | 4.04s    |
-| Medium chunks| 800        | 0.358      | 2.17s    |
-| Large chunks | 1200       | 0.352      | 2.13s    |
+**Co robi:**
+- Testuje 15 konfiguracji:
+  - chunk_size: 300, 500, 800, 1200, 1500
+  - k: 1, 3, 5, 7, 10
+  - overlap: 0, 50, 100, 200, 300
+- Znajduje najlepszą konfigurację per eksperyment
+- Analiza błędów (najtrudniejsze/najłatwiejsze pytania)
 
-### Wnioski:
+**Output:** `experiments_results_YYYYMMDD_HHMMSS.json`
 
-1. **Small chunks (500) dają najwyższą jakość** (ROUGE-1: 0.366)
-2. **Large chunks (1200) są najszybsze** (2.13s)
-3. **Medium chunks (800) to dobry kompromis** - prawie równie dobre jak small, ale 2x szybsze
+**Czas:** ~30-45 minut
 
-**Trade-off:** Jakość vs Wydajność
-- Małe chunki (500): wyższa jakość (+2-3% ROUGE), wolniejsze (2x)
-- Średnie chunki (800): dobry kompromis
-- Duże chunki (1200): szybsze, ale niższa jakość
+**Koszt:** ~$5-8 (15 konfiguracji × 25 pytań)
+
+---
+
+### 6️⃣ Wizualizacja wyników
+
+```bash
+# Auto-wykrywa typ wyników
+python evaluation/visualize.py experiments_results_*.json
+
+# Z tabelami LaTeX
+python evaluation/visualize.py retrieval_results_*.json --latex
+
+# Generation
+python evaluation/visualize.py generation_results_with_llm_judge_*.json --latex
+```
+
+**Co robi:**
+- Generuje wykresy PNG (dpi=300)
+- Opcjonalnie: tabele LaTeX do pracy
+- Statystyki podsumowujące (Min/Max/Mean/Median/Std)
+
+**Output:** `*_charts.png`
+
+---
+
+## 🎯 Pełna ewaluacja (wszystko naraz)
+
+### Przez menu:
+
+```bash
+python evaluation/run_all.py
+# Wybierz opcję [6] Pełna ewaluacja
+```
+
+### Lub ręcznie:
+
+```bash
+cd backend
+
+# 1. Przygotuj dataset (raz)
+python evaluation/prepare_dataset.py uploads/Archer_D7UN_V1_UG.pdf
+
+# 2. Retrieval
+python evaluation/evaluate_retrieval.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json
+
+# 3. Generation + LLM Judge
+python evaluation/evaluate_generation.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json --llm-judge
+
+# 4. Eksperymenty
+python evaluation/run_experiments.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json
+
+# 5. Wizualizacja
+python evaluation/visualize.py retrieval_results_*.json --latex
+python evaluation/visualize.py generation_results_with_llm_judge_*.json --latex
+python evaluation/visualize.py experiments_results_*.json --latex
+```
+
+---
+
+## 📊 Generowane pliki
+
+| Etap | Plik | Zawartość |
+|------|------|-----------|
+| Dataset | `dataset_ready.json` | Pytania, GT, relevant chunks, kategorie |
+| Retrieval | `retrieval_results_*.json` | P@k, R@k, F1@k, MRR, NDCG |
+| Generation | `generation_results_*.json` | ROUGE, Semantic, per-category |
+| Gen + Judge | `generation_results_with_llm_judge_*.json` | + LLM scores, korelacje |
+| Experiments | `experiments_results_*.json` | Wszystkie konfiguracje |
+| Wykresy | `*_charts.png` | Wizualizacje (300 dpi) |
+
+---
+
+## 💰 Szacunkowe koszty (GPT-4o)
+
+| Etap | Czas | Koszt |
+|------|------|-------|
+| prepare_dataset | 5-10 min | $0.50-1.00 |
+| evaluate_retrieval | 1-2 min | $0.10 |
+| evaluate_generation | 3-5 min | $0.50 |
+| evaluate_generation --llm-judge | 10-15 min | $2-3 |
+| run_experiments | 30-45 min | $5-8 |
+| **RAZEM (pełna ewaluacja)** | **~1h** | **~$8-12** |
+
+---
+
+## ⚠️ Ważne uwagi
+
+### 1. Baseline config
+Retrieval metrics działają **tylko dla baseline config** (chunk_size=800, overlap=100).
+Różne chunk_size = różne chunk_ids = nieporównywalne retrieval metrics.
+
+### 2. Dataset jest reużywalny
+Po wygenerowaniu `dataset_ready.json` możesz go używać wielokrotnie.
+Nie trzeba go generować za każdym razem.
+
+### 3. Working directory
+Wszystkie komendy zakładają że jesteś w `backend/`.
+
+### 4. Zmienne środowiskowe
+Upewnij się że masz `.env` z `OPENAI_API_KEY`.
+
+---
+
+## 🔧 Troubleshooting
+
+### "ModuleNotFoundError: No module named 'src'"
+```bash
+cd backend  # Upewnij się że jesteś w backend/
+```
+
+### "FileNotFoundError: dataset_ready.json"
+```bash
+python evaluation/prepare_dataset.py uploads/Archer_D7UN_V1_UG.pdf
+```
+
+### "Dataset nie ma annotacji 'relevant_chunk_indices'"
+Użyj nowego datasetu wygenerowanego przez `prepare_dataset.py`, nie starego.
+
+### "Za mało wyników z LLM Judge do analizy korelacji"
+Użyj flagi `--llm-judge` przy `evaluate_generation.py`.
+
+---
+
+## 📈 Metryki - co znaczą?
+
+### Retrieval Metrics
+| Metryka | Co mierzy | Interpretacja |
+|---------|-----------|---------------|
+| **Precision@k** | % relevant w top-k | Czy nie zwracamy śmieci? |
+| **Recall@k** | % znalezionych relevant | Czy znajdujemy wszystko? |
+| **MRR** | Pozycja pierwszego relevant | Czy relevant jest wysoko? |
+| **NDCG@k** | Jakość rankingu | Czy ranking jest dobry? |
+
+### Generation Metrics
+| Metryka | Co mierzy | Interpretacja |
+|---------|-----------|---------------|
+| **ROUGE-1 F1** | Overlap słów | Pokrycie leksykalne |
+| **Semantic Similarity** | Podobieństwo znaczeniowe | Czy znaczenie się zgadza? |
+| **LLM Judge** | Ocena eksperta | Rzeczywista jakość |
+
+### LLM Judge Dimensions
+| Wymiar | Co ocenia |
+|--------|-----------|
+| **Correctness** | Czy fakty są poprawne? |
+| **Completeness** | Czy nic nie brakuje? |
+| **Relevance** | Czy odpowiada na pytanie? |
+| **Groundedness** | Czy oparte na kontekście? |
+| **Overall** | Ogólna jakość |
 
 ---
 
 
-## 📚 Dokumentacja dodatkowa
 
-- [LangChain Docs](https://python.langchain.com/)
-- [OpenAI API Reference](https://platform.openai.com/docs/)
-- [FAISS Documentation](https://github.com/facebookresearch/faiss)
+### Sekcja "Metodologia"
+- Opis metryk (retrieval + generation)
+- Opis LLM Judge
+- Baseline config i dlaczego
+
+### Sekcja "Eksperymenty"
+- Wpływ chunk_size na jakość
+- Wpływ k na jakość
+- Wpływ overlap na jakość
+- Trade-off jakość vs latencja
+
+### Sekcja "Wyniki"
+- Tabele LaTeX (generowane przez `--latex`)
+- Wykresy PNG
+- Analiza korelacji metryk
+- Najtrudniejsze/najłatwiejsze pytania
 
 ---
+
+## 🎉 Gotowe!
+
+Po wykonaniu wszystkich kroków masz:
+- ✅ Kompletny dataset z ground truth
+- ✅ Metryki retrieval
+- ✅ Metryki generation + LLM Judge
+- ✅ Eksperymenty z różnymi konfiguracjami
+- ✅ Wykresy do pracy
+- ✅ Tabele LaTeX
