@@ -16,7 +16,7 @@ class LLMJudge:
     Używa LLM (GPT-4) do oceny jakości odpowiedzi RAG.
     """
     
-    def __init__(self, model: str = "gpt-4o-mini", temperature: float = 0):
+    def __init__(self, model: str = "chatgpt-4o-latest", temperature: float = 0):
         """
         Args:
             model: Model do użycia jako judge (gpt-4o-mini jest tańszy od gpt-4)
