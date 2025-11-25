@@ -67,6 +67,18 @@ def semantic_similarity(prediction: str, reference: str) -> float:
     return max(0.0, min(1.0, similarity))
 
 
+def token_overlap(prediction: str, reference: str) -> float:
+    """Token Overlap: prosty % wspólnych słów"""
+    pred_words = set(prediction.lower().split())
+    ref_words = set(reference.lower().split())
+    
+    if not ref_words:
+        return 0.0
+    
+    overlap = len(pred_words & ref_words)
+    return overlap / len(ref_words)
+
+
 # ============================================================================
 # LLM JUDGE
 # ============================================================================
@@ -225,6 +237,7 @@ def evaluate_generation(
         # Oblicz metryki
         rouge = rouge_1_f1(generated, expected)
         semantic = semantic_similarity(generated, expected)
+        overlap = token_overlap(generated, expected)
         
         result = {
             'question': question,
@@ -234,6 +247,7 @@ def evaluate_generation(
             'metrics': {
                 'rouge1_f1': rouge,
                 'semantic_similarity': semantic,
+                'token_overlap': overlap,
                 'latency': latency
             }
         }
@@ -261,11 +275,13 @@ def evaluate_generation(
     # Podstawowe metryki
     avg_rouge = sum(r['metrics']['rouge1_f1'] for r in results) / len(results)
     avg_semantic = sum(r['metrics']['semantic_similarity'] for r in results) / len(results)
+    avg_overlap = sum(r['metrics']['token_overlap'] for r in results) / len(results)
     avg_latency = sum(r['metrics']['latency'] for r in results) / len(results)
     
     summary = {
         'avg_rouge1_f1': avg_rouge,
         'avg_semantic_similarity': avg_semantic,
+        'avg_token_overlap': avg_overlap,
         'avg_latency': avg_latency
     }
     
@@ -273,6 +289,7 @@ def evaluate_generation(
     print("-" * 37)
     print(f"{'ROUGE-1 F1':<25} {avg_rouge:<12.3f}")
     print(f"{'Semantic Similarity':<25} {avg_semantic:<12.3f}")
+    print(f"{'Token Overlap':<25} {avg_overlap:<12.3f}")
     print(f"{'Latencja (s)':<25} {avg_latency:<12.2f}")
     
     # LLM Judge metryki
@@ -316,6 +333,75 @@ def evaluate_generation(
             'model': 'gpt-4o'
         }
     }
+
+
+# ============================================================================
+# ANALIZA KORELACJI METRYK
+# ============================================================================
+
+def compare_metrics_correlation(results: Dict):
+    """
+    Analizuje korelację między ROUGE/Semantic a LLM Judge.
+    Pokazuje która metryka lepiej przewiduje jakość.
+    """
+    detailed = results.get('detailed', [])
+    
+    # Sprawdź czy mamy LLM Judge
+    llm_results = [r for r in detailed if 'llm_judge' in r.get('metrics', {})]
+    
+    if len(llm_results) < 3:
+        print("⚠️  Za mało wyników z LLM Judge do analizy korelacji")
+        return None
+    
+    print(f"\n{'='*70}")
+    print("📊 ANALIZA KORELACJI METRYK")
+    print(f"{'='*70}\n")
+    
+    # Zbierz dane
+    rouge = [r['metrics']['rouge1_f1'] for r in llm_results]
+    semantic = [r['metrics']['semantic_similarity'] for r in llm_results]
+    llm_overall = [r['metrics']['llm_judge']['overall'] for r in llm_results]
+    llm_correctness = [r['metrics']['llm_judge']['correctness'] for r in llm_results]
+    
+    try:
+        from scipy.stats import pearsonr
+        
+        corr_rouge_overall, p1 = pearsonr(rouge, llm_overall)
+        corr_semantic_overall, p2 = pearsonr(semantic, llm_overall)
+        corr_rouge_correct, p3 = pearsonr(rouge, llm_correctness)
+        corr_semantic_correct, p4 = pearsonr(semantic, llm_correctness)
+        
+        print("Korelacja z LLM Judge (Overall):")
+        print(f"   • ROUGE-1 F1:          r = {corr_rouge_overall:+.3f} (p={p1:.4f})")
+        print(f"   • Semantic Similarity: r = {corr_semantic_overall:+.3f} (p={p2:.4f})")
+        
+        print("\nKorelacja z LLM Judge (Correctness):")
+        print(f"   • ROUGE-1 F1:          r = {corr_rouge_correct:+.3f} (p={p3:.4f})")
+        print(f"   • Semantic Similarity: r = {corr_semantic_correct:+.3f} (p={p4:.4f})")
+        
+        # Interpretacja
+        diff = corr_semantic_overall - corr_rouge_overall
+        print(f"\n💡 INTERPRETACJA:")
+        if diff > 0.05:
+            print(f"   ✅ Semantic Similarity lepiej koreluje z LLM Judge (+{diff:.3f})")
+            print(f"      → Semantic lepiej przewiduje rzeczywistą jakość odpowiedzi!")
+        elif diff < -0.05:
+            print(f"   ℹ️  ROUGE-1 lepiej koreluje z LLM Judge (+{-diff:.3f})")
+        else:
+            print(f"   ➡️  Obie metryki podobnie korelują z LLM Judge (różnica: {diff:.3f})")
+        
+        print(f"\n{'='*70}\n")
+        
+        return {
+            'rouge_vs_llm_overall': corr_rouge_overall,
+            'semantic_vs_llm_overall': corr_semantic_overall,
+            'rouge_vs_llm_correctness': corr_rouge_correct,
+            'semantic_vs_llm_correctness': corr_semantic_correct
+        }
+        
+    except ImportError:
+        print("⚠️  Zainstaluj scipy: pip install scipy")
+        return None
 
 
 # ============================================================================
@@ -371,6 +457,12 @@ Przykład:
     
     # Ewaluacja
     results = evaluate_generation(pipeline, dataset, use_llm_judge=use_llm_judge)
+    
+    # Analiza korelacji (jeśli LLM Judge)
+    if use_llm_judge:
+        correlations = compare_metrics_correlation(results)
+        if correlations:
+            results['correlations'] = correlations
     
     # Zapisz wyniki
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

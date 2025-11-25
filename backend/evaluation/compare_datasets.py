@@ -12,7 +12,6 @@ from src.rag_pipeline import RAGPipeline
 from evaluation.evaluate_simple import evaluate_system
 
 # Import obu datasetów
-from evaluation.evaluate_simple import TEST_DATASET as MANUAL_DATASET
 
 # Wczytaj ground truth
 with open('test_dataset_ground_truth.json', 'r', encoding='utf-8') as f:

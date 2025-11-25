@@ -14,7 +14,6 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.rag_pipeline import RAGPipeline
-from evaluation.evaluate_simple import evaluate_system, TEST_DATASET
 
 # Wczytaj ground truth dataset
 try:

@@ -283,3 +283,76 @@ Testuje:
         json.dump(save_results, f, ensure_ascii=False, indent=2)
     
     print(f"\n💾 Wyniki zapisane: {output_file}")
+    
+    # Automatyczna analiza błędów
+    print("\n🔍 Uruchamiam analizę błędów...")
+    analyze_error_patterns(save_results)
+
+
+# ============================================================================
+# ANALIZA BŁĘDÓW
+# ============================================================================
+
+def analyze_error_patterns(results: Dict):
+    """
+    Analizuje wzorce błędów - które pytania są najtrudniejsze/najłatwiejsze.
+    """
+    print(f"\n{'='*70}")
+    print("🔍 ANALIZA BŁĘDÓW")
+    print(f"{'='*70}")
+    
+    # Zbierz wszystkie detailed results
+    all_questions = {}
+    
+    for exp_name in ['chunk_size', 'k_values', 'overlap']:
+        if exp_name not in results:
+            continue
+        
+        for config_result in results[exp_name]['results']:
+            if 'detailed' not in config_result:
+                continue
+            
+            for detail in config_result.get('detailed', []):
+                q = detail.get('question', '')
+                if not q:
+                    continue
+                
+                if q not in all_questions:
+                    all_questions[q] = []
+                all_questions[q].append(detail.get('rouge1_f1', 0))
+    
+    if not all_questions:
+        print("⚠️  Brak detailed results do analizy")
+        return
+    
+    # Oblicz średnią dla każdego pytania
+    avg_scores = {
+        q: sum(scores) / len(scores) 
+        for q, scores in all_questions.items()
+    }
+    
+    # Sortuj
+    sorted_questions = sorted(avg_scores.items(), key=lambda x: x[1])
+    
+    print("\n🔴 TOP 5 NAJTRUDNIEJSZYCH PYTAŃ (najniższy ROUGE-1):\n")
+    for i, (question, score) in enumerate(sorted_questions[:5], 1):
+        print(f"   {i}. ROUGE: {score:.3f}")
+        print(f"      {question[:70]}...\n")
+    
+    print("🟢 TOP 5 NAJŁATWIEJSZYCH PYTAŃ (najwyższy ROUGE-1):\n")
+    for i, (question, score) in enumerate(reversed(sorted_questions[-5:]), 1):
+        print(f"   {i}. ROUGE: {score:.3f}")
+        print(f"      {question[:70]}...\n")
+    
+    # Statystyki ogólne
+    all_scores = list(avg_scores.values())
+    print(f"{'='*70}")
+    print("📊 STATYSTYKI OGÓLNE")
+    print(f"{'='*70}")
+    print(f"   Liczba pytań:     {len(all_scores)}")
+    print(f"   Min ROUGE:        {min(all_scores):.3f}")
+    print(f"   Max ROUGE:        {max(all_scores):.3f}")
+    print(f"   Średnia:          {np.mean(all_scores):.3f}")
+    print(f"   Mediana:          {np.median(all_scores):.3f}")
+    print(f"   Odchylenie std:   {np.std(all_scores):.3f}")
+    print(f"{'='*70}\n")
