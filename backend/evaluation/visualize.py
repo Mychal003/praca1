@@ -203,25 +203,26 @@ def generate_experiments_latex(data: dict):
 
 def visualize_retrieval(data: dict, output_prefix: str, generate_latex: bool = False):
     """
-    Wizualizacja wyników retrieval.
+    Wizualizacja wyników retrieval - osobne pliki dla każdego wykresu.
     """
     print("📊 Generuję wykresy dla RETRIEVAL...")
     
     summary = data['summary']
-    
-    fig = plt.figure(figsize=(16, 5))
-    
-    # 1. Precision vs Recall at different k
-    ax1 = plt.subplot(1, 3, 1)
     k_values = [1, 3, 5, 10]
+    
+    # =========================================================================
+    # WYKRES 1: Precision vs Recall at different k
+    # =========================================================================
+    fig1, ax1 = plt.subplots(figsize=(8, 6))
+    
     precision = [summary[f'avg_precision@{k}'] for k in k_values]
     recall = [summary[f'avg_recall@{k}'] for k in k_values]
     
     x = np.arange(len(k_values))
     width = 0.35
     
-    ax1.bar(x - width/2, precision, width, label='Precision@k', color='#667eea', alpha=0.8)
-    ax1.bar(x + width/2, recall, width, label='Recall@k', color='#f093fb', alpha=0.8)
+    bars1 = ax1.bar(x - width/2, precision, width, label='Precision@k', color='#667eea', alpha=0.8)
+    bars2 = ax1.bar(x + width/2, recall, width, label='Recall@k', color='#f093fb', alpha=0.8)
     
     ax1.set_xlabel('k', fontsize=11, fontweight='bold')
     ax1.set_ylabel('Score', fontsize=11, fontweight='bold')
@@ -232,8 +233,23 @@ def visualize_retrieval(data: dict, output_prefix: str, generate_latex: bool = F
     ax1.set_ylim(0, 1.0)
     ax1.grid(axis='y', alpha=0.3)
     
-    # 2. All retrieval metrics
-    ax2 = plt.subplot(1, 3, 2)
+    for bars in [bars1, bars2]:
+        for bar in bars:
+            height = bar.get_height()
+            ax1.text(bar.get_x() + bar.get_width()/2., height + 0.02,
+                    f'{height:.3f}', ha='center', va='bottom', fontsize=9)
+    
+    plt.tight_layout()
+    output_file1 = f"{output_prefix}_precision_recall.png"
+    plt.savefig(output_file1, dpi=300, bbox_inches='tight')
+    print(f"   ✅ Zapisano: {output_file1}")
+    plt.close()
+    
+    # =========================================================================
+    # WYKRES 2: All retrieval metrics
+    # =========================================================================
+    fig2, ax2 = plt.subplots(figsize=(8, 6))
+    
     metrics = ['precision@5', 'recall@5', 'f1@5', 'mrr', 'ndcg@5']
     values = [summary[f'avg_{m}'] for m in metrics]
     colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8']
@@ -250,8 +266,17 @@ def visualize_retrieval(data: dict, output_prefix: str, generate_latex: bool = F
         ax2.text(bar.get_x() + bar.get_width()/2, val + 0.02,
                 f'{val:.3f}', ha='center', fontsize=9, fontweight='bold')
     
-    # 3. NDCG progression
-    ax3 = plt.subplot(1, 3, 3)
+    plt.tight_layout()
+    output_file2 = f"{output_prefix}_retrieval_metrics.png"
+    plt.savefig(output_file2, dpi=300, bbox_inches='tight')
+    print(f"   ✅ Zapisano: {output_file2}")
+    plt.close()
+    
+    # =========================================================================
+    # WYKRES 3: NDCG progression
+    # =========================================================================
+    fig3, ax3 = plt.subplots(figsize=(8, 6))
+    
     ndcg = [summary[f'avg_ndcg@{k}'] for k in k_values]
     
     ax3.plot(k_values, ndcg, marker='o', linewidth=2, markersize=10, color='#667eea')
@@ -263,43 +288,18 @@ def visualize_retrieval(data: dict, output_prefix: str, generate_latex: bool = F
     ax3.set_ylim(0, 1.0)
     ax3.grid(alpha=0.3)
     
-    plt.tight_layout()
+    for k, n in zip(k_values, ndcg):
+        ax3.annotate(f'{n:.3f}', (k, n), textcoords="offset points", 
+                    xytext=(0, 8), ha='center', fontsize=9, fontweight='bold')
     
-    output_file = f"{output_prefix}_retrieval_charts.png"
-    plt.savefig(output_file, dpi=300, bbox_inches='tight')
-    print(f"   ✅ Zapisano: {output_file}")
+    plt.tight_layout()
+    output_file3 = f"{output_prefix}_ndcg.png"
+    plt.savefig(output_file3, dpi=300, bbox_inches='tight')
+    print(f"   ✅ Zapisano: {output_file3}")
     plt.close()
     
     if generate_latex:
         generate_retrieval_latex(data)
-
-
-def generate_retrieval_latex(data: dict):
-    """Generuje tabelę LaTeX dla retrieval."""
-    summary = data['summary']
-    
-    print("\n📋 TABELA LATEX - Retrieval")
-    print("="*70)
-    print(r"\begin{table}[h]")
-    print(r"\centering")
-    print(r"\begin{tabular}{|l|c|c|c|c|c|}")
-    print(r"\hline")
-    print(r"\textbf{k} & \textbf{P@k} & \textbf{R@k} & \textbf{F1@k} & \textbf{NDCG@k} \\")
-    print(r"\hline")
-    
-    for k in [1, 3, 5, 10]:
-        p = summary[f'avg_precision@{k}']
-        r = summary[f'avg_recall@{k}']
-        f1 = summary[f'avg_f1@{k}']
-        ndcg = summary[f'avg_ndcg@{k}']
-        print(f"k={k} & {p:.3f} & {r:.3f} & {f1:.3f} & {ndcg:.3f} \\\\")
-    
-    print(r"\hline")
-    print(r"\multicolumn{5}{|c|}{MRR: " + f"{summary['avg_mrr']:.3f}" + r"} \\")
-    print(r"\hline")
-    print(r"\end{tabular}")
-    print(r"\end{table}")
-
 
 # ============================================================================
 # GENERATION VISUALIZATION

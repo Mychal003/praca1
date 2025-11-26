@@ -16,14 +16,12 @@ def create_retrieval_charts(results_file: str):
         data = json.load(f)
     
     summary = data['summary']
-    
-    # Przygotuj figurę z 3 subplotami
-    fig = plt.figure(figsize=(18, 6))
+    base_output = results_file.replace('.json', '')
     
     # =========================================================================
     # WYKRES 1: Precision@k vs Recall@k
     # =========================================================================
-    ax1 = plt.subplot(1, 3, 1)
+    fig1, ax1 = plt.subplots(figsize=(8, 6))
     
     k_values = [1, 3, 5, 10]
     precision_values = [summary[f'avg_precision@{k}'] for k in k_values]
@@ -51,10 +49,16 @@ def create_retrieval_charts(results_file: str):
             ax1.text(bar.get_x() + bar.get_width()/2., height + 0.02,
                     f'{height:.3f}', ha='center', va='bottom', fontsize=9)
     
+    plt.tight_layout()
+    output_file1 = f"{base_output}_precision_recall.png"
+    plt.savefig(output_file1, dpi=300, bbox_inches='tight')
+    print(f"   ✅ Zapisano: {output_file1}")
+    plt.close()
+    
     # =========================================================================
     # WYKRES 2: Wszystkie metryki retrieval
     # =========================================================================
-    ax2 = plt.subplot(1, 3, 2)
+    fig2, ax2 = plt.subplots(figsize=(8, 6))
     
     metrics = ['precision@5', 'recall@5', 'f1@5', 'mrr', 'ndcg@5']
     metric_labels = ['P@5', 'R@5', 'F1@5', 'MRR', 'NDCG@5']
@@ -75,10 +79,16 @@ def create_retrieval_charts(results_file: str):
         ax2.text(bar.get_x() + bar.get_width()/2, value + 0.02,
                 f'{value:.3f}', ha='center', fontsize=9, fontweight='bold')
     
+    plt.tight_layout()
+    output_file2 = f"{base_output}_retrieval_metrics.png"
+    plt.savefig(output_file2, dpi=300, bbox_inches='tight')
+    print(f"   ✅ Zapisano: {output_file2}")
+    plt.close()
+    
     # =========================================================================
     # WYKRES 3: NDCG@k dla różnych k
     # =========================================================================
-    ax3 = plt.subplot(1, 3, 3)
+    fig3, ax3 = plt.subplots(figsize=(8, 6))
     
     ndcg_values = [summary[f'avg_ndcg@{k}'] for k in k_values]
     
@@ -102,11 +112,10 @@ def create_retrieval_charts(results_file: str):
                     ha='center', fontsize=9, fontweight='bold')
     
     plt.tight_layout()
-    
-    # Zapisz
-    output_file = results_file.replace('.json', '_retrieval_charts.png')
-    plt.savefig(output_file, dpi=300, bbox_inches='tight')
-    print(f"✅ Wykresy zapisane: {output_file}")
+    output_file3 = f"{base_output}_ndcg.png"
+    plt.savefig(output_file3, dpi=300, bbox_inches='tight')
+    print(f"   ✅ Zapisano: {output_file3}")
+    plt.close()
 
 def create_comparison_table(results_file: str):
     """

@@ -77,7 +77,7 @@ INSTRUCTIONS FOR FACTUAL QUESTIONS:
 - Include only the specific information requested
 - Use exact terms and values from the context
 - Do NOT add explanations or background information
-- If the information is not in the context, say "I don't have this information in the document"
+- Answer based on the context. If the context doesn't contain the exact information, provide what you can find and note what's missing."
 
 Context:
 {context}
@@ -95,7 +95,7 @@ INSTRUCTIONS FOR PROCEDURAL QUESTIONS:
 - Include only essential details
 - Maximum 5-6 steps
 - Do NOT add warnings, tips, or extra explanations unless critical
-- If the procedure is not in the context, say "I don't have this information in the document"
+- Answer based on the context. If the context doesn't contain enough information, provide what you can and note what's missing.
 
 Context:
 {context}
@@ -113,7 +113,7 @@ INSTRUCTIONS FOR TROUBLESHOOTING QUESTIONS:
 - Keep solutions concise (one sentence each)
 - Focus on actionable steps
 - Do NOT add general advice not in the context
-- If the troubleshooting info is not in the context, say "I don't have this information in the document"
+- Answer based on the context. If the context doesn't contain complete troubleshooting info, provide what you can and note what's missing."
 
 Context:
 {context}

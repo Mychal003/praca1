@@ -1,0 +1,204 @@
+{
+  "chunk_size": {
+    "best": "Medium (800)",
+    "results": [
+      {
+        "config": {
+          "name": "Tiny (300)",
+          "chunk_size": 300,
+          "chunk_overlap": 50,
+          "k": 5
+        },
+        "num_chunks": 497,
+        "avg_rouge1_f1": 0.43472172827666933,
+        "avg_semantic_similarity": 0.7321863824129105,
+        "avg_latency": 2.7999619007110597
+      },
+      {
+        "config": {
+          "name": "Small (500)",
+          "chunk_size": 500,
+          "chunk_overlap": 100,
+          "k": 5
+        },
+        "num_chunks": 317,
+        "avg_rouge1_f1": 0.45926321804228265,
+        "avg_semantic_similarity": 0.7439461356401443,
+        "avg_latency": 2.6239177894592287
+      },
+      {
+        "config": {
+          "name": "Medium (800)",
+          "chunk_size": 800,
+          "chunk_overlap": 100,
+          "k": 5
+        },
+        "num_chunks": 181,
+        "avg_rouge1_f1": 0.5048677782096913,
+        "avg_semantic_similarity": 0.7673168194293976,
+        "avg_latency": 2.854478397369385
+      },
+      {
+        "config": {
+          "name": "Large (1200)",
+          "chunk_size": 1200,
+          "chunk_overlap": 150,
+          "k": 5
+        },
+        "num_chunks": 120,
+        "avg_rouge1_f1": 0.5011606197106644,
+        "avg_semantic_similarity": 0.7773383533954621,
+        "avg_latency": 2.7607237911224365
+      },
+      {
+        "config": {
+          "name": "XLarge (1500)",
+          "chunk_size": 1500,
+          "chunk_overlap": 200,
+          "k": 5
+        },
+        "num_chunks": 98,
+        "avg_rouge1_f1": 0.45819694955970286,
+        "avg_semantic_similarity": 0.7687299489974976,
+        "avg_latency": 3.758599615097046
+      }
+    ]
+  },
+  "k_values": {
+    "best": "k=10",
+    "results": [
+      {
+        "config": {
+          "name": "k=1",
+          "chunk_size": 800,
+          "chunk_overlap": 100,
+          "k": 1
+        },
+        "num_chunks": 181,
+        "avg_rouge1_f1": 0.4123063401778277,
+        "avg_semantic_similarity": 0.7026836085319519,
+        "avg_latency": 2.5496763706207277
+      },
+      {
+        "config": {
+          "name": "k=3",
+          "chunk_size": 800,
+          "chunk_overlap": 100,
+          "k": 3
+        },
+        "num_chunks": 181,
+        "avg_rouge1_f1": 0.49217680337430025,
+        "avg_semantic_similarity": 0.7606083476543426,
+        "avg_latency": 2.5386191463470458
+      },
+      {
+        "config": {
+          "name": "k=5",
+          "chunk_size": 800,
+          "chunk_overlap": 100,
+          "k": 5
+        },
+        "num_chunks": 181,
+        "avg_rouge1_f1": 0.5001958043210936,
+        "avg_semantic_similarity": 0.7665371584892273,
+        "avg_latency": 2.6129111194610597
+      },
+      {
+        "config": {
+          "name": "k=7",
+          "chunk_size": 800,
+          "chunk_overlap": 100,
+          "k": 7
+        },
+        "num_chunks": 181,
+        "avg_rouge1_f1": 0.5038274170818817,
+        "avg_semantic_similarity": 0.7614424359798432,
+        "avg_latency": 2.6516512489318846
+      },
+      {
+        "config": {
+          "name": "k=10",
+          "chunk_size": 800,
+          "chunk_overlap": 100,
+          "k": 10
+        },
+        "num_chunks": 181,
+        "avg_rouge1_f1": 0.5104125735682389,
+        "avg_semantic_similarity": 0.7753873562812805,
+        "avg_latency": 2.7190503883361816
+      }
+    ]
+  },
+  "overlap": {
+    "best": "No overlap (0)",
+    "results": [
+      {
+        "config": {
+          "name": "No overlap (0)",
+          "chunk_size": 800,
+          "chunk_overlap": 0,
+          "k": 5
+        },
+        "num_chunks": 165,
+        "avg_rouge1_f1": 0.5028333037676582,
+        "avg_semantic_similarity": 0.760718435049057,
+        "avg_latency": 2.7986267471313475
+      },
+      {
+        "config": {
+          "name": "Small (50)",
+          "chunk_size": 800,
+          "chunk_overlap": 50,
+          "k": 5
+        },
+        "num_chunks": 168,
+        "avg_rouge1_f1": 0.4412233514713616,
+        "avg_semantic_similarity": 0.7457224369049072,
+        "avg_latency": 2.6719006729125976
+      },
+      {
+        "config": {
+          "name": "Medium (100)",
+          "chunk_size": 800,
+          "chunk_overlap": 100,
+          "k": 5
+        },
+        "num_chunks": 181,
+        "avg_rouge1_f1": 0.4853798633572656,
+        "avg_semantic_similarity": 0.7624578416347504,
+        "avg_latency": 2.5992504119873048
+      },
+      {
+        "config": {
+          "name": "Large (200)",
+          "chunk_size": 800,
+          "chunk_overlap": 200,
+          "k": 5
+        },
+        "num_chunks": 211,
+        "avg_rouge1_f1": 0.4944151396687324,
+        "avg_semantic_similarity": 0.7762500143051148,
+        "avg_latency": 2.782698879241943
+      },
+      {
+        "config": {
+          "name": "XLarge (300)",
+          "chunk_size": 800,
+          "chunk_overlap": 300,
+          "k": 5
+        },
+        "num_chunks": 252,
+        "avg_rouge1_f1": 0.4760932994122551,
+        "avg_semantic_similarity": 0.7699816536903381,
+        "avg_latency": 2.9077993774414064
+      }
+    ]
+  },
+  "metadata": {
+    "timestamp": "2025-11-26T23:43:00.807683",
+    "pdf_path": "uploads/Archer_D7UN_V1_UG.pdf",
+    "dataset_path": "dataset_ready.json",
+    "num_questions": 25,
+    "total_time_seconds": 1176.6451897621155
+  }
+}

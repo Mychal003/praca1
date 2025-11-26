@@ -448,9 +448,9 @@ Przykład:
     print(f"\n🔧 Tworzenie pipeline...")
     
     pipeline = RAGPipeline(
-        chunk_size=config.get('chunk_size', 800),
-        chunk_overlap=config.get('chunk_overlap', 100),
-        k=5
+        chunk_size=800,
+        chunk_overlap=0,
+        k=10
     )
     pipeline.process_document(pdf_path)
     print(f"   ✓ Utworzono {pipeline.num_chunks} chunków")
