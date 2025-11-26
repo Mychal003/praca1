@@ -95,7 +95,7 @@ INSTRUCTIONS FOR PROCEDURAL QUESTIONS:
 - Include only essential details
 - Maximum 5-6 steps
 - Do NOT add warnings, tips, or extra explanations unless critical
-- If the procedure is not in the context, say "I don't have this information in the document"
+- Answer based on the context. If the context doesn't contain enough information, provide what you can and note what's missing.
 
 Context:
 {context}

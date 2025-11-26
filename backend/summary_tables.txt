@@ -1,0 +1,118 @@
+================================================================================
+PODSUMOWANIE WYNIKÓW EKSPERYMENTÓW
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+📊 ROZMIAR CHUNKA
+────────────────────────────────────────────────────────────────────────────────
+Konfiguracja         ROUGE-1      Semantic     Latencja     Chunks
+----------------------------------------------------------------------
+Tiny (300)           0.268        0.360        2.02        s 497
+Small (500)          0.281        0.385        2.15        s 317
+Medium (800)         0.392        0.540        2.37        s 181
+Large (1200)         0.392        0.555        2.41        s 120 🏆
+XLarge (1500)        0.300        0.438        2.59        s 98
+
+   Najlepsza konfiguracja: Large (1200)
+
+────────────────────────────────────────────────────────────────────────────────
+📊 LICZBA DOKUMENTÓW (K)
+────────────────────────────────────────────────────────────────────────────────
+Konfiguracja         ROUGE-1      Semantic     Latencja     Chunks
+----------------------------------------------------------------------
+k=1                  0.313        0.469        2.01        s 181
+k=3                  0.395        0.558        2.11        s 181
+k=5                  0.342        0.466        2.38        s 181
+k=7                  0.415        0.568        2.73        s 181 🏆
+k=10                 0.404        0.585        2.39        s 181
+
+   Najlepsza konfiguracja: k=7
+
+────────────────────────────────────────────────────────────────────────────────
+📊 OVERLAP
+────────────────────────────────────────────────────────────────────────────────
+Konfiguracja         ROUGE-1      Semantic     Latencja     Chunks
+----------------------------------------------------------------------
+No overlap (0)       0.330        0.452        2.22        s 165
+Small (50)           0.383        0.548        2.27        s 168 🏆
+Medium (100)         0.371        0.509        2.09        s 181
+Large (200)          0.346        0.455        2.34        s 211
+XLarge (300)         0.380        0.557        2.71        s 252
+
+   Najlepsza konfiguracja: Small (50)
+
+================================================================================
+📈 STATYSTYKI OGÓLNE (wszystkie 15 konfiguracji)
+================================================================================
+
+ROUGE-1 F1:
+   Min:     0.268
+   Max:     0.415
+   Średnia: 0.354
+   Std:     0.045
+
+Semantic Similarity:
+   Min:     0.360
+   Max:     0.585
+   Średnia: 0.496
+   Std:     0.068
+
+Latencja:
+   Min:     2.01s
+   Max:     2.73s
+   Średnia: 2.32s
+
+================================================================================
+📋 TABELE LATEX
+================================================================================
+
+% Wpływ rozmiaru chunka
+\begin{table}[h]
+\centering
+\caption{Wpływ rozmiaru chunka}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Konfiguracja} & \textbf{ROUGE-1} & \textbf{Semantic} & \textbf{Latencja (s)} & \textbf{Chunki} \\
+\hline
+Tiny (300) & 0.268 & 0.360 & 2.02 & 497 \\
+Small (500) & 0.281 & 0.385 & 2.15 & 317 \\
+Medium (800) & 0.392 & 0.540 & 2.37 & 181 \\
+Large (1200) & 0.392 & 0.555 & 2.41 & 120 \\
+XLarge (1500) & 0.300 & 0.438 & 2.59 & 98 \\
+\hline
+\end{tabular}
+\end{table}
+
+% Wpływ liczby dokumentów (k)
+\begin{table}[h]
+\centering
+\caption{Wpływ liczby dokumentów (k)}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Konfiguracja} & \textbf{ROUGE-1} & \textbf{Semantic} & \textbf{Latencja (s)} & \textbf{Chunki} \\
+\hline
+k=1 & 0.313 & 0.469 & 2.01 & 181 \\
+k=3 & 0.395 & 0.558 & 2.11 & 181 \\
+k=5 & 0.342 & 0.466 & 2.38 & 181 \\
+k=7 & 0.415 & 0.568 & 2.73 & 181 \\
+k=10 & 0.404 & 0.585 & 2.39 & 181 \\
+\hline
+\end{tabular}
+\end{table}
+
+% Wpływ overlap
+\begin{table}[h]
+\centering
+\caption{Wpływ overlap}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Konfiguracja} & \textbf{ROUGE-1} & \textbf{Semantic} & \textbf{Latencja (s)} & \textbf{Chunki} \\
+\hline
+No overlap (0) & 0.330 & 0.452 & 2.22 & 165 \\
+Small (50) & 0.383 & 0.548 & 2.27 & 168 \\
+Medium (100) & 0.371 & 0.509 & 2.09 & 181 \\
+Large (200) & 0.346 & 0.455 & 2.34 & 211 \\
+XLarge (300) & 0.380 & 0.557 & 2.71 & 252 \\
+\hline
+\end{tabular}
+\end{table}
