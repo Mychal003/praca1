@@ -78,94 +78,90 @@ def extract_metrics(results: list) -> dict:
 # WYKRES 1: GRID 2x3 - WPŁYW PARAMETRÓW
 # ============================================================================
 
-def plot_param_impact_grid(data: dict, output_dir: str):
+def plot_param_impact_grid(data: dict, output_path: str):
     """
-    Generuje osobne wykresy dla każdego parametru i metryki.
-    Zamiast jednego grida 2x3 - tworzy 6 osobnych plików.
+    Główny wykres: grid 2x3 pokazujący wpływ każdego parametru.
+    Górny rząd: wpływ na ROUGE i Semantic
+    Dolny rząd: wpływ na latencję i liczbę chunków
     """
+    fig, axes = plt.subplots(2, 3, figsize=(15, 10))
+    fig.suptitle('Wpływ parametrów na jakość systemu RAG', fontsize=16, fontweight='bold', y=1.02)
+    
     experiments = [
         ('chunk_size', 'chunk_size', 'Rozmiar chunka (znaki)', [300, 500, 800, 1200, 1500]),
         ('k_values', 'k', 'Liczba dokumentów (k)', [1, 3, 5, 7, 10]),
         ('overlap', 'chunk_overlap', 'Overlap (znaki)', [0, 50, 100, 200, 300])
     ]
     
-    output_dir = Path(output_dir)
-    
-    for exp_name, param_key, xlabel, expected_values in experiments:
+    for col, (exp_name, param_key, xlabel, expected_values) in enumerate(experiments):
         results = data[exp_name]['results']
         params = extract_param_values(results, param_key)
         metrics = extract_metrics(results)
         
-        # ============ WYKRES 1: Metryki jakości (ROUGE + Semantic) ============
-        fig, ax = plt.subplots(figsize=(8, 6))
+        # Górny rząd: ROUGE i Semantic
+        ax_top = axes[0, col]
         
-        line1, = ax.plot(params, metrics['rouge'], 
-                        marker='o', linewidth=2.5, markersize=8,
-                        color=COLOR_ROUGE, label='ROUGE-1 F1')
-        line2, = ax.plot(params, metrics['semantic'], 
-                        marker='s', linewidth=2.5, markersize=8,
-                        color=COLOR_SEMANTIC, label='Semantic Similarity')
+        line1, = ax_top.plot(params, metrics['rouge'], 
+                            marker='o', linewidth=2.5, markersize=8,
+                            color=COLOR_ROUGE, label='ROUGE-1 F1')
+        line2, = ax_top.plot(params, metrics['semantic'], 
+                            marker='s', linewidth=2.5, markersize=8,
+                            color=COLOR_SEMANTIC, label='Semantic Similarity')
         
         # Zaznacz najlepszy punkt
         best_rouge_idx = np.argmax(metrics['rouge'])
-        ax.scatter([params[best_rouge_idx]], [metrics['rouge'][best_rouge_idx]], 
-                  s=200, facecolors='none', edgecolors=COLOR_ROUGE, linewidths=3, zorder=5)
+        ax_top.scatter([params[best_rouge_idx]], [metrics['rouge'][best_rouge_idx]], 
+                      s=200, facecolors='none', edgecolors=COLOR_ROUGE, linewidths=3, zorder=5)
         
         best_semantic_idx = np.argmax(metrics['semantic'])
-        ax.scatter([params[best_semantic_idx]], [metrics['semantic'][best_semantic_idx]], 
-                  s=200, facecolors='none', edgecolors=COLOR_SEMANTIC, linewidths=3, zorder=5)
+        ax_top.scatter([params[best_semantic_idx]], [metrics['semantic'][best_semantic_idx]], 
+                      s=200, facecolors='none', edgecolors=COLOR_SEMANTIC, linewidths=3, zorder=5)
         
-        ax.set_xlabel(xlabel, fontweight='bold')
-        ax.set_ylabel('Wynik (0-1)', fontweight='bold')
-        ax.set_title(f'Wpływ parametru: {exp_name.replace("_", " ").title()}', fontweight='bold')
-        ax.legend(loc='best')
-        ax.set_ylim(0, 1.0)
-        ax.set_xticks(params)
+        ax_top.set_xlabel(xlabel, fontweight='bold')
+        ax_top.set_ylabel('Wynik (0-1)', fontweight='bold')
+        ax_top.set_title(f'Wpływ: {exp_name.replace("_", " ").title()}', fontweight='bold')
+        ax_top.legend(loc='best')
+        ax_top.set_ylim(0, 1.0)
+        ax_top.set_xticks(params)
         
-        # Wartości na punktach
+        # Wartości na punktach (tylko dla ROUGE)
         for i, (p, r) in enumerate(zip(params, metrics['rouge'])):
-            ax.annotate(f'{r:.3f}', (p, r), textcoords="offset points", 
-                       xytext=(0, 10), ha='center', fontsize=8, color=COLOR_ROUGE)
+            ax_top.annotate(f'{r:.3f}', (p, r), textcoords="offset points", 
+                           xytext=(0, 10), ha='center', fontsize=8, color=COLOR_ROUGE)
         
-        plt.tight_layout()
-        filepath = output_dir / f"{exp_name}_quality.png"
-        plt.savefig(filepath, dpi=300, bbox_inches='tight', facecolor='white')
-        print(f"   ✅ Zapisano: {filepath}")
-        plt.close()
+        # Dolny rząd: Latencja i Chunks (dla chunk_size) lub tylko Latencja
+        ax_bot = axes[1, col]
         
-        # ============ WYKRES 2: Koszty (Latencja + opcjonalnie Chunks) ============
-        fig, ax = plt.subplots(figsize=(8, 6))
-        
-        line3, = ax.plot(params, metrics['latency'], 
-                        marker='^', linewidth=2.5, markersize=8,
-                        color=COLOR_LATENCY, label='Latencja (s)')
-        ax.set_ylabel('Latencja (s)', color=COLOR_LATENCY, fontweight='bold')
-        ax.tick_params(axis='y', labelcolor=COLOR_LATENCY)
+        line3, = ax_bot.plot(params, metrics['latency'], 
+                            marker='^', linewidth=2.5, markersize=8,
+                            color=COLOR_LATENCY, label='Latencja (s)')
+        ax_bot.set_ylabel('Latencja (s)', color=COLOR_LATENCY, fontweight='bold')
+        ax_bot.tick_params(axis='y', labelcolor=COLOR_LATENCY)
         
         # Dla chunk_size dodaj drugą oś z liczbą chunków
         if exp_name == 'chunk_size':
-            ax2 = ax.twinx()
-            line4, = ax2.plot(params, metrics['chunks'], 
-                             marker='D', linewidth=2.5, markersize=8,
-                             color=COLOR_CHUNKS, linestyle='--', label='Liczba chunków')
-            ax2.set_ylabel('Liczba chunków', color=COLOR_CHUNKS, fontweight='bold')
-            ax2.tick_params(axis='y', labelcolor=COLOR_CHUNKS)
+            ax_bot2 = ax_bot.twinx()
+            line4, = ax_bot2.plot(params, metrics['chunks'], 
+                                 marker='D', linewidth=2.5, markersize=8,
+                                 color=COLOR_CHUNKS, linestyle='--', label='Liczba chunków')
+            ax_bot2.set_ylabel('Liczba chunków', color=COLOR_CHUNKS, fontweight='bold')
+            ax_bot2.tick_params(axis='y', labelcolor=COLOR_CHUNKS)
             
+            # Połączona legenda
             lines = [line3, line4]
             labels = [l.get_label() for l in lines]
-            ax.legend(lines, labels, loc='best')
+            ax_bot.legend(lines, labels, loc='best')
         else:
-            ax.legend(loc='best')
+            ax_bot.legend(loc='best')
         
-        ax.set_xlabel(xlabel, fontweight='bold')
-        ax.set_title(f'Koszty: {exp_name.replace("_", " ").title()}', fontweight='bold')
-        ax.set_xticks(params)
-        
-        plt.tight_layout()
-        filepath = output_dir / f"{exp_name}_cost.png"
-        plt.savefig(filepath, dpi=300, bbox_inches='tight', facecolor='white')
-        print(f"   ✅ Zapisano: {filepath}")
-        plt.close()
+        ax_bot.set_xlabel(xlabel, fontweight='bold')
+        ax_bot.set_title(f'Koszty: {exp_name.replace("_", " ").title()}', fontweight='bold')
+        ax_bot.set_xticks(params)
+    
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
+    print(f"   ✅ Zapisano: {output_path}")
+    plt.close()
 
 
 # ============================================================================
@@ -228,8 +224,8 @@ def plot_single_param_analysis(data: dict, exp_name: str, param_key: str,
     
     # Scatter z kolorami według parametru
     scatter = ax2.scatter(metrics['latency'], metrics['rouge'], 
-                         c=params, cmap='viridis', s=200, alpha=0.8, 
-                         edgecolors='black', linewidths=1)
+                          c=params, cmap='viridis', s=200, alpha=0.8, 
+                          edgecolors='black', linewidths=1)
     
     # Etykiety punktów
     for i, name in enumerate(metrics['names']):
@@ -293,8 +289,8 @@ def plot_quality_vs_latency(data: dict, output_path: str):
         # Etykiety
         for i, name in enumerate(metrics['names']):
             ax.annotate(name, (metrics['latency'][i], metrics['rouge'][i]),
-                       textcoords="offset points", xytext=(5, 5), ha='left',
-                       fontsize=8, alpha=0.8)
+                        textcoords="offset points", xytext=(5, 5), ha='left',
+                        fontsize=8, alpha=0.8)
     
     # Zaznacz optymalny punkt (najwyższy ROUGE)
     best_idx = np.argmax(all_rouge)
@@ -376,9 +372,9 @@ def plot_best_configs_comparison(data: dict, output_path: str):
     semantic_vals = [c['semantic'] for c in best_configs]
     
     bars1 = ax1.bar(x - width/2, rouge_vals, width, label='ROUGE-1 F1', 
-                   color=COLOR_ROUGE, alpha=0.8)
+                    color=COLOR_ROUGE, alpha=0.8)
     bars2 = ax1.bar(x + width/2, semantic_vals, width, label='Semantic Similarity', 
-                   color=COLOR_SEMANTIC, alpha=0.8)
+                    color=COLOR_SEMANTIC, alpha=0.8)
     
     # Wartości na słupkach
     for bar, val in zip(bars1, rouge_vals):
@@ -574,7 +570,7 @@ def main():
     print(f"\n📊 Generuję wykresy...\n")
     
     # 1. Grid 2x3
-    plot_param_impact_grid(data, output_dir)
+    plot_param_impact_grid(data, output_dir / "param_impact_grid.png")
     
     # 2-4. Szczegółowe analizy
     plot_single_param_analysis(
@@ -613,13 +609,13 @@ def main():
     print(f"\nPliki w katalogu: {output_dir}")
     print("""
 Sugerowana kolejność w pracy:
-   1. param_impact_grid.png      → Rozdział "Eksperymenty" (przegląd)
-   2. chunk_size_analysis.png    → Sekcja "Wpływ rozmiaru chunka"
-   3. k_analysis.png             → Sekcja "Wpływ liczby dokumentów"
-   4. overlap_analysis.png       → Sekcja "Wpływ overlap"
-   5. quality_vs_latency.png     → Sekcja "Trade-off jakość vs wydajność"
+   1. param_impact_grid.png       → Rozdział "Eksperymenty" (przegląd)
+   2. chunk_size_analysis.png     → Sekcja "Wpływ rozmiaru chunka"
+   3. k_analysis.png              → Sekcja "Wpływ liczby dokumentów"
+   4. overlap_analysis.png        → Sekcja "Wpływ overlap"
+   5. quality_vs_latency.png      → Sekcja "Trade-off jakość vs wydajność"
    6. best_configs_comparison.png → Sekcja "Optymalna konfiguracja"
-   7. summary_tables.txt         → Tabele do wklejenia (tekst + LaTeX)
+   7. summary_tables.txt          → Tabele do wklejenia (tekst + LaTeX)
     """)
 
 
