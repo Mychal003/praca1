@@ -1,0 +1,95 @@
+[
+  {
+    "type": "LOW_ROUGE_HIGH_LLM",
+    "question": "What is the default web address to access the router interface?",
+    "expected": "http://tplinkmodem.net",
+    "generated": "The default web address to access the router interface is http://tplinkmodem.net.",
+    "rouge": 0.0,
+    "llm_overall": 1.0,
+    "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
+  },
+  {
+    "type": "LOW_ROUGE_HIGH_LLM",
+    "question": "What are the default login credentials for the router?",
+    "expected": "You are required to set the admin account at first login.",
+    "generated": "The default login credentials for the router are not explicitly provided in the context.",
+    "rouge": 0.16,
+    "llm_overall": 0.9,
+    "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
+  },
+  {
+    "type": "LOW_GROUNDEDNESS",
+    "question": "What are the default login credentials for the router?",
+    "generated": "The default login credentials for the router are not explicitly provided in the context.",
+    "groundedness": 0.0,
+    "interpretation": "System dodał informacje spoza kontekstu"
+  },
+  {
+    "type": "LOW_ROUGE_HIGH_LLM",
+    "question": "What is the WPS button used for on the Archer D7?",
+    "expected": "The switch for the WPS function.",
+    "generated": "The WPS button on the Archer D7 is used to quickly add a new wireless device to the existing network by initiating the Wi-Fi Protected Setup process.",
+    "rouge": 0.1818181818181818,
+    "llm_overall": 0.95,
+    "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
+  },
+  {
+    "type": "LOW_ROUGE_HIGH_LLM",
+    "question": "How do you turn on or off the WiFi function on the router?",
+    "expected": "WiFi ON/OFF  \nFor turning on/off the Wi-Fi function.",
+    "generated": "1. Locate the WiFi ON/OFF switch on the modem router.  \n2. Press the switch to toggle the WiFi function on or off.",
+    "rouge": 0.19999999999999998,
+    "llm_overall": 0.9,
+    "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
+  },
+  {
+    "type": "LOW_GROUNDEDNESS",
+    "question": "How do you set up parental controls on the router?",
+    "generated": "1. Visit http://tplinkmodem.net and log in with the password you set for the router.\n2. Go to Basic or Advanced > Parental Controls and enable Parental Control.\n3. Click Add to create a new parental control rule.\n4. Click View Existing Devices and select the device to be controlled, or enter the Device Name and MAC Address manually.\n5. Click the icon to set the Internet Access Time by dragging the cursor over the appropriate cells and click OK.\n6. Enter a Description for the entry, select the checkbox to enable this entry, and click OK.\n7. Select the restriction mode (Whitelist mode for allowing only specified websites during the Internet Access Time).\n8. Click Add a New Keyword and enter web addresses (e.g., www.tp-link.com, wikipedia) to allow access during the specified time.",
+    "groundedness": 0.5,
+    "interpretation": "System dodał informacje spoza kontekstu"
+  },
+  {
+    "type": "LOW_ROUGE_HIGH_LLM",
+    "question": "What does it mean if the ADSL LED is not lit on the router?",
+    "expected": "If the ADSL LED is off, please check your Internet connection first. Refer to Connect Your Modem Router for more information about how to make Internet connection correctly. If you have already made a right connection, please contact your ISP to make sure your Internet service is available now.",
+    "generated": "If the ADSL LED is not lit on the router, it indicates that ADSL synchronization has failed. \n\nSolutions:\n1. Check your Internet connection by ensuring all connectors, including the telephone line, Ethernet cables, and power adapter, are connected properly.\n2. Refer to the \"Connect Your Modem Router\" section for detailed instructions on making the correct Internet connection.\n3. Contact your ISP to confirm that your Internet service is currently available.",
+    "rouge": 0.3865546218487395,
+    "llm_overall": 0.9,
+    "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
+  },
+  {
+    "type": "LOW_ROUGE_HIGH_LLM",
+    "question": "What are the possible causes if wireless devices cannot connect to the network?",
+    "expected": "1.\tAuthenticating problem, password mismatch. 1 ) Sometimes it will ask you to type in a PIN number when you connect to the wireless network for the first time. This PIN number is different from the Wireless Password/Network Security Key, usually you can only find it on the back of your wireless router/modem; 2 ) If you cannot find the PIN or PIN failed, you may choose “Connecting using a security key instead”, and then type in the Network Security Key/Wireless Password; 3 ) If it continues on saying network security key mismatch, it is suggested to confirm the wireless password on your wireless router/modem; Note: Wireless password/Network Security Key is case sensitive. 4 ) Connect to wireless network.",
+    "generated": "The problem indicates that there may be issues with wireless configuration, signal strength, or authentication settings. \n\n1. Ensure the wireless function is enabled on your device, especially if using a laptop with a built-in wireless adapter.\n2. Check the wireless signal strength; if weak, move the router closer to the device.\n3. Confirm that the wireless adapter driver is installed and updated, and the adapter is enabled.\n4. Verify the wireless password on your router/modem to ensure there is no mismatch, as it is case sensitive.",
+    "rouge": 0.36097560975609755,
+    "llm_overall": 0.85,
+    "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
+  },
+  {
+    "type": "LOW_GROUNDEDNESS",
+    "question": "What are the possible causes if wireless devices cannot connect to the network?",
+    "generated": "The problem indicates that there may be issues with wireless configuration, signal strength, or authentication settings. \n\n1. Ensure the wireless function is enabled on your device, especially if using a laptop with a built-in wireless adapter.\n2. Check the wireless signal strength; if weak, move the router closer to the device.\n3. Confirm that the wireless adapter driver is installed and updated, and the adapter is enabled.\n4. Verify the wireless password on your router/modem to ensure there is no mismatch, as it is case sensitive.",
+    "groundedness": 0.5,
+    "interpretation": "System dodał informacje spoza kontekstu"
+  },
+  {
+    "type": "LOW_ROUGE_HIGH_LLM",
+    "question": "Why might bandwidth control not work as expected?",
+    "expected": "To use the bandwidth control feature, you’d better set static IP Address on each computer to be controlled or configure Address reservation on the modem router in order to manage easily.",
+    "generated": "The problem indicates that the Bandwidth Control feature may not be properly configured or enabled, leading to unexpected performance issues.\n\n1. Ensure that Bandwidth Control is enabled by visiting http://tplinkmodem.net, logging in, and navigating to Advanced > Bandwidth Control to activate the feature.\n2. Verify that the correct line type (DSL) is selected and that the Total Upstream and Downstream Bandwidth values are accurately entered as provided by your ISP.\n3. Check that static IP addresses are set for each computer or that address reservation is configured on the modem router to manage bandwidth allocation effectively.\n4. Confirm that controlling rules are correctly added for each computer, specifying the IP range, and that the upstream and downstream bandwidth values are entered according to your division.",
+    "rouge": 0.2564102564102564,
+    "llm_overall": 0.85,
+    "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
+  },
+  {
+    "type": "LOW_ROUGE_HIGH_LLM",
+    "question": "How can you remotely access USB storage connected to the router?",
+    "expected": "You can access your USB disk outside the local area network. For example: Share photos and other large files with your friends without logging in to (and paying for) a photo-sharing site or email system. Get a safe backup for the materials for a presentation. Remove the files on your camera’s memory card from time to time during the journey. Note: If your ISP assigns a private WAN IP address (such as 192.168.x.x or 10.x.x.x), you cannot use this feature because private addresses are not routed on the Internet. Now different clients with Internet connection can access the USB disk: Computer • To download, open a web browser and type the server address ftp://<WAN IP address of the modem router>:<port number> (such as ftp:// 59.40.2.243:21) or ftp://<domain name of the modem router>:<port number> (such as ftp:// MyDomainName:21) in the address bar, then press Enter on the keyboard. • To upload, use a third-party app for network files management. Pad • Use a third-party app for network files management.",
+    "generated": "1. Insert your USB storage device into the modem router’s USB port and wait for the USB LED to become solid on.\n2. Visit http://tplinkmodem.net and log in with the password you set for the modem router.\n3. Select Advanced > USB Settings > Sharing Access.\n4. Ensure that remote access is enabled by checking the settings under the Remote Access section.\n5. Use an FTP client or web browser to access the USB storage by entering ftp://<domain name of the modem router>:<port number> in the address bar.",
+    "rouge": 0.28125,
+    "llm_overall": 0.85,
+    "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
+  }
+]

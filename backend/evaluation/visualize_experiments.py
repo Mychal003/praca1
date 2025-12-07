@@ -78,90 +78,97 @@ def extract_metrics(results: list) -> dict:
 # WYKRES 1: GRID 2x3 - WPŁYW PARAMETRÓW
 # ============================================================================
 
-def plot_param_impact_grid(data: dict, output_path: str):
+def plot_param_impact_grid(data: dict, output_dir: str):
     """
-    Główny wykres: grid 2x3 pokazujący wpływ każdego parametru.
-    Górny rząd: wpływ na ROUGE i Semantic
-    Dolny rząd: wpływ na latencję i liczbę chunków
+    Generuje osobne wykresy dla każdego parametru i metryki.
+    Zamiast jednego grida 2x3 - tworzy 6 osobnych plików.
     """
-    fig, axes = plt.subplots(2, 3, figsize=(15, 10))
-    fig.suptitle('Wpływ parametrów na jakość systemu RAG', fontsize=16, fontweight='bold', y=1.02)
-    
     experiments = [
         ('chunk_size', 'chunk_size', 'Rozmiar chunka (znaki)', [300, 500, 800, 1200, 1500]),
         ('k_values', 'k', 'Liczba dokumentów (k)', [1, 3, 5, 7, 10]),
         ('overlap', 'chunk_overlap', 'Overlap (znaki)', [0, 50, 100, 200, 300])
     ]
     
-    for col, (exp_name, param_key, xlabel, expected_values) in enumerate(experiments):
+    output_dir = Path(output_dir)
+    
+    for exp_name, param_key, xlabel, expected_values in experiments:
         results = data[exp_name]['results']
         params = extract_param_values(results, param_key)
         metrics = extract_metrics(results)
         
-        # Górny rząd: ROUGE i Semantic
-        ax_top = axes[0, col]
+        # ============ WYKRES 1: Metryki jakości (ROUGE + Semantic) ============
+        fig, ax = plt.subplots(figsize=(8, 6))
         
-        line1, = ax_top.plot(params, metrics['rouge'], 
-                            marker='o', linewidth=2.5, markersize=8,
-                            color=COLOR_ROUGE, label='ROUGE-1 F1')
-        line2, = ax_top.plot(params, metrics['semantic'], 
-                            marker='s', linewidth=2.5, markersize=8,
-                            color=COLOR_SEMANTIC, label='Semantic Similarity')
+        line1, = ax.plot(params, metrics['rouge'], 
+                        marker='o', linewidth=2.5, markersize=8,
+                        color=COLOR_ROUGE, label='ROUGE-1 F1')
+        line2, = ax.plot(params, metrics['semantic'], 
+                        marker='s', linewidth=2.5, markersize=8,
+                        color=COLOR_SEMANTIC, label='Semantic Similarity')
         
         # Zaznacz najlepszy punkt
         best_rouge_idx = np.argmax(metrics['rouge'])
-        ax_top.scatter([params[best_rouge_idx]], [metrics['rouge'][best_rouge_idx]], 
-                      s=200, facecolors='none', edgecolors=COLOR_ROUGE, linewidths=3, zorder=5)
+        ax.scatter([params[best_rouge_idx]], [metrics['rouge'][best_rouge_idx]], 
+                  s=200, facecolors='none', edgecolors=COLOR_ROUGE, linewidths=3, zorder=5)
         
         best_semantic_idx = np.argmax(metrics['semantic'])
-        ax_top.scatter([params[best_semantic_idx]], [metrics['semantic'][best_semantic_idx]], 
-                      s=200, facecolors='none', edgecolors=COLOR_SEMANTIC, linewidths=3, zorder=5)
+        ax.scatter([params[best_semantic_idx]], [metrics['semantic'][best_semantic_idx]], 
+                  s=200, facecolors='none', edgecolors=COLOR_SEMANTIC, linewidths=3, zorder=5)
         
-        ax_top.set_xlabel(xlabel, fontweight='bold')
-        ax_top.set_ylabel('Wynik (0-1)', fontweight='bold')
-        ax_top.set_title(f'Wpływ: {exp_name.replace("_", " ").title()}', fontweight='bold')
-        ax_top.legend(loc='best')
-        ax_top.set_ylim(0, 1.0)
-        ax_top.set_xticks(params)
+        ax.set_xlabel(xlabel, fontweight='bold')
+        ax.set_ylabel('Wynik (0-1)', fontweight='bold')
+        ax.set_title(f'Wpływ parametru: {exp_name.replace("_", " ").title()}', fontweight='bold')
+        ax.legend(loc='best')
+        ax.set_ylim(0, 1.0)
+        ax.set_xticks(params)
         
-        # Wartości na punktach (tylko dla ROUGE)
+        # Wartości na punktach
         for i, (p, r) in enumerate(zip(params, metrics['rouge'])):
-            ax_top.annotate(f'{r:.3f}', (p, r), textcoords="offset points", 
-                           xytext=(0, 10), ha='center', fontsize=8, color=COLOR_ROUGE)
+            ax.annotate(f'{r:.3f}', (p, r), textcoords="offset points", 
+                       xytext=(0, 10), ha='center', fontsize=8, color=COLOR_ROUGE)
+        for i, (p, s) in enumerate(zip(params, metrics['semantic'])):
+            ax.annotate(f'{s:.3f}', (p, s), textcoords="offset points", 
+                       xytext=(0, -15), ha='center', fontsize=8, color=COLOR_SEMANTIC)
         
-        # Dolny rząd: Latencja i Chunks (dla chunk_size) lub tylko Latencja
-        ax_bot = axes[1, col]
+        plt.tight_layout()
+        filepath = output_dir / f"{exp_name}_quality.png"
+        plt.savefig(filepath, dpi=300, bbox_inches='tight', facecolor='white')
+        print(f"   ✅ Zapisano: {filepath}")
+        plt.close()
         
-        line3, = ax_bot.plot(params, metrics['latency'], 
-                            marker='^', linewidth=2.5, markersize=8,
-                            color=COLOR_LATENCY, label='Latencja (s)')
-        ax_bot.set_ylabel('Latencja (s)', color=COLOR_LATENCY, fontweight='bold')
-        ax_bot.tick_params(axis='y', labelcolor=COLOR_LATENCY)
+        # ============ WYKRES 2: Koszty (Latencja + opcjonalnie Chunks) ============
+        fig, ax = plt.subplots(figsize=(8, 6))
+        
+        line3, = ax.plot(params, metrics['latency'], 
+                        marker='^', linewidth=2.5, markersize=8,
+                        color=COLOR_LATENCY, label='Latencja (s)')
+        ax.set_ylabel('Latencja (s)', color=COLOR_LATENCY, fontweight='bold')
+        ax.tick_params(axis='y', labelcolor=COLOR_LATENCY)
         
         # Dla chunk_size dodaj drugą oś z liczbą chunków
         if exp_name == 'chunk_size':
-            ax_bot2 = ax_bot.twinx()
-            line4, = ax_bot2.plot(params, metrics['chunks'], 
-                                 marker='D', linewidth=2.5, markersize=8,
-                                 color=COLOR_CHUNKS, linestyle='--', label='Liczba chunków')
-            ax_bot2.set_ylabel('Liczba chunków', color=COLOR_CHUNKS, fontweight='bold')
-            ax_bot2.tick_params(axis='y', labelcolor=COLOR_CHUNKS)
+            ax2 = ax.twinx()
+            line4, = ax2.plot(params, metrics['chunks'], 
+                             marker='D', linewidth=2.5, markersize=8,
+                             color=COLOR_CHUNKS, linestyle='--', label='Liczba chunków')
+            ax2.set_ylabel('Liczba chunków', color=COLOR_CHUNKS, fontweight='bold')
+            ax2.tick_params(axis='y', labelcolor=COLOR_CHUNKS)
             
-            # Połączona legenda
             lines = [line3, line4]
             labels = [l.get_label() for l in lines]
-            ax_bot.legend(lines, labels, loc='best')
+            ax.legend(lines, labels, loc='best')
         else:
-            ax_bot.legend(loc='best')
+            ax.legend(loc='best')
         
-        ax_bot.set_xlabel(xlabel, fontweight='bold')
-        ax_bot.set_title(f'Koszty: {exp_name.replace("_", " ").title()}', fontweight='bold')
-        ax_bot.set_xticks(params)
-    
-    plt.tight_layout()
-    plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
-    print(f"   ✅ Zapisano: {output_path}")
-    plt.close()
+        ax.set_xlabel(xlabel, fontweight='bold')
+        ax.set_title(f'Koszty: {exp_name.replace("_", " ").title()}', fontweight='bold')
+        ax.set_xticks(params)
+        
+        plt.tight_layout()
+        filepath = output_dir / f"{exp_name}_cost.png"
+        plt.savefig(filepath, dpi=300, bbox_inches='tight', facecolor='white')
+        print(f"   ✅ Zapisano: {filepath}")
+        plt.close()
 
 
 # ============================================================================
@@ -570,7 +577,7 @@ def main():
     print(f"\n📊 Generuję wykresy...\n")
     
     # 1. Grid 2x3
-    plot_param_impact_grid(data, output_dir / "param_impact_grid.png")
+    plot_param_impact_grid(data, output_dir)
     
     # 2-4. Szczegółowe analizy
     plot_single_param_analysis(

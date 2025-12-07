@@ -1,168 +1,331 @@
+#!/usr/bin/env python3
 """
-Wizualizacja retrieval metrics dla pracy inżynierskiej.
-"""
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import json
-import numpy as np
-import sys
+Skrypt do wizualizacji wyników ewaluacji RETRIEVAL
+Generuje wykresy do pracy inżynierskiej
 
-def create_retrieval_charts(results_file: str):
-    """
-    Tworzy kompleksowe wykresy retrieval metrics.
-    """
-    with open(results_file, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+Użycie:
+    python visualize_retrieval.py retrieval_results_20251204_191151.json
+"""
+
+import json
+import sys
+from pathlib import Path
+
+import matplotlib
+matplotlib.use('Agg')  # Backend bez GUI
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Konfiguracja stylu
+plt.style.use('seaborn-v0_8-whitegrid')
+plt.rcParams['figure.dpi'] = 150
+plt.rcParams['savefig.dpi'] = 150
+plt.rcParams['font.size'] = 11
+plt.rcParams['axes.titlesize'] = 13
+plt.rcParams['axes.labelsize'] = 11
+
+# Kolory
+COLORS = {
+    'precision': '#2E86AB',
+    'recall': '#F18F01',
+    'f1': '#C73E1D',
+    'ndcg': '#A23B72',
+    'mrr': '#28A745'
+}
+
+
+def load_data(filepath):
+    """Wczytuje dane z pliku JSON"""
+    with open(filepath, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+
+def extract_metrics(summary, k_values=[1, 3, 5, 10]):
+    """Wyciąga metryki z summary"""
+    metrics = {
+        'precision': [],
+        'recall': [],
+        'f1': [],
+        'ndcg': []
+    }
     
-    summary = data['summary']
-    base_output = results_file.replace('.json', '')
+    for k in k_values:
+        metrics['precision'].append(summary.get(f'avg_precision@{k}', 0))
+        metrics['recall'].append(summary.get(f'avg_recall@{k}', 0))
+        metrics['f1'].append(summary.get(f'avg_f1@{k}', 0))
+        metrics['ndcg'].append(summary.get(f'avg_ndcg@{k}', 0))
     
-    # =========================================================================
-    # WYKRES 1: Precision@k vs Recall@k
-    # =========================================================================
-    fig1, ax1 = plt.subplots(figsize=(8, 6))
+    metrics['mrr'] = summary.get('avg_mrr', 0)
+    metrics['ap'] = summary.get('avg_ap', 0)
     
-    k_values = [1, 3, 5, 10]
-    precision_values = [summary[f'avg_precision@{k}'] for k in k_values]
-    recall_values = [summary[f'avg_recall@{k}'] for k in k_values]
+    return metrics
+
+
+def plot_precision_recall(metrics, k_values, output_dir):
+    """Wykres 1: Precision i Recall dla różnych k"""
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
     
     x = np.arange(len(k_values))
     width = 0.35
     
-    bars1 = ax1.bar(x - width/2, precision_values, width, label='Precision@k', color='#667eea', alpha=0.8)
-    bars2 = ax1.bar(x + width/2, recall_values, width, label='Recall@k', color='#f093fb', alpha=0.8)
-    
-    ax1.set_xlabel('k (Top-k documents)', fontsize=12, fontweight='bold')
-    ax1.set_ylabel('Score', fontsize=12, fontweight='bold')
-    ax1.set_title('Precision vs Recall at Different k', fontsize=14, fontweight='bold')
-    ax1.set_xticks(x)
-    ax1.set_xticklabels([f'k={k}' for k in k_values])
-    ax1.legend()
-    ax1.set_ylim(0, 1.0)
-    ax1.grid(axis='y', alpha=0.3)
+    bars1 = ax.bar(x - width/2, metrics['precision'], width, 
+                   label='Precision@k', color=COLORS['precision'], edgecolor='white')
+    bars2 = ax.bar(x + width/2, metrics['recall'], width,
+                   label='Recall@k', color=COLORS['recall'], edgecolor='white')
     
     # Dodaj wartości na słupkach
-    for bars in [bars1, bars2]:
-        for bar in bars:
-            height = bar.get_height()
-            ax1.text(bar.get_x() + bar.get_width()/2., height + 0.02,
-                    f'{height:.3f}', ha='center', va='bottom', fontsize=9)
+    for bar, val in zip(bars1, metrics['precision']):
+        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.02,
+                f'{val:.3f}', ha='center', va='bottom', fontsize=10)
+    for bar, val in zip(bars2, metrics['recall']):
+        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.02,
+                f'{val:.3f}', ha='center', va='bottom', fontsize=10)
+    
+    ax.set_xlabel('Liczba pobieranych fragmentów (k)')
+    ax.set_ylabel('Wartość metryki')
+    ax.set_title('Porównanie Precision i Recall dla różnych wartości k')
+    ax.set_xticks(x)
+    ax.set_xticklabels([f'k={k}' for k in k_values])
+    ax.legend(loc='upper right')
+    ax.set_ylim(0, 1.1)
+    
+    
     
     plt.tight_layout()
-    output_file1 = f"{base_output}_precision_recall.png"
-    plt.savefig(output_file1, dpi=300, bbox_inches='tight')
-    print(f"   ✅ Zapisano: {output_file1}")
+    plt.savefig(output_dir / 'retrieval_precision_recall.png', bbox_inches='tight')
     plt.close()
-    
-    # =========================================================================
-    # WYKRES 2: Wszystkie metryki retrieval
-    # =========================================================================
-    fig2, ax2 = plt.subplots(figsize=(8, 6))
-    
-    metrics = ['precision@5', 'recall@5', 'f1@5', 'mrr', 'ndcg@5']
-    metric_labels = ['P@5', 'R@5', 'F1@5', 'MRR', 'NDCG@5']
-    values = [summary[f'avg_{m}'] for m in metrics]
-    
-    colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8']
-    bars = ax2.bar(range(len(metrics)), values, color=colors, alpha=0.8)
-    
-    ax2.set_xticks(range(len(metrics)))
-    ax2.set_xticklabels(metric_labels, rotation=45, ha='right')
-    ax2.set_ylabel('Score', fontsize=12, fontweight='bold')
-    ax2.set_title('Retrieval Performance Metrics', fontsize=14, fontweight='bold')
-    ax2.set_ylim(0, 1.0)
-    ax2.grid(axis='y', alpha=0.3)
-    
-    # Dodaj wartości
-    for bar, value in zip(bars, values):
-        ax2.text(bar.get_x() + bar.get_width()/2, value + 0.02,
-                f'{value:.3f}', ha='center', fontsize=9, fontweight='bold')
-    
-    plt.tight_layout()
-    output_file2 = f"{base_output}_retrieval_metrics.png"
-    plt.savefig(output_file2, dpi=300, bbox_inches='tight')
-    print(f"   ✅ Zapisano: {output_file2}")
-    plt.close()
-    
-    # =========================================================================
-    # WYKRES 3: NDCG@k dla różnych k
-    # =========================================================================
-    fig3, ax3 = plt.subplots(figsize=(8, 6))
-    
-    ndcg_values = [summary[f'avg_ndcg@{k}'] for k in k_values]
-    
-    ax3.plot(k_values, ndcg_values, marker='o', linewidth=2, markersize=10, 
-             color='#667eea', label='NDCG@k')
-    ax3.fill_between(k_values, ndcg_values, alpha=0.3, color='#667eea')
-    
-    ax3.set_xlabel('k (Top-k documents)', fontsize=12, fontweight='bold')
-    ax3.set_ylabel('NDCG Score', fontsize=12, fontweight='bold')
-    ax3.set_title('NDCG@k: Ranking Quality', fontsize=14, fontweight='bold')
-    ax3.set_xticks(k_values)
-    ax3.set_xticklabels([f'k={k}' for k in k_values])
-    ax3.set_ylim(0, 1.0)
-    ax3.grid(alpha=0.3)
-    ax3.legend()
-    
-    # Dodaj wartości
-    for k, ndcg in zip(k_values, ndcg_values):
-        ax3.annotate(f'{ndcg:.3f}', (k, ndcg), 
-                    textcoords="offset points", xytext=(0,8), 
-                    ha='center', fontsize=9, fontweight='bold')
-    
-    plt.tight_layout()
-    output_file3 = f"{base_output}_ndcg.png"
-    plt.savefig(output_file3, dpi=300, bbox_inches='tight')
-    print(f"   ✅ Zapisano: {output_file3}")
-    plt.close()
+    print(f"   ✅ Zapisano: retrieval_precision_recall.png")
 
-def create_comparison_table(results_file: str):
-    """
-    Tworzy tabelę LaTeX do pracy.
-    """
-    with open(results_file, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+
+def plot_retrieval_metrics_summary(metrics, k_values, output_dir):
+    """Wykres 2: Podsumowanie wszystkich metryk dla k=5"""
     
-    summary = data['summary']
+    # Znajdź indeks k=5
+    k5_idx = k_values.index(5) if 5 in k_values else 2
+    
+    metric_names = ['Precision@5', 'Recall@5', 'F1@5', 'NDCG@5', 'MRR']
+    values = [
+        metrics['precision'][k5_idx],
+        metrics['recall'][k5_idx],
+        metrics['f1'][k5_idx],
+        metrics['ndcg'][k5_idx],
+        metrics['mrr']
+    ]
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    colors = [COLORS['precision'], COLORS['recall'], COLORS['f1'], 
+              COLORS['ndcg'], COLORS['mrr']]
+    
+    bars = ax.bar(metric_names, values, color=colors, edgecolor='white', linewidth=1.5)
+    
+    # Dodaj wartości
+    for bar, val in zip(bars, values):
+        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.02,
+                f'{val:.3f}', ha='center', va='bottom', fontweight='bold', fontsize=12)
+    
+    ax.set_ylabel('Wartość metryki')
+    ax.set_title('Podsumowanie metryk wyszukiwania (k=5)')
+    ax.set_ylim(0, 1.15)
+    
+    # Linia odniesienia
+    ax.axhline(y=0.5, color='gray', linestyle='--', alpha=0.5, label='Próg 0.5')
+    
+    plt.tight_layout()
+    plt.savefig(output_dir / 'retrieval_metrics_summary.png', bbox_inches='tight')
+    plt.close()
+    print(f"   ✅ Zapisano: retrieval_metrics_summary.png")
+
+
+def plot_ndcg(metrics, k_values, output_dir):
+    """Wykres 3: NDCG dla różnych k"""
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    ax.plot(k_values, metrics['ndcg'], 'o-', color=COLORS['ndcg'], 
+            linewidth=2, markersize=10, label='NDCG@k')
+    
+    # Dodaj wartości
+    for k, val in zip(k_values, metrics['ndcg']):
+        ax.annotate(f'{val:.3f}', xy=(k, val), xytext=(0, 10),
+                    textcoords='offset points', ha='center', fontsize=10)
+    
+    ax.set_xlabel('Liczba pobieranych fragmentów (k)')
+    ax.set_ylabel('NDCG@k')
+    ax.set_title('Zmiana NDCG w zależności od liczby pobieranych fragmentów')
+    ax.set_xticks(k_values)
+    ax.set_ylim(0.6, 1.0)
+    ax.legend()
+    
+    # Adnotacja
+    ax.annotate('NDCG mierzy jakość rankingu\n(czy trafne fragmenty są wysoko)', 
+                xy=(0.98, 0.02), xycoords='axes fraction',
+                fontsize=9, ha='right', va='bottom',
+                bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+    
+    plt.tight_layout()
+    plt.savefig(output_dir / 'retrieval_ndcg.png', bbox_inches='tight')
+    plt.close()
+    print(f"   ✅ Zapisano: retrieval_ndcg.png")
+
+
+def plot_f1_scores(metrics, k_values, output_dir):
+    """Wykres 4: F1 Score dla różnych k"""
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    ax.plot(k_values, metrics['f1'], 's-', color=COLORS['f1'], 
+            linewidth=2, markersize=10, label='F1@k')
+    
+    # Znajdź najlepsze k
+    best_idx = np.argmax(metrics['f1'])
+    best_k = k_values[best_idx]
+    best_f1 = metrics['f1'][best_idx]
+    
+    # Zaznacz najlepszy punkt
+    ax.scatter([best_k], [best_f1], s=200, c='gold', marker='*', 
+               zorder=5, edgecolors='black', linewidths=1)
+    
+    # Dodaj wartości
+    for k, val in zip(k_values, metrics['f1']):
+        ax.annotate(f'{val:.3f}', xy=(k, val), xytext=(0, 10),
+                    textcoords='offset points', ha='center', fontsize=10)
+    
+    ax.set_xlabel('Liczba pobieranych fragmentów (k)')
+    ax.set_ylabel('F1@k')
+    ax.set_title('F1 Score dla różnych wartości k')
+    ax.set_xticks(k_values)
+    ax.set_ylim(0, 0.7)
+    ax.legend()
+    
+    ax.annotate(f'Najlepszy: k={best_k}\nF1={best_f1:.3f}', 
+                xy=(best_k, best_f1), xytext=(30, -20),
+                textcoords='offset points', fontsize=10,
+                arrowprops=dict(arrowstyle='->', color='gray'),
+                bbox=dict(boxstyle='round', facecolor='lightyellow'))
+    
+    plt.tight_layout()
+    plt.savefig(output_dir / 'retrieval_f1.png', bbox_inches='tight')
+    plt.close()
+    print(f"   ✅ Zapisano: retrieval_f1.png")
+
+
+def plot_all_metrics_lines(metrics, k_values, output_dir):
+    """Wykres 5: Wszystkie metryki na jednym wykresie liniowym"""
+    
+    fig, ax = plt.subplots(figsize=(12, 7))
+    
+    ax.plot(k_values, metrics['precision'], 'o-', color=COLORS['precision'], 
+            linewidth=2, markersize=8, label='Precision@k')
+    ax.plot(k_values, metrics['recall'], 's-', color=COLORS['recall'], 
+            linewidth=2, markersize=8, label='Recall@k')
+    ax.plot(k_values, metrics['f1'], '^-', color=COLORS['f1'], 
+            linewidth=2, markersize=8, label='F1@k')
+    ax.plot(k_values, metrics['ndcg'], 'D-', color=COLORS['ndcg'], 
+            linewidth=2, markersize=8, label='NDCG@k')
+    
+    # MRR jako linia pozioma
+    ax.axhline(y=metrics['mrr'], color=COLORS['mrr'], linestyle='--', 
+               linewidth=2, label=f"MRR = {metrics['mrr']:.3f}")
+    
+    ax.set_xlabel('Liczba pobieranych fragmentów (k)')
+    ax.set_ylabel('Wartość metryki')
+    ax.set_title('Porównanie wszystkich metryk retrieval')
+    ax.set_xticks(k_values)
+    ax.set_ylim(0, 1.05)
+    ax.legend(loc='center right')
+    ax.grid(True, alpha=0.3)
+    
+    plt.tight_layout()
+    plt.savefig(output_dir / 'retrieval_all_metrics.png', bbox_inches='tight')
+    plt.close()
+    print(f"   ✅ Zapisano: retrieval_all_metrics.png")
+
+
+def generate_latex_table(metrics, k_values):
+    """Generuje tabelę LaTeX"""
     
     print("\n" + "="*70)
-    print("📋 TABELA LATEX - Wyniki Ewaluacji")
+    print("📋 TABELA LATEX (skopiuj do pracy)")
     print("="*70 + "\n")
     
-    print(r"\begin{table}[h]")
-    print(r"\centering")
-    print(r"\caption{Wyniki ewaluacji systemu RAG}")
-    print(r"\label{tab:rag_evaluation}")
-    print(r"\begin{tabular}{|l|c|c|}")
+    print(r"""\begin{table}[H]
+\centering
+\caption{Wyniki ewaluacji wyszukiwania}
+\label{tab:retrieval_results}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Metryka} & \textbf{k=1} & \textbf{k=3} & \textbf{k=5} & \textbf{k=10} \\
+\hline""")
+    
+    # Precision
+    print(f"Precision@k & {metrics['precision'][0]:.3f} & {metrics['precision'][1]:.3f} & {metrics['precision'][2]:.3f} & {metrics['precision'][3]:.3f} \\\\")
+    
+    # Recall
+    print(f"Recall@k & {metrics['recall'][0]:.3f} & {metrics['recall'][1]:.3f} & {metrics['recall'][2]:.3f} & {metrics['recall'][3]:.3f} \\\\")
+    
+    # F1
+    print(f"F1@k & {metrics['f1'][0]:.3f} & {metrics['f1'][1]:.3f} & {metrics['f1'][2]:.3f} & {metrics['f1'][3]:.3f} \\\\")
+    
+    # NDCG
+    print(f"NDCG@k & {metrics['ndcg'][0]:.3f} & {metrics['ndcg'][1]:.3f} & {metrics['ndcg'][2]:.3f} & {metrics['ndcg'][3]:.3f} \\\\")
+    
     print(r"\hline")
-    print(r"\textbf{Kategoria} & \textbf{Metryka} & \textbf{Wynik} \\")
-    print(r"\hline")
-    print(r"\multirow{3}{*}{Generation} & ROUGE-1 F1 & " + f"{summary['avg_rouge1_f1']:.3f}" + r" \\")
-    print(r"                              & Semantic Similarity & " + f"{summary['avg_semantic_similarity']:.3f}" + r" \\")
-    print(r"                              & Latencja (s) & " + f"{summary['avg_latency']:.2f}" + r" \\")
-    print(r"\hline")
-    print(r"\multirow{5}{*}{Retrieval}   & Precision@5 & " + f"{summary['avg_precision@5']:.3f}" + r" \\")
-    print(r"                              & Recall@5 & " + f"{summary['avg_recall@5']:.3f}" + r" \\")
-    print(r"                              & F1@5 & " + f"{summary['avg_f1@5']:.3f}" + r" \\")
-    print(r"                              & MRR & " + f"{summary['avg_mrr']:.3f}" + r" \\")
-    print(r"                              & NDCG@5 & " + f"{summary['avg_ndcg@5']:.3f}" + r" \\")
-    print(r"\hline")
-    print(r"\end{tabular}")
-    print(r"\end{table}")
-    print("\n" + "="*70)
+    print(f"MRR & \\multicolumn{{4}}{{c|}}{{{metrics['mrr']:.3f}}} \\\\")
+    print(r"""\hline
+\end{tabular}
+\end{table}""")
+    
+    print("\n" + "="*70 + "\n")
 
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Użycie: python evaluation/visualize_retrieval.py <full_evaluation_results.json>")
-        sys.exit(1)
+
+def main():
+    # Ścieżki
+    if len(sys.argv) > 1:
+        input_file = Path(sys.argv[1])
+    else:
+        input_file = Path('retrieval_results_20251204_191151.json')
     
-    results_file = sys.argv[1]
+    output_dir = Path('../images/results')
+    output_dir.mkdir(parents=True, exist_ok=True)
     
-    print("📊 Tworzę wykresy retrieval metrics...")
-    create_retrieval_charts(results_file)
+    print(f"\n📂 Wczytuję: {input_file}")
+    data = load_data(input_file)
     
-    print("\n📋 Generuję tabelę LaTeX...")
-    create_comparison_table(results_file)
+    summary = data['summary']
+    k_values = data.get('config', {}).get('k_values', [1, 3, 5, 10])
     
-    print("\n✅ Gotowe!")
+    print(f"   ✅ Wczytano dane dla k={k_values}\n")
+    
+    # Wyciągnij metryki
+    metrics = extract_metrics(summary, k_values)
+    
+    print("📊 Generuję wykresy RETRIEVAL...\n")
+    
+    # Generuj wykresy
+    plot_precision_recall(metrics, k_values, output_dir)
+    plot_retrieval_metrics_summary(metrics, k_values, output_dir)
+    plot_ndcg(metrics, k_values, output_dir)
+    plot_f1_scores(metrics, k_values, output_dir)
+    plot_all_metrics_lines(metrics, k_values, output_dir)
+    
+    # Generuj tabelę LaTeX
+    generate_latex_table(metrics, k_values)
+    
+    print("="*70)
+    print("✅ WSZYSTKIE WYKRESY RETRIEVAL WYGENEROWANE!")
+    print("="*70)
+    print(f"\nPliki w katalogu: {output_dir}/")
+    print("""
+Wygenerowane pliki:
+   1. retrieval_precision_recall.png  → Precision vs Recall
+   2. retrieval_metrics_summary.png   → Podsumowanie dla k=5
+   3. retrieval_ndcg.png              → NDCG dla różnych k
+   4. retrieval_f1.png                → F1 Score dla różnych k
+   5. retrieval_all_metrics.png       → Wszystkie metryki razem
+""")
+
+
+if __name__ == '__main__':
+    main()

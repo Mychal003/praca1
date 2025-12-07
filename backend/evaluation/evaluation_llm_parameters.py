@@ -5,12 +5,24 @@ ROUGE-1 F1, Semantic Similarity, LLM Judge
 Użycie:
     python evaluate_generation.py <pdf_path> <dataset_path>
     python evaluate_generation.py <pdf_path> <dataset_path> --llm-judge
+    python evaluate_generation.py <pdf_path> <dataset_path> --llm-judge --chunk-size 800 --k 10 --overlap 0
+
+Przykłady:
+    # Optymalna konfiguracja (domyślna)
+    python evaluate_generation.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json --llm-judge
+    
+    # Konfiguracja bazowa
+    python evaluate_generation.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json --llm-judge --chunk-size 800 --k 5 --overlap 100
+    
+    # Alternatywna konfiguracja
+    python evaluate_generation.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json --llm-judge --chunk-size 1200 --k 10 --overlap 0
 """
 
 import sys
 import os
 import json
 import time
+import argparse
 from datetime import datetime
 from typing import List, Dict
 from collections import Counter
@@ -212,6 +224,7 @@ def evaluate_generation(
     print(f"{'='*70}")
     print(f"   Pytań: {len(dataset)}")
     print(f"   LLM Judge: {'TAK' if use_llm_judge else 'NIE'}")
+    print(f"   Konfiguracja: chunk_size={pipeline.chunk_size}, k={pipeline.k}, overlap={pipeline.chunk_overlap}")
     print(f"{'='*70}\n")
     
     # Inicjalizacja LLM Judge
@@ -254,7 +267,7 @@ def evaluate_generation(
         
         # LLM Judge (opcjonalnie)
         if judge and generated != "ERROR":
-            # Pobierz kontekst dla groundedness
+            # Pobierz kontekst dla groundedness (ten sam k co przy generowaniu!)
             sources = pipeline.get_sources(question, k=pipeline.k)
             context = "\n\n".join([s['text'] for s in sources])
             
@@ -330,6 +343,7 @@ def evaluate_generation(
             'use_llm_judge': use_llm_judge,
             'pipeline_k': pipeline.k,
             'chunk_size': pipeline.chunk_size,
+            'chunk_overlap': pipeline.chunk_overlap,
             'model': 'gpt-4o'
         }
     }
@@ -408,68 +422,126 @@ def compare_metrics_correlation(results: Dict):
 # CLI
 # ============================================================================
 
-if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("""
-╔══════════════════════════════════════════════════════════════╗
-║              EVALUATE GENERATION                             ║
-╚══════════════════════════════════════════════════════════════╝
+def parse_args():
+    """Parsuje argumenty wiersza poleceń."""
+    parser = argparse.ArgumentParser(
+        description='Ewaluacja GENERATION - ROUGE, Semantic Similarity, LLM Judge',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Przykłady użycia:
+  # Optymalna konfiguracja (domyślna)
+  python evaluate_generation.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json --llm-judge
 
-Użycie:
-    python evaluate_generation.py <pdf_path> <dataset_path>
-    python evaluate_generation.py <pdf_path> <dataset_path> --llm-judge
+  # Konfiguracja bazowa
+  python evaluate_generation.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json --llm-judge --chunk-size 800 --k 5 --overlap 100
 
-Przykład:
-    python evaluate_generation.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json
-    python evaluate_generation.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json --llm-judge
-        """)
-        sys.exit(1)
+  # Alternatywna konfiguracja (większe chunki)
+  python evaluate_generation.py uploads/Archer_D7UN_V1_UG.pdf dataset_ready.json --llm-judge --chunk-size 1200 --k 10 --overlap 0
+        """
+    )
     
-    pdf_path = sys.argv[1]
-    dataset_path = sys.argv[2]
-    use_llm_judge = '--llm-judge' in sys.argv
+    # Wymagane argumenty
+    parser.add_argument('pdf_path', help='Ścieżka do pliku PDF')
+    parser.add_argument('dataset_path', help='Ścieżka do datasetu JSON')
+    
+    # Opcjonalne flagi
+    parser.add_argument('--llm-judge', action='store_true', 
+                        help='Użyj LLM Judge do ewaluacji (droższe, ale dokładniejsze)')
+    
+    # Parametry konfiguracji RAG
+    parser.add_argument('--chunk-size', type=int, default=800,
+                        help='Rozmiar fragmentów (domyślnie: 800)')
+    parser.add_argument('--k', type=int, default=10,
+                        help='Liczba pobieranych fragmentów (domyślnie: 10)')
+    parser.add_argument('--overlap', type=int, default=0,
+                        help='Nakładanie się fragmentów (domyślnie: 0)')
+    
+    # Opcjonalne
+    parser.add_argument('--output', type=str, default=None,
+                        help='Nazwa pliku wyjściowego (domyślnie: auto-generowana)')
+    
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    args = parse_args()
+    
+    # Wyświetl konfigurację
+    print(f"""
+╔══════════════════════════════════════════════════════════════════════╗
+║                    EVALUATE GENERATION                               ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  Konfiguracja:                                                       ║
+║    • chunk_size = {args.chunk_size:<6}                                          ║
+║    • k          = {args.k:<6}                                          ║
+║    • overlap    = {args.overlap:<6}                                          ║
+║    • LLM Judge  = {'TAK' if args.llm_judge else 'NIE':<6}                                          ║
+╚══════════════════════════════════════════════════════════════════════╝
+    """)
     
     # Wczytaj dataset
-    print(f"\n📂 Ładowanie datasetu: {dataset_path}")
-    with open(dataset_path, 'r', encoding='utf-8') as f:
+    print(f"📂 Ładowanie datasetu: {args.dataset_path}")
+    with open(args.dataset_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
     # Obsłuż oba formaty
     if 'data' in data:
         dataset = data['data']
-        config = data.get('metadata', {}).get('baseline_config', {})
     else:
         dataset = data
-        config = {"chunk_size": 800, "chunk_overlap": 100}
     
     print(f"   ✓ Załadowano {len(dataset)} pytań")
     
-    # Stwórz pipeline
+    # Stwórz pipeline z podanymi parametrami
     print(f"\n🔧 Tworzenie pipeline...")
+    print(f"   chunk_size = {args.chunk_size}")
+    print(f"   k          = {args.k}")
+    print(f"   overlap    = {args.overlap}")
     
     pipeline = RAGPipeline(
-        chunk_size=800,
-        chunk_overlap=0,
-        k=10
+        chunk_size=args.chunk_size,
+        chunk_overlap=args.overlap,
+        k=args.k
     )
-    pipeline.process_document(pdf_path)
+    pipeline.process_document(args.pdf_path)
     print(f"   ✓ Utworzono {pipeline.num_chunks} chunków")
     
     # Ewaluacja
-    results = evaluate_generation(pipeline, dataset, use_llm_judge=use_llm_judge)
+    results = evaluate_generation(pipeline, dataset, use_llm_judge=args.llm_judge)
     
     # Analiza korelacji (jeśli LLM Judge)
-    if use_llm_judge:
+    if args.llm_judge:
         correlations = compare_metrics_correlation(results)
         if correlations:
             results['correlations'] = correlations
     
     # Zapisz wyniki
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    suffix = "_with_llm_judge" if use_llm_judge else ""
-    output_file = f"generation_results{suffix}_{timestamp}.json"
+    
+    if args.output:
+        output_file = args.output
+    else:
+        # Automatyczna nazwa z konfiguracją
+        config_str = f"{args.chunk_size}_{args.k}_{args.overlap}"
+        suffix = "_with_llm_judge" if args.llm_judge else ""
+        output_file = f"generation_results_{config_str}{suffix}_{timestamp}.json"
     
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
     
     print(f"💾 Wyniki zapisane: {output_file}")
+    
+    # Podsumowanie
+    print(f"""
+╔══════════════════════════════════════════════════════════════════════╗
+║                         PODSUMOWANIE                                 ║
+╠══════════════════════════════════════════════════════════════════════╣
+║  Konfiguracja: {args.chunk_size}/{args.k}/{args.overlap:<38} ║
+║  ROUGE-1 F1:        {results['summary']['avg_rouge1_f1']:.3f}                                       ║
+║  Semantic:          {results['summary']['avg_semantic_similarity']:.3f}                                       ║""")
+    
+    if args.llm_judge and 'avg_llm_overall' in results['summary']:
+        print(f"║  LLM Overall:       {results['summary']['avg_llm_overall']:.3f}                                       ║")
+    
+    print(f"""╚══════════════════════════════════════════════════════════════════════╝
+    """)
