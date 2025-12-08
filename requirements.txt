@@ -1,5 +1,6 @@
 flask
 flask-cors
+flask-sqlalchemy
 werkzeug
 langchain
 langchain-openai
@@ -12,3 +13,4 @@ python-dotenv
 tiktoken
 langchain_community
 matplotlib
+PyJWT

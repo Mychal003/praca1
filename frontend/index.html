@@ -7,30 +7,129 @@
     <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>📄 RAG Documentation Assistant</h1>
-            <p>Zadawaj pytania o dokumentację techniczną</p>
-        </header>
-
-        <!-- Upload Section -->
-        <div class="upload-section" id="uploadSection">
-            <input type="file" id="pdfFile" accept=".pdf">
-            <button onclick="uploadPDF()">Wgraj dokument</button>
-            <div id="uploadStatus"></div>
-        </div>
-
-        <!-- Chat Section (ukryte do momentu uploadu) -->
-        <div class="chat-section" id="chatSection" style="display:none;">
-            <div class="chat-messages" id="chatMessages"></div>
-            
-            <div class="chat-input">
-                <input type="text" id="questionInput" placeholder="Zadaj pytanie...">
-                <button onclick="askQuestion()">Wyślij</button>
+    <!-- ============================================================
+         AUTH SCREEN (logowanie/rejestracja)
+         ============================================================ -->
+    <div class="auth-container" id="authScreen">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h1>◈ RAG Assistant</h1>
+                <p>Zaloguj się, aby kontynuować</p>
             </div>
+
+            <!-- Tabs -->
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Logowanie</button>
+                <button class="auth-tab" data-tab="register">Rejestracja</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label for="loginUsername">Login lub email</label>
+                    <input type="text" id="loginUsername" placeholder="Wprowadź login lub email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Hasło</label>
+                    <input type="password" id="loginPassword" placeholder="Wprowadź hasło" required>
+                </div>
+                <button type="submit" class="btn-primary">Zaloguj się</button>
+                <div id="loginError" class="error-message"></div>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="registerUsername">Nazwa użytkownika</label>
+                    <input type="text" id="registerUsername" placeholder="Wybierz nazwę użytkownika" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" placeholder="Wprowadź email" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Hasło</label>
+                    <input type="password" id="registerPassword" placeholder="Minimum 6 znaków" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPasswordConfirm">Potwierdź hasło</label>
+                    <input type="password" id="registerPasswordConfirm" placeholder="Powtórz hasło" required>
+                </div>
+                <button type="submit" class="btn-primary">Zarejestruj się</button>
+                <div id="registerError" class="error-message"></div>
+            </form>
         </div>
     </div>
 
+    <!-- ============================================================
+         MAIN APP (po zalogowaniu)
+         ============================================================ -->
+    <div class="app-container" id="appScreen" style="display: none;">
+        
+        <!-- Sidebar z historią rozmów -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>💬 Rozmowy</h2>
+                <button class="btn-new-chat" id="newChatBtn" title="Nowa rozmowa">
+                    <span>+</span>
+                </button>
+            </div>
+            
+            <div class="conversations-list" id="conversationsList">
+                <!-- Rozmowy będą ładowane dynamicznie -->
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="user-info" id="userInfo">
+                    <span class="user-avatar">👤</span>
+                    <span class="user-name" id="userName">Użytkownik</span>
+                </div>
+                <button class="btn-logout" id="logoutBtn" title="Wyloguj">
+                    🚪
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <button class="btn-toggle-sidebar" id="toggleSidebar">☰</button>
+                <div class="header-title">
+                    <h1>📄 RAG Documentation Assistant</h1>
+                    <p id="currentDocName">Wgraj dokument, aby rozpocząć</p>
+                </div>
+            </header>
+
+            <!-- Upload Section -->
+            <div class="upload-section" id="uploadSection">
+                <div class="upload-box">
+                    <div class="upload-icon">📁</div>
+                    <h3>Wgraj dokument PDF</h3>
+                    <p>Przeciągnij plik lub kliknij, aby wybrać</p>
+                    <input type="file" id="pdfFile" accept=".pdf">
+                    <button class="btn-primary" id="uploadBtn">Wgraj dokument</button>
+                </div>
+                <div id="uploadStatus"></div>
+            </div>
+
+            <!-- Chat Section -->
+            <div class="chat-section" id="chatSection" style="display: none;">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Wiadomości będą ładowane dynamicznie -->
+                </div>
+                
+                <div class="chat-input">
+                    <input type="text" id="questionInput" placeholder="Zadaj pytanie o dokument...">
+                    <button class="btn-primary" id="sendBtn">Wyślij</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="static/js/auth.js"></script>
     <script src="static/js/app.js"></script>
 </body>
 </html>

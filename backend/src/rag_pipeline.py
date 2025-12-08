@@ -8,7 +8,7 @@ from src.query_classifier import QueryClassifier
 import os
 
 class RAGPipeline:
-    def __init__(self, chunk_size=800, chunk_overlap=100, k=7):
+    def __init__(self, chunk_size=800, chunk_overlap=100, k=10):
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
         self.k = k
@@ -19,11 +19,12 @@ class RAGPipeline:
         self.embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
         self.llm = ChatOpenAI(model="gpt-4o", temperature=0)
         
-        # Vector store (inicjalizowany po upload)
+        # Vector store (inicjalizowany po upload lub load)
         self.vectorstore = None
-        self.qa_chain = None
+        self.retriever = None
+        self.num_chunks = 0
     
-    def process_document(self, pdf_path: str):
+    def process_document(self, pdf_path: str, save_path: str = None):
         """Przetwarza PDF i tworzy vector store Z CHUNK IDs"""
         # 1. Ekstrakcja tekstu
         text = self.pdf_processor.extract_text(pdf_path)
@@ -36,14 +37,13 @@ class RAGPipeline:
         )
         chunks = text_splitter.split_text(text)
         
-        
         from langchain.schema import Document
         
         documents = [
             Document(
                 page_content=chunk,
                 metadata={
-                    "chunk_id": i,  # ← KLUCZOWE: globalny ID
+                    "chunk_id": i,
                     "chunk_size": self.chunk_size,
                     "chunk_overlap": self.chunk_overlap
                 }
@@ -51,16 +51,44 @@ class RAGPipeline:
             for i, chunk in enumerate(chunks)
         ]
         
-        # 4. Embeddingi + FAISS (z Documents, nie plain text)
+        # 4. Embeddingi + FAISS
         self.vectorstore = FAISS.from_documents(documents, self.embeddings)
         
-        # 5. Zapisz liczbę chunków (przydatne do debugowania)
+        # 5. Zapisz liczbę chunków
         self.num_chunks = len(chunks)
         
         # 6. Retriever
         self.retriever = self.vectorstore.as_retriever(
             search_kwargs={"k": self.k}
         )
+        
+        # 7. NOWE: Zapisz na dysk jeśli podano ścieżkę
+        if save_path:
+            self.save(save_path)
+    
+    def save(self, path: str):
+        """Zapisuje vector store na dysk"""
+        if self.vectorstore:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            self.vectorstore.save_local(path)
+    
+    def load(self, path: str) -> bool:
+        """Ładuje vector store z dysku"""
+        try:
+            if os.path.exists(path):
+                self.vectorstore = FAISS.load_local(
+                    path, 
+                    self.embeddings,
+                    allow_dangerous_deserialization=True  # Wymagane dla FAISS
+                )
+                self.retriever = self.vectorstore.as_retriever(
+                    search_kwargs={"k": self.k}
+                )
+                return True
+            return False
+        except Exception as e:
+            print(f"Błąd ładowania vector store: {e}")
+            return False
     
     def classify_query(self, query: str) -> str:
         """Klasyfikuje typ pytania"""
@@ -123,7 +151,6 @@ Question: {question}
 Answer:"""
         
         else:
-            # Fallback dla niesklasyfikowanych
             template = """Use the following context to answer the question. Be precise and concise.
 
 INSTRUCTIONS:
@@ -173,15 +200,14 @@ Answer:"""
         if self.vectorstore is None:
             return []
         
-        # 🆕 Użyj similarity_search_with_score zamiast similarity_search
         docs_with_scores = self.vectorstore.similarity_search_with_score(question, k=k)
         
         return [
             {
-                "chunk_id": doc.metadata.get("chunk_id", -1),  # ← KLUCZOWE
+                "chunk_id": doc.metadata.get("chunk_id", -1),
                 "text": doc.page_content,
-                "similarity_score": float(score),  # Prawdziwy score z FAISS
-                "rank": i  # Pozycja w rankingu (0 = najbardziej relevant)
+                "similarity_score": float(score),
+                "rank": i
             }
             for i, (doc, score) in enumerate(docs_with_scores)
         ]

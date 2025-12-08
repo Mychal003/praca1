@@ -5,6 +5,10 @@ import os
 import logging
 from datetime import datetime
 from src.rag_pipeline import RAGPipeline
+from src.conversation_manager import ConversationManager
+from models import db, User, Conversation, Message
+from auth import token_required, create_token
+from config import Config
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -26,145 +30,296 @@ logger = logging.getLogger(__name__)
 # FLASK APP
 # ============================================================================
 app = Flask(__name__)
-CORS(app)
+app.config.from_object(Config)
+CORS(app, supports_credentials=True)
 
-UPLOAD_FOLDER = 'uploads'
-ALLOWED_EXTENSIONS = {'pdf'}
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max
+# Inicjalizacja bazy danych
+db.init_app(app)
 
-# Globalna instancja pipeline (w produkcji: sesje użytkownika)
-pipeline = None
+# Słownik przechowujący pipeline dla każdej sesji użytkownika
+# Klucz: user_id, Wartość: {conversation_id: pipeline}
+user_pipelines = {}
 
 
 def allowed_file(filename):
-    """Sprawdza czy plik ma dozwolone rozszerzenie."""
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'pdf'}
+
+
+def get_user_pipeline(user_id, conversation_id):
+    """Pobiera pipeline dla użytkownika i konwersacji"""
+    if user_id not in user_pipelines:
+        return None
+    return user_pipelines[user_id].get(conversation_id)
+
+
+def set_user_pipeline(user_id, conversation_id, pipeline):
+    """Zapisuje pipeline dla użytkownika i konwersacji"""
+    if user_id not in user_pipelines:
+        user_pipelines[user_id] = {}
+    user_pipelines[user_id][conversation_id] = pipeline
+
+def get_vectorstore_path(user_id, conversation_id):
+    """Zwraca ścieżkę do zapisanego vector store"""
+    return os.path.join('vectorstores', f'user_{user_id}', f'conv_{conversation_id}')
+
+# ============================================================================
+# AUTH ENDPOINTS
+# ============================================================================
+
+@app.route('/api/auth/register', methods=['POST'])
+def register():
+    """Rejestracja nowego użytkownika"""
+    data = request.get_json()
+    
+    username = data.get('username', '').strip()
+    email = data.get('email', '').strip()
+    password = data.get('password', '')
+    
+    # Walidacja
+    if not username or not email or not password:
+        return jsonify({'error': 'Wszystkie pola są wymagane'}), 400
+    
+    if len(password) < 6:
+        return jsonify({'error': 'Hasło musi mieć minimum 6 znaków'}), 400
+    
+    if User.query.filter_by(username=username).first():
+        return jsonify({'error': 'Nazwa użytkownika jest już zajęta'}), 400
+    
+    if User.query.filter_by(email=email).first():
+        return jsonify({'error': 'Email jest już zarejestrowany'}), 400
+    
+    # Tworzenie użytkownika
+    user = User(username=username, email=email)
+    user.set_password(password)
+    
+    db.session.add(user)
+    db.session.commit()
+    
+    # Generuj token
+    token = create_token(user.id, app.config['SECRET_KEY'])
+    
+    logger.info(f"✅ Zarejestrowano użytkownika: {username}")
+    
+    return jsonify({
+        'message': 'Rejestracja pomyślna',
+        'token': token,
+        'user': user.to_dict()
+    }), 201
+
+
+@app.route('/api/auth/login', methods=['POST'])
+def login():
+    """Logowanie użytkownika"""
+    data = request.get_json()
+    
+    username = data.get('username', '').strip()
+    password = data.get('password', '')
+    
+    if not username or not password:
+        return jsonify({'error': 'Podaj login i hasło'}), 400
+    
+    # Szukaj po username lub email
+    user = User.query.filter(
+        (User.username == username) | (User.email == username)
+    ).first()
+    
+    if not user or not user.check_password(password):
+        return jsonify({'error': 'Nieprawidłowy login lub hasło'}), 401
+    
+    # Generuj token
+    token = create_token(user.id, app.config['SECRET_KEY'])
+    
+    logger.info(f"✅ Zalogowano użytkownika: {username}")
+    
+    return jsonify({
+        'message': 'Logowanie pomyślne',
+        'token': token,
+        'user': user.to_dict()
+    }), 200
+
+
+@app.route('/api/auth/me', methods=['GET'])
+@token_required
+def get_current_user(user):
+    """Pobiera dane zalogowanego użytkownika"""
+    return jsonify({'user': user.to_dict()}), 200
 
 
 # ============================================================================
-# ENDPOINTS
+# CONVERSATION ENDPOINTS
 # ============================================================================
 
-@app.route('/api/upload', methods=['POST'])
-def upload_file():
-    """
-    Endpoint: Upload PDF i stwórz vector store.
+@app.route('/api/conversations', methods=['GET'])
+@token_required
+def get_conversations(user):
+    """Pobiera listę konwersacji użytkownika"""
+    conversations = ConversationManager.get_user_conversations(user.id)
+    return jsonify({
+        'conversations': [c.to_dict() for c in conversations]
+    }), 200
+
+
+@app.route('/api/conversations', methods=['POST'])
+@token_required
+def create_conversation(user):
+    """Tworzy nową konwersację"""
+    conversation = ConversationManager.create_conversation(user.id)
+    logger.info(f"📝 Utworzono konwersację {conversation.id} dla użytkownika {user.id}")
+    return jsonify({
+        'conversation': conversation.to_dict()
+    }), 201
+
+
+@app.route('/api/conversations/<int:conversation_id>', methods=['GET'])
+@token_required
+def get_conversation(user, conversation_id):
+    """Pobiera szczegóły konwersacji z wiadomościami"""
+    conversation = ConversationManager.get_conversation(conversation_id, user.id)
     
-    Request:
-        - file: PDF file (multipart/form-data)
+    if not conversation:
+        return jsonify({'error': 'Konwersacja nie znaleziona'}), 404
     
-    Response:
-        - 200: {'message': str, 'filename': str, 'processing_time': float}
-        - 400: {'error': str}
-        - 500: {'error': str}
-    """
-    global pipeline
+    return jsonify({
+        'conversation': conversation.to_dict(include_messages=True)
+    }), 200
+
+
+@app.route('/api/conversations/<int:conversation_id>', methods=['DELETE'])
+@token_required
+def delete_conversation(user, conversation_id):
+    """Usuwa konwersację"""
+    if ConversationManager.delete_conversation(conversation_id, user.id):
+        # Usuń też pipeline
+        if user.id in user_pipelines and conversation_id in user_pipelines[user.id]:
+            del user_pipelines[user.id][conversation_id]
+        return jsonify({'message': 'Konwersacja usunięta'}), 200
+    return jsonify({'error': 'Konwersacja nie znaleziona'}), 404
+
+
+# ============================================================================
+# DOCUMENT UPLOAD (zmodyfikowany)
+# ============================================================================
+
+@app.route('/api/conversations/<int:conversation_id>/upload', methods=['POST'])
+@token_required
+def upload_file(user, conversation_id):
+    """Upload PDF do konwersacji"""
     
-    logger.info("📤 Otrzymano żądanie uploadu")
+    # Sprawdź czy konwersacja należy do użytkownika
+    conversation = ConversationManager.get_conversation(conversation_id, user.id)
+    if not conversation:
+        return jsonify({'error': 'Konwersacja nie znaleziona'}), 404
     
-    # Walidacja: czy plik jest w requestcie
     if 'file' not in request.files:
-        logger.warning("❌ Brak pliku w requeście")
         return jsonify({'error': 'Brak pliku'}), 400
     
     file = request.files['file']
     
-    # Walidacja: czy wybrano plik
     if file.filename == '':
-        logger.warning("❌ Pusta nazwa pliku")
         return jsonify({'error': 'Nie wybrano pliku'}), 400
     
-    # Walidacja: czy dozwolone rozszerzenie
     if not allowed_file(file.filename):
-        logger.warning(f"❌ Nieprawidłowe rozszerzenie: {file.filename}")
         return jsonify({'error': 'Nieprawidłowy format pliku. Dozwolone: PDF'}), 400
     
-    if file:
-        filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    filename = secure_filename(file.filename)
+    unique_filename = f"{user.id}_{conversation_id}_{filename}"
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
+    
+    try:
+        file.save(filepath)
+        logger.info(f"💾 Plik zapisany: {filepath}")
         
-        try:
-            # Zapisz plik
-            file.save(filepath)
-            logger.info(f"💾 Plik zapisany: {filepath}")
-            
-            # Przetwórz PDF
-            start_time = datetime.now()
-            logger.info("⚙️ Rozpoczynam przetwarzanie dokumentu...")
-            
-            pipeline = RAGPipeline()
-            pipeline.process_document(filepath)
-            
-            processing_time = (datetime.now() - start_time).total_seconds()
-            
-            logger.info(f"✅ Dokument przetworzony pomyślnie w {processing_time:.2f}s")
-            
-            return jsonify({
-                'message': 'Dokument przetworzony pomyślnie',
-                'filename': filename,
-                'processing_time': round(processing_time, 2)
-            }), 200
-            
-        except FileNotFoundError as e:
-            logger.error(f"❌ Plik nie znaleziony: {str(e)}")
-            return jsonify({'error': f'Plik nie znaleziony: {str(e)}'}), 404
-            
-        except ValueError as e:
-            logger.error(f"❌ Błąd walidacji: {str(e)}")
-            return jsonify({'error': f'Błąd przetwarzania: {str(e)}'}), 400
-            
-        except Exception as e:
-            logger.error(f"❌ Nieoczekiwany błąd: {str(e)}", exc_info=True)
-            return jsonify({'error': f'Błąd serwera: {str(e)}'}), 500
+        start_time = datetime.now()
+        
+        # Stwórz pipeline dla tej konwersacji
+        pipeline = RAGPipeline()
+        
+        # NOWE: Ścieżka do zapisu vector store
+        vectorstore_path = get_vectorstore_path(user.id, conversation_id)
+        
+        # Przetwórz dokument I zapisz vector store na dysk
+        pipeline.process_document(filepath, save_path=vectorstore_path)
+        
+        # Zapisz pipeline w pamięci
+        set_user_pipeline(user.id, conversation_id, pipeline)
+        
+        # Zaktualizuj konwersację
+        conversation.document_name = filename
+        conversation.title = filename.rsplit('.', 1)[0][:50]  # Usuń .pdf i ogranicz do 50 znaków
+        db.session.commit()
+        
+        processing_time = (datetime.now() - start_time).total_seconds()
+        
+        logger.info(f"✅ Dokument przetworzony i zapisany dla konwersacji {conversation_id}")
+        
+        return jsonify({
+            'message': 'Dokument przetworzony pomyślnie',
+            'filename': filename,
+            'processing_time': round(processing_time, 2)
+        }), 200
+        
+    except Exception as e:
+        logger.error(f"❌ Błąd: {str(e)}", exc_info=True)
+        return jsonify({'error': f'Błąd serwera: {str(e)}'}), 500
 
+# ============================================================================
+# QUERY ENDPOINT (zmodyfikowany)
+# ============================================================================
 
-@app.route('/api/query', methods=['POST'])
-def query():
-    """
-    Endpoint: Zadaj pytanie do dokumentu.
+@app.route('/api/conversations/<int:conversation_id>/query', methods=['POST'])
+@token_required
+def query(user, conversation_id):
+    """Zadaj pytanie w kontekście konwersacji"""
     
-    Request JSON:
-        {'question': str}
+    # Sprawdź konwersację
+    conversation = ConversationManager.get_conversation(conversation_id, user.id)
+    if not conversation:
+        return jsonify({'error': 'Konwersacja nie znaleziona'}), 404
     
-    Response:
-        - 200: {'answer': str, 'category': str, 'sources': list, 'latency': float}
-        - 400: {'error': str}
-        - 500: {'error': str}
-    """
-    global pipeline
+    # Pobierz pipeline z pamięci
+    pipeline = get_user_pipeline(user.id, conversation_id)
     
-    # Walidacja: czy dokument został załadowany
-    if pipeline is None:
-        logger.warning("❌ Próba query bez załadowanego dokumentu")
-        return jsonify({'error': 'Najpierw wgraj dokument'}), 400
+    # NOWE: Jeśli nie ma w pamięci, spróbuj załadować z dysku
+    if not pipeline:
+        vectorstore_path = get_vectorstore_path(user.id, conversation_id)
+        pipeline = RAGPipeline()
+        
+        if pipeline.load(vectorstore_path):
+            # Udało się załadować - zapisz w pamięci
+            set_user_pipeline(user.id, conversation_id, pipeline)
+            logger.info(f"📂 Załadowano vector store z dysku dla konwersacji {conversation_id}")
+        else:
+            return jsonify({'error': 'Najpierw wgraj dokument do tej konwersacji'}), 400
     
     data = request.get_json()
     question = data.get('question', '').strip()
     
-    # Walidacja: czy pytanie nie jest puste
     if not question:
-        logger.warning("❌ Puste pytanie")
         return jsonify({'error': 'Brak pytania'}), 400
     
-    logger.info(f"💬 Pytanie: {question[:100]}...")
+    logger.info(f"💬 Pytanie w konwersacji {conversation_id}: {question[:100]}...")
     
     try:
         start_time = datetime.now()
         
-        # Klasyfikuj pytanie
+        # Zapisz pytanie użytkownika
+        ConversationManager.add_message(conversation_id, 'user', question)
+        
+        # Klasyfikuj i generuj odpowiedź
         category = pipeline.classify_query(question)
-        logger.info(f"📂 Kategoria: {category}")
-        
-        # Generuj odpowiedź
         answer = pipeline.query(question)
-        
-        # Pobierz źródła
         sources = pipeline.get_sources(question, k=3)
         
-        latency = (datetime.now() - start_time).total_seconds()
+        # Zapisz odpowiedź asystenta
+        ConversationManager.add_message(
+            conversation_id, 
+            'assistant', 
+            answer,
+            category=category,
+            sources=sources
+        )
         
-        logger.info(f"✅ Odpowiedź wygenerowana w {latency:.2f}s")
+        latency = (datetime.now() - start_time).total_seconds()
         
         return jsonify({
             'answer': answer,
@@ -173,56 +328,9 @@ def query():
             'latency': round(latency, 2)
         }), 200
         
-    except ValueError as e:
-        logger.error(f"❌ Błąd walidacji: {str(e)}")
-        return jsonify({'error': str(e)}), 400
-        
     except Exception as e:
-        logger.error(f"❌ Błąd generowania odpowiedzi: {str(e)}", exc_info=True)
+        logger.error(f"❌ Błąd: {str(e)}", exc_info=True)
         return jsonify({'error': f'Błąd generowania odpowiedzi: {str(e)}'}), 500
-
-
-@app.route('/api/health', methods=['GET'])
-def health():
-    """
-    Endpoint: Health check.
-    
-    Response:
-        {'status': str, 'document_loaded': bool}
-    """
-    return jsonify({
-        'status': 'ok',
-        'document_loaded': pipeline is not None
-    }), 200
-
-
-@app.route('/api/stats', methods=['GET'])
-def stats():
-    """
-    Endpoint: Statystyki systemu (NOWY).
-    
-    Response:
-        {'chunk_size': int, 'k': int, 'vectorstore_size': int}
-    """
-    if pipeline is None:
-        return jsonify({'error': 'Najpierw wgraj dokument'}), 400
-    
-    try:
-        # Pobierz statystyki
-        vectorstore_size = pipeline.vectorstore.index.ntotal if pipeline.vectorstore else 0
-        
-        return jsonify({
-            'chunk_size': pipeline.chunk_size,
-            'chunk_overlap': pipeline.chunk_overlap,
-            'k': pipeline.k,
-            'vectorstore_size': vectorstore_size,
-            'model': 'gpt-4o',
-            'embedding_model': 'text-embedding-3-large'
-        }), 200
-        
-    except Exception as e:
-        logger.error(f"❌ Błąd pobierania statystyk: {str(e)}")
-        return jsonify({'error': str(e)}), 500
 
 
 # ============================================================================
@@ -231,15 +339,11 @@ def stats():
 
 @app.errorhandler(413)
 def request_entity_too_large(error):
-    """Handler dla zbyt dużych plików."""
-    logger.warning("❌ Plik zbyt duży (>16MB)")
     return jsonify({'error': 'Plik jest zbyt duży. Maksymalny rozmiar: 16MB'}), 413
 
 
 @app.errorhandler(500)
 def internal_server_error(error):
-    """Handler dla błędów serwera."""
-    logger.error(f"❌ Błąd serwera: {str(error)}", exc_info=True)
     return jsonify({'error': 'Wewnętrzny błąd serwera'}), 500
 
 
@@ -248,15 +352,15 @@ def internal_server_error(error):
 # ============================================================================
 
 if __name__ == '__main__':
-    # Utwórz folder uploads jeśli nie istnieje
-    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+    
+    # Tworzenie tabel w bazie danych
+    with app.app_context():
+        db.create_all()
+        logger.info("✅ Baza danych zainicjalizowana")
     
     logger.info("="*60)
     logger.info("🚀 Uruchamianie RAG Documentation Assistant")
-    logger.info("="*60)
-    logger.info(f"📁 Upload folder: {UPLOAD_FOLDER}")
-    logger.info(f"📏 Max file size: 16MB")
-    logger.info(f"🌐 Server: http://localhost:5000")
     logger.info("="*60)
     
     app.run(debug=True, port=5000, host='0.0.0.0')

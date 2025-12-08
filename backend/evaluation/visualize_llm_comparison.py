@@ -3,10 +3,10 @@ Skrypt do wizualizacji porównania konfiguracji LLM Judge.
 Generuje wykresy słupkowe do pracy inżynierskiej.
 
 Użycie:
-    python visualize_llm_comparison.py <plik1.json> <plik2.json>
+    python visualize_llm_comparison.py <plik1.json> <plik2.json> [plik3.json]
     
 Przykład:
-    python visualize_llm_comparison.py generation_results_with_llm_judge_20251204_023303.json generation_results_1200_10_0_with_llm_judge_20251205_222026.json
+    python visualize_llm_comparison.py generation_results_with_llm_judge_20251204_023303.json generation_results_800_10_100_with_llm_judge_20251207_225926.json generation_results_1200_10_0_with_llm_judge_20251205_222026.json
 """
 
 import json
@@ -26,8 +26,8 @@ plt.rcParams['font.size'] = 11
 plt.rcParams['axes.titlesize'] = 13
 plt.rcParams['axes.labelsize'] = 11
 
-# Kolory
-COLORS = ['#2E86AB', '#F18F01']  # Niebieski, Pomarańczowy
+# Kolory - dodany trzeci kolor
+COLORS = ['#2E86AB', '#F18F01', '#A23B72']  # Niebieski, Pomarańczowy, Fioletowy
 
 
 def load_results(filepath):
@@ -55,11 +55,12 @@ def plot_llm_judge_comparison(configs, output_dir):
             'avg_llm_groundedness', 'avg_llm_overall']
     
     x = np.arange(len(dimensions))
-    width = 0.35
+    n_configs = len(configs)
+    width = 0.8 / n_configs
     
     for i, c in enumerate(configs):
         values = [c['summary'].get(k, 0) for k in keys]
-        offset = (i - 0.5) * width + width/2
+        offset = (i - (n_configs - 1) / 2) * width
         bars = ax.bar(x + offset, values, width, label=c['name'], color=COLORS[i], edgecolor='white')
         
         # Dodaj wartości na słupkach
@@ -104,11 +105,12 @@ def plot_all_metrics_comparison(configs, output_dir):
     keys = [m[1] for m in metrics]
     
     x = np.arange(len(labels))
-    width = 0.35
+    n_configs = len(configs)
+    width = 0.8 / n_configs
     
     for i, c in enumerate(configs):
         values = [c['summary'].get(k, 0) for k in keys]
-        offset = (i - 0.5) * width + width/2
+        offset = (i - (n_configs - 1) / 2) * width
         bars = ax.bar(x + offset, values, width, label=c['name'], color=COLORS[i], edgecolor='white')
         
         # Dodaj wartości na słupkach
@@ -144,13 +146,14 @@ def plot_category_comparison(configs, output_dir):
     cat_labels = ['Factual', 'Procedural', 'Troubleshooting']
     
     x = np.arange(len(categories))
-    width = 0.35
+    n_configs = len(configs)
+    width = 0.8 / n_configs
     
     # ROUGE-1
     ax1 = axes[0]
     for i, c in enumerate(configs):
         values = [c['summary'].get(f'{cat}_rouge1_f1', 0) for cat in categories]
-        offset = (i - 0.5) * width + width/2
+        offset = (i - (n_configs - 1) / 2) * width
         bars = ax1.bar(x + offset, values, width, label=c['name'], color=COLORS[i], edgecolor='white')
         
         for bar, val in zip(bars, values):
@@ -169,7 +172,7 @@ def plot_category_comparison(configs, output_dir):
     ax2 = axes[1]
     for i, c in enumerate(configs):
         values = [c['summary'].get(f'{cat}_semantic', 0) for cat in categories]
-        offset = (i - 0.5) * width + width/2
+        offset = (i - (n_configs - 1) / 2) * width
         bars = ax2.bar(x + offset, values, width, label=c['name'], color=COLORS[i], edgecolor='white')
         
         for bar, val in zip(bars, values):
@@ -228,7 +231,7 @@ def plot_difference_chart(configs, output_dir):
     """Wykres 5: Różnice między konfiguracjami."""
     
     if len(configs) != 2:
-        print("   ⚠️ Wykres różnic wymaga dokładnie 2 konfiguracji")
+        print(f"   ⚠️ Wykres różnic wymaga dokładnie 2 konfiguracji (otrzymano {len(configs)})")
         return
     
     fig, ax = plt.subplots(figsize=(12, 7))
@@ -293,14 +296,18 @@ def main():
 ╚══════════════════════════════════════════════════════════════════════╝
 
 Użycie:
-    python visualize_llm_comparison.py <plik1.json> <plik2.json>
+    python visualize_llm_comparison.py <plik1.json> <plik2.json> [plik3.json]
 
 Przykład:
-    python visualize_llm_comparison.py generation_results_with_llm_judge_20251204_023303.json generation_results_1200_10_0_with_llm_judge_20251205_222026.json
+    python visualize_llm_comparison.py generation_results_with_llm_judge_20251204_023303.json generation_results_800_10_100_with_llm_judge_20251207_225926.json generation_results_1200_10_0_with_llm_judge_20251205_222026.json
         """)
         sys.exit(1)
     
     files = sys.argv[1:]
+    
+    if len(files) > 3:
+        print(f"⚠️ Przekazano {len(files)} plików, obsługiwane są maksymalnie 3 konfiguracje.")
+        sys.exit(1)
     
     # Wczytaj konfiguracje
     configs = []

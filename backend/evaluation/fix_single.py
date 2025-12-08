@@ -135,17 +135,16 @@ Respond with ONLY a number:""")
 
 if __name__ == "__main__":
     # Pytanie 19 (index 18)
-    question = "How do you recover access if you forgot the router's login password?"
-    expected = "Web Management page password:\nRestore the modem router to its factory default settings and then set a new password using 1-15 characters."
-    
+    question = "What is Access Control and how does it differ from MAC Filtering?"
+    expected = "Access Control is used to block or allow specific client devices to access your network (via wired or wireless) based on a list of blocked devices (Blacklist) or a list of allowed devices (Whitelist). MAC Filtering exploits the uniqueness of the MAC (Medium Access Control) address, a unique 12-digit hexadecimal address (for example, D8:5D:4C:B4:46:EA) of every network device, to determine if the device can or cannot access your wireless network."
     print(f"\n📝 Pytanie: {question[:60]}...")
     print(f"📝 Expected: {expected[:60]}...")
     
     # Stwórz pipeline z konfiguracją 1200/10/0
-    print("\n🔧 Tworzenie pipeline (1200/10/0)...")
+    print("\n🔧 Tworzenie pipeline (800/10/100)...")
     pipeline = RAGPipeline(
-        chunk_size=1200,
-        chunk_overlap=0,
+        chunk_size=800,
+        chunk_overlap=100,
         k=10
     )
     pipeline.process_document("uploads/Archer_D7UN_V1_UG.pdf")
@@ -187,7 +186,7 @@ if __name__ == "__main__":
     print(f"""
     {{
       "question": "{question}",
-      "expected": "Web Management page password:\\nRestore the modem router to its factory default settings and then set a new password using 1-15 characters.",
+      "expected": "Access Control is used to block or allow specific client devices to access your network (via wired or wireless) based on a list of blocked devices (Blacklist) or a list of allowed devices (Whitelist). MAC Filtering exploits the uniqueness of the MAC (Medium Access Control) address, a unique 12-digit hexadecimal address (for example, D8:5D:4C:B4:46:EA) of every network device, to determine if the device can or cannot access your wireless network.,
       "generated": "{generated.replace('"', '\\"').replace(chr(10), '\\n')}",
       "category": "procedural",
       "metrics": {{

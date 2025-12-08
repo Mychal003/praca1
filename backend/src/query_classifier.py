@@ -43,7 +43,8 @@ Pytanie: "{query}"
 Odpowiedz TYLKO nazwą kategorii (factual, procedural lub troubleshooting), bez dodatkowych wyjaśnień."""
 
         try:
-            response = self.llm.predict(prompt).strip().lower()
+            response = self.llm.invoke(prompt).content.strip().lower()
+
             
             # Walidacja - jeśli odpowiedź nie jest poprawną kategorią, zwróć domyślną
             if response not in self.CATEGORIES:
