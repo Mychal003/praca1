@@ -19,18 +19,9 @@
   },
   {
     "type": "LOW_ROUGE_HIGH_LLM",
-    "question": "How many operation modes does the Archer D7 support?",
-    "expected": "The modem router supports two operation modes, DSL Modem Router Mode and Wireless Router mode.",
-    "generated": "The Archer D7 supports two operation modes.",
-    "rouge": 0.36363636363636365,
-    "llm_overall": 1.0,
-    "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
-  },
-  {
-    "type": "LOW_ROUGE_HIGH_LLM",
     "question": "What is the WPS button used for on the Archer D7?",
     "expected": "The switch for the WPS function.",
-    "generated": "The WPS button on the Archer D7 is used to initiate the Wi-Fi Protected Setup process to quickly add a new wireless device to the existing network.",
+    "generated": "The WPS button on the Archer D7 is used to quickly add a new wireless device to the existing network by initiating the Wi-Fi Protected Setup process.",
     "rouge": 0.1818181818181818,
     "llm_overall": 0.95,
     "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
@@ -41,41 +32,25 @@
     "expected": "WiFi ON/OFF  \nFor turning on/off the Wi-Fi function.",
     "generated": "1. Locate the WiFi ON/OFF button on the back panel of the modem router.  \n2. Press the WiFi ON/OFF button to toggle the WiFi function on or off.",
     "rouge": 0.22222222222222224,
-    "llm_overall": 0.95,
+    "llm_overall": 0.9,
     "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
   },
   {
     "type": "LOW_ROUGE_HIGH_LLM",
-    "question": "How do you recover access if you forgot the router's login password?",
-    "expected": "Web Management page password:\nRestore the modem router to its factory default settings and then set a new password using 1-15 characters.",
-    "generated": "1. Reset the modem router to its factory default settings by pressing and holding the WPS/RESET button on the rear panel for 8 seconds until all LEDs turn back on momentarily, then release the button.\n2. Once reset, visit http://tplinkmodem.net and log in using the default credentials.\n3. Go to Advanced > System Tools > Administration page.\n4. Enter a new password in the Account Management section and confirm it.\n5. Click Save to apply the new password settings.",
-    "rouge": 0.29702970297029707,
-    "llm_overall": 0.9,
+    "question": "How do you access a USB disk connected to the router via network?",
+    "expected": "By default all the network clients can access all folders on your USB disk. Refer to the following table for access instructions. You can also customize your sharing content and set a sharing account by referring to Customize Your Settings. Windows computer Method 1: Go to Computer > Network, then click the Network Server Name (ARCHER _D7 by default) in the Computer section. Note: Here takes Windows 7 as an example. Method 2: 1. Press Start ( )+ R on the keyboard (or select Start > Run) 2. Type the server address \\\\tplinkmodem.net or ftp://tplinkmodem.net in the dialog box 3. Click OKs Mac 1. Select Go > Connect to Server 2. Type the server address smb://tplinkmodem.net or ftp:// tplinkmodem.net 3. When prompted, select the Guest radio box 4. Click Connect Note: If you have set up a username and a password to deny anonymous access to the USB disks, you should select the Registered User radio box. To learn how to set up an account for the access, refer to To Set up Authentication for Data Security.",
+    "generated": "1. Connect your USB storage device to the modem router’s USB port and wait for the USB LED to become solid on.\n2. For Windows computers, go to Computer > Network and click the Network Server Name (ARCHER_D7 by default).\n3. Alternatively, press Start + R, type \\\\tplinkmodem.net or ftp://tplinkmodem.net, and click OK.\n4. For Mac, select Go > Connect to Server, type smb://tplinkmodem.net or ftp://tplinkmodem.net, select the Guest radio box, and click Connect.\n5. For pads, use a third-party app for network files management.",
+    "rouge": 0.3740458015267175,
+    "llm_overall": 0.95,
     "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
   },
   {
     "type": "LOW_ROUGE_HIGH_LLM",
     "question": "Why might bandwidth control not work as expected?",
     "expected": "To use the bandwidth control feature, you’d better set static IP Address on each computer to be controlled or configure Address reservation on the modem router in order to manage easily.",
-    "generated": "The problem indicates that bandwidth control might not be properly configured or the settings are not effectively applied.\n\n1. Ensure that static IP addresses are set for each computer or configure address reservation on the modem router to manage bandwidth control effectively.\n2. Verify that the total upstream and downstream bandwidth values entered match those provided by your ISP.\n3. Check that controlling rules are correctly added for each computer, specifying the correct IP address or IP range.\n4. Confirm that the bandwidth control feature is enabled and the correct line type (DSL) is selected.",
-    "rouge": 0.31746031746031744,
-    "llm_overall": 0.9,
-    "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
-  },
-  {
-    "type": "LOW_GROUNDEDNESS",
-    "question": "Why might bandwidth control not work as expected?",
-    "generated": "The problem indicates that bandwidth control might not be properly configured or the settings are not effectively applied.\n\n1. Ensure that static IP addresses are set for each computer or configure address reservation on the modem router to manage bandwidth control effectively.\n2. Verify that the total upstream and downstream bandwidth values entered match those provided by your ISP.\n3. Check that controlling rules are correctly added for each computer, specifying the correct IP address or IP range.\n4. Confirm that the bandwidth control feature is enabled and the correct line type (DSL) is selected.",
-    "groundedness": 0.5,
-    "interpretation": "System dodał informacje spoza kontekstu"
-  },
-  {
-    "type": "LOW_ROUGE_HIGH_LLM",
-    "question": "How can you remotely access USB storage connected to the router?",
-    "expected": "You can access your USB disk outside the local area network. For example: Share photos and other large files with your friends without logging in to (and paying for) a photo-sharing site or email system. Get a safe backup for the materials for a presentation. Remove the files on your camera’s memory card from time to time during the journey. Note: If your ISP assigns a private WAN IP address (such as 192.168.x.x or 10.x.x.x), you cannot use this feature because private addresses are not routed on the Internet. Now different clients with Internet connection can access the USB disk: Computer • To download, open a web browser and type the server address ftp://<WAN IP address of the modem router>:<port number> (such as ftp:// 59.40.2.243:21) or ftp://<domain name of the modem router>:<port number> (such as ftp:// MyDomainName:21) in the address bar, then press Enter on the keyboard. • To upload, use a third-party app for network files management. Pad • Use a third-party app for network files management.",
-    "generated": "1. Connect your USB storage device to the modem router's USB port and wait for the USB LED to become solid.\n\n2. Visit http://tplinkmodem.net and log in with the password you set for the modem router.\n\n3. Select Advanced > USB Settings > Sharing Access.\n\n4. Enable FTP(via Internet) by selecting the check box and clicking Save.\n\n5. Access the USB disk remotely by opening a web browser and typing the server address ftp://<WAN IP address of the modem router>:<port number> or ftp://<domain name of the modem router>:<port number> in the address bar, then press Enter.",
-    "rouge": 0.36363636363636365,
-    "llm_overall": 0.9,
+    "generated": "The problem indicates that the bandwidth control feature may not be properly configured or applied.\n\n1. Ensure that static IP addresses are set for each computer or configure address reservation on the modem router to manage bandwidth control effectively.\n2. Verify that the correct total upstream and downstream bandwidth values provided by your ISP are entered in the Bandwidth Control settings.\n3. Check that controlling rules are correctly added for each computer, specifying the appropriate IP range and bandwidth allocation.\n4. Confirm that the Bandwidth Control feature is enabled and the correct line type (DSL) is selected.",
+    "rouge": 0.31249999999999994,
+    "llm_overall": 0.95,
     "interpretation": "ROUGE karze za dodatkowe/inne słowa, ale odpowiedź jest poprawna"
   }
 ]

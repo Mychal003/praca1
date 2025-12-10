@@ -27,7 +27,7 @@ class GroundTruthExtractor:
     """
     
     def __init__(self):
-        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)  # ZMIANA: gpt-4 → gpt-4o-mini (tańszy)
+        self.llm = ChatOpenAI(model="gpt-4o", temperature=0)  # ZMIANA: gpt-4 → gpt-4o-mini (tańszy)
     
     def extract_answer_from_chunks(self, question: str, chunks: List[str]) -> str:
         """
@@ -107,7 +107,7 @@ Extracted answer (word-for-word from document):"""
                 print(f"   ✓ Extracted: {ground_truth[:80]}...")
                 
             except Exception as e:
-                print(f"   ❌ Error: {e}")
+                print(f"   Error: {e}")
                 # Dodaj placeholder jeśli błąd
                 dataset.append({
                     "question": question,
@@ -145,21 +145,21 @@ def regenerate_test_dataset(pdf_path: str, questions: List[str], output_file: st
     print("="*70)
     
     # 1. Załaduj dokument
-    print("\n1️⃣  Loading document...")
+    print("\n  Loading document...")
     pipeline = RAGPipeline(chunk_size=800, chunk_overlap=150, k=7)
     pipeline.process_document(pdf_path)
     
     # 2. Ekstrahuj ground truth
-    print("\n2️⃣  Extracting ground truth answers...")
+    print("\n  Extracting ground truth answers...")
     extractor = GroundTruthExtractor()
     dataset = extractor.create_ground_truth_dataset(pipeline, questions, k=7)
     
     # 3. Zapisz
-    print("\n3️⃣  Saving dataset...")
+    print("\n  Saving dataset...")
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(dataset, f, ensure_ascii=False, indent=2)
     
-    print(f"\n✅ Ground truth dataset saved: {output_file}")
+    print(f"\n Ground truth dataset saved: {output_file}")
     print(f"   Total questions: {len(dataset)}")
     
     # 4. Pokaż przykłady

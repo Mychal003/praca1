@@ -1,0 +1,534 @@
+{
+  "summary": {
+    "avg_rouge1_f1": 0.5025237770202472,
+    "avg_semantic_similarity": 0.7745383739471435,
+    "avg_token_overlap": 0.5830382042397744,
+    "avg_latency": 3.201284818649292,
+    "avg_llm_correctness": 0.96,
+    "avg_llm_completeness": 0.924,
+    "avg_llm_relevance": 0.9279999999999999,
+    "avg_llm_groundedness": 1.0,
+    "avg_llm_overall": 0.938,
+    "factual_rouge1_f1": 0.45252579162773876,
+    "factual_semantic": 0.7036967078844706,
+    "procedural_rouge1_f1": 0.5674084218234087,
+    "procedural_semantic": 0.8285039342366732,
+    "troubleshooting_rouge1_f1": 0.3713509390507396,
+    "troubleshooting_semantic": 0.7532126108805338
+  },
+  "detailed": [
+    {
+      "question": "What is the full model name and type of this router?",
+      "expected": "TP-LINK’s Archer D7 AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router",
+      "generated": "The full model name and type of this router is TP-LINK Archer D7 AC1750 Wireless Dual Band Gigabit ADSL2+ Modem Router.",
+      "category": "factual",
+      "metrics": {
+        "rouge1_f1": 0.6249999999999999,
+        "semantic_similarity": 0.741713285446167,
+        "token_overlap": 0.9090909090909091,
+        "latency": 4.309838056564331,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 1.0,
+          "average": 1.0
+        }
+      }
+    },
+    {
+      "question": "What is the default web address to access the router interface?",
+      "expected": "http://tplinkmodem.net",
+      "generated": "The default web address to access the router interface is http://tplinkmodem.net.",
+      "category": "factual",
+      "metrics": {
+        "rouge1_f1": 0.0,
+        "semantic_similarity": 0.5097823143005371,
+        "token_overlap": 0.0,
+        "latency": 3.37239670753479,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 0.5,
+          "groundedness": 1.0,
+          "overall": 1.0,
+          "average": 0.9
+        }
+      }
+    },
+    {
+      "question": "What are the default login credentials for the router?",
+      "expected": "You are required to set the admin account at first login.",
+      "generated": "The default login credentials for the router are not explicitly provided in the context.",
+      "category": "factual",
+      "metrics": {
+        "rouge1_f1": 0.16,
+        "semantic_similarity": 0.3412274718284607,
+        "token_overlap": 0.18181818181818182,
+        "latency": 2.838071346282959,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 0.5,
+          "relevance": 0.5,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.78
+        }
+      }
+    },
+    {
+      "question": "What port is used to connect the router to the Internet?",
+      "expected": "\"For connecting the modem router to the Internet. Connect the port to the splitter or directly connect the port to the phone jack via a phone cable.\"",
+      "generated": "The ADSL port is used to connect the router to the Internet.",
+      "category": "factual",
+      "metrics": {
+        "rouge1_f1": 0.46153846153846156,
+        "semantic_similarity": 0.7167744040489197,
+        "token_overlap": 0.35294117647058826,
+        "latency": 1.434837818145752,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 0.8,
+          "relevance": 0.8,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.9
+        }
+      }
+    },
+    {
+      "question": "How many operation modes does the Archer D7 support?",
+      "expected": "The modem router supports two operation modes, DSL Modem Router Mode and Wireless Router mode.",
+      "generated": "The Archer D7 supports two operation modes: DSL Modem Router Mode and Wireless Router Mode.",
+      "category": "procedural",
+      "metrics": {
+        "rouge1_f1": 0.8000000000000002,
+        "semantic_similarity": 0.8452817797660828,
+        "token_overlap": 0.9166666666666666,
+        "latency": 1.035764217376709,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 1.0,
+          "average": 1.0
+        }
+      }
+    },
+    {
+      "question": "What USB features does the router support?",
+      "expected": "•\t Supports USB Storage Sharing, Print Server, FTP Server, Media Server.",
+      "generated": "The router supports USB Storage Sharing, Print Server, FTP Server, and Media Server.",
+      "category": "factual",
+      "metrics": {
+        "rouge1_f1": 0.8333333333333333,
+        "semantic_similarity": 0.755458414554596,
+        "token_overlap": 0.9,
+        "latency": 1.3481223583221436,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 1.0,
+          "average": 1.0
+        }
+      }
+    },
+    {
+      "question": "What is the WPS button used for on the Archer D7?",
+      "expected": "The switch for the WPS function.",
+      "generated": "The WPS button on the Archer D7 is used to quickly add a new wireless device to the existing network by initiating the Wi-Fi Protected Setup process.",
+      "category": "factual",
+      "metrics": {
+        "rouge1_f1": 0.1818181818181818,
+        "semantic_similarity": 0.5416030287742615,
+        "token_overlap": 0.4,
+        "latency": 1.4244260787963867,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.95,
+          "average": 0.99
+        }
+      }
+    },
+    {
+      "question": "What wireless security functions does the router provide?",
+      "expected": "• Provides WPA-PSK/WPA2-PSK data security, TKIP/AES encryption security. \n• Provides 64/128-bit WEP encryption security and wireless LAN ACL (Access Control List).",
+      "generated": "The router provides WPA-PSK/WPA2-PSK data security, TKIP/AES encryption security, 64/128-bit WEP encryption security, and wireless LAN ACL (Access Control List).",
+      "category": "factual",
+      "metrics": {
+        "rouge1_f1": 0.7804878048780488,
+        "semantic_similarity": 0.9190914630889893,
+        "token_overlap": 0.8333333333333334,
+        "latency": 1.6430730819702148,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 1.0,
+          "average": 1.0
+        }
+      }
+    },
+    {
+      "question": "How do you perform a factory reset on the Archer D7?",
+      "expected": "With the modem router powered on, press and hold down the WPS/RESET button on the rear panel of the modem router for 8 seconds until all LEDs turn back on momentarily, then release the button.",
+      "generated": "1. Ensure the Archer D7 modem router is powered on.\n2. Locate the RESET button on the rear panel of the modem router.\n3. Use a pin to press and hold the RESET button for 8 seconds.\n4. Wait until all LEDs turn off momentarily, then release the button.\n5. The modem router will automatically reboot, completing the factory reset process.",
+      "category": "procedural",
+      "metrics": {
+        "rouge1_f1": 0.5833333333333334,
+        "semantic_similarity": 0.7295998930931091,
+        "token_overlap": 0.7857142857142857,
+        "latency": 1.7361788749694824,
+        "llm_judge": {
+          "correctness": 0.9,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.96
+        }
+      }
+    },
+    {
+      "question": "How do you access the router's web interface for the first time?",
+      "expected": "1. If the TCP/IP Protocol on your computer is set to the static (fixed) IP address, you need to change it to obtain an IP address automatically. 2. Launch a web browser and type in http://tplinkmodem.net or http://192.168.1.1. Set a strong password using 1-15 characters and click Save. 3. Enter the password you set and click Login.",
+      "generated": "1. Ensure the TCP/IP Protocol on your computer is set to obtain an IP address automatically.  \n2. Launch a web browser on your computer.  \n3. Type in the URL http://tplinkmodem.net or http://192.168.1.1 in the address bar.  \n4. Set a strong password using 1-15 characters when prompted and click Save.  \n5. Enter the password you just set and click Login to access the router's web interface.",
+      "category": "procedural",
+      "metrics": {
+        "rouge1_f1": 0.7213114754098361,
+        "semantic_similarity": 0.8428376913070679,
+        "token_overlap": 0.7954545454545454,
+        "latency": 2.3484935760498047,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 0.9,
+          "groundedness": 1.0,
+          "overall": 0.95,
+          "average": 0.97
+        }
+      }
+    },
+    {
+      "question": "How do you set up the router using Quick Setup Wizard?",
+      "expected": "To set up your modem router with several easy steps quickly:\n1. Visit http://tplinkmodem.net, and log in with the password you set for the modem router.\n2. Click Quick Setup, select your ISP from the dropdown list or select Other if you can’t find your ISP, then click Next.\n3. Follow the on-screen instructions to complete the setup.",
+      "generated": "1. Turn on the modem router.\n2. Connect your computer to the modem router using an Ethernet cable, wirelessly using the default SSID and password, or via WPS.\n3. Open a web browser and visit http://tplinkmodem.net, then log in with the password you set for the modem router.\n4. Click on Quick Setup, select your ISP from the dropdown list or choose Other if your ISP is not listed, and click Next.\n5. Follow the on-screen instructions to complete the setup process.",
+      "category": "procedural",
+      "metrics": {
+        "rouge1_f1": 0.6428571428571428,
+        "semantic_similarity": 0.9204537868499756,
+        "token_overlap": 0.8,
+        "latency": 1.9002413749694824,
+        "llm_judge": {
+          "correctness": 0.9,
+          "completeness": 1.0,
+          "relevance": 0.95,
+          "groundedness": 1.0,
+          "overall": 0.95,
+          "average": 0.96
+        }
+      }
+    },
+    {
+      "question": "How do you change the wireless network name and password?",
+      "expected": "To change the wireless network name (SSID) and wireless password: Enter a new SSID using up to 32 characters. The default SSID is TP-LINK_XXXX and the value is case-sensitive. Note: If you use a wireless device to change the wireless settings, you will be disconnected when the settings are effective. Please write down the new SSID and password for future use.",
+      "generated": "1. Visit http://tplinkmodem.net and log in with the password you set for the modem router.  \n2. Go to the Basic > Wireless page.  \n3. Enter a new SSID using up to 32 characters in the SSID field.  \n4. Set a new wireless password in the password field.  \n5. Click Save to apply the changes.  \n6. Reconnect your wireless devices using the new SSID and password.",
+      "category": "procedural",
+      "metrics": {
+        "rouge1_f1": 0.4444444444444444,
+        "semantic_similarity": 0.7652153968811035,
+        "token_overlap": 0.3333333333333333,
+        "latency": 1.9714148044586182,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.95,
+          "average": 0.99
+        }
+      }
+    },
+    {
+      "question": "How do you turn on or off the WiFi function on the router?",
+      "expected": "WiFi ON/OFF  \nFor turning on/off the Wi-Fi function.",
+      "generated": "1. Locate the WiFi ON/OFF button on the back panel of the modem router.  \n2. Press the WiFi ON/OFF button to toggle the WiFi function on or off.",
+      "category": "procedural",
+      "metrics": {
+        "rouge1_f1": 0.22222222222222224,
+        "semantic_similarity": 0.6327707171440125,
+        "token_overlap": 0.42857142857142855,
+        "latency": 1.7225704193115234,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.9800000000000001
+        }
+      }
+    },
+    {
+      "question": "How do you access a USB disk connected to the router via network?",
+      "expected": "By default all the network clients can access all folders on your USB disk. Refer to the following table for access instructions. You can also customize your sharing content and set a sharing account by referring to Customize Your Settings. Windows computer Method 1: Go to Computer > Network, then click the Network Server Name (ARCHER _D7 by default) in the Computer section. Note: Here takes Windows 7 as an example. Method 2: 1. Press Start ( )+ R on the keyboard (or select Start > Run) 2. Type the server address \\\\tplinkmodem.net or ftp://tplinkmodem.net in the dialog box 3. Click OKs Mac 1. Select Go > Connect to Server 2. Type the server address smb://tplinkmodem.net or ftp:// tplinkmodem.net 3. When prompted, select the Guest radio box 4. Click Connect Note: If you have set up a username and a password to deny anonymous access to the USB disks, you should select the Registered User radio box. To learn how to set up an account for the access, refer to To Set up Authentication for Data Security.",
+      "generated": "1. Connect your USB storage device to the modem router’s USB port and wait for the USB LED to become solid on.\n2. For Windows computers, go to Computer > Network and click the Network Server Name (ARCHER_D7 by default).\n3. Alternatively, press Start + R, type \\\\tplinkmodem.net or ftp://tplinkmodem.net, and click OK.\n4. For Mac, select Go > Connect to Server, type smb://tplinkmodem.net or ftp://tplinkmodem.net, select the Guest radio box, and click Connect.\n5. For pads, use a third-party app for network files management.",
+      "category": "procedural",
+      "metrics": {
+        "rouge1_f1": 0.3740458015267175,
+        "semantic_similarity": 0.7025573253631592,
+        "token_overlap": 0.29411764705882354,
+        "latency": 2.2883782386779785,
+        "llm_judge": {
+          "correctness": 0.9,
+          "completeness": 0.9,
+          "relevance": 0.9,
+          "groundedness": 1.0,
+          "overall": 0.95,
+          "average": 0.93
+        }
+      }
+    },
+    {
+      "question": "How do you set up parental controls on the router?",
+      "expected": "1. Visit http://tplinkmodem.net, and log in with the password you set for the router. 2. Go to Basic or Advanced > Parental Controls and enable Parental Control. 3. Click Add. 4. Click View Existing Devices, and select the device to be controlled. Or, enter the Device Name and MAC Address manually. 5. Click the icon to set the Internet Access Time. Drag the cursor over the appropriate cell(s) and click OK. 6. Enter a Description for the entry. 7. Select the checkbox to enable this entry and click OK. 8. Select the restriction mode. 1 ) In Blacklist mode, the controlled devices cannot access any websites containing the specified keywords during the Internet Access Time period. 2 ) In Whitelist mode, the controlled devices can only access websites containing the specified keywords during the Internet Access Time period. 9. Click Add a New Keyword. You can add up to 200 keywords for both Blacklist and Whitelist.",
+      "generated": "1. Visit http://tplinkmodem.net and log in with the password you set for the router.\n2. Go to Basic or Advanced > Parental Controls and enable Parental Control.\n3. Click Add to create a new parental control entry.\n4. Click View Existing Devices and select the device to be controlled, or enter the Device Name and MAC Address manually.\n5. Click the icon to set the Internet Access Time, drag the cursor over the appropriate cells, and click OK.\n6. Enter a Description for the entry, select the restriction mode (Blacklist or Whitelist), and click OK.",
+      "category": "procedural",
+      "metrics": {
+        "rouge1_f1": 0.653386454183267,
+        "semantic_similarity": 0.9556012153625488,
+        "token_overlap": 0.5888888888888889,
+        "latency": 4.737102270126343,
+        "llm_judge": {
+          "correctness": 0.8,
+          "completeness": 0.75,
+          "relevance": 0.9,
+          "groundedness": 1.0,
+          "overall": 0.85,
+          "average": 0.86
+        }
+      }
+    },
+    {
+      "question": "How do you customize the USB disk server name?",
+      "expected": "You can customize the server name and use the name to access your USB disk. 1. Visit http://tplinkmodem.net, then log in with the password you set for the modem router. 2. Select Advanced > USB Settings > Sharing Access. 3. Make sure Network Neighborhood is ticked, and enter a Network/Media Server Name as you like, such as MyShare, then click Save.",
+      "generated": "1. Visit http://tplinkmodem.net and log in with the password you set for the modem router.  \n2. Select Advanced > USB Settings > Sharing Access.  \n3. Ensure Network Neighborhood is ticked, and enter a Network/Media Server Name of your choice, such as MyShare.  \n4. Click Save.",
+      "category": "procedural",
+      "metrics": {
+        "rouge1_f1": 0.7358490566037736,
+        "semantic_similarity": 0.8855209350585938,
+        "token_overlap": 0.75,
+        "latency": 4.730829238891602,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 0.9,
+          "groundedness": 1.0,
+          "overall": 1.0,
+          "average": 0.9800000000000001
+        }
+      }
+    },
+    {
+      "question": "How do you enable MAC Filtering to control wireless access?",
+      "expected": "1. Visit http://tplinkmodem.net, and log in with the password you set for the router. 2. Go to Advanced > Wireless > MAC Filtering and enable Wireless MAC Filtering. 3. Select the filtering rule to either block (recommended) or allow the device(s) in the list.",
+      "generated": "1. Visit http://tplinkmodem.net and log in with the password you set for the router.\n2. Go to Advanced > Wireless > MAC Filtering and enable Wireless MAC Filtering.\n3. Select the filtering rule to either block or allow the device(s) in the list.\n4. If blocking, select \"Block wireless access from the devices in the list below\" and click Save.\n5. Select the device(s) to be blocked in the Devices Online table and click Block.\n6. If allowing, select \"Allow wireless access only from the devices in the list below\" and click Save, then click Add to enter the MAC Address and Description of the device, and click OK.",
+      "category": "procedural",
+      "metrics": {
+        "rouge1_f1": 0.5490196078431373,
+        "semantic_similarity": 0.9674584865570068,
+        "token_overlap": 0.9393939393939394,
+        "latency": 4.841774940490723,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.95,
+          "average": 0.99
+        }
+      }
+    },
+    {
+      "question": "What should you do if you cannot access the router's web interface?",
+      "expected": "Make sure the modem router connects to the computer correctly and the corresponding LED indicator(s) light up. Make sure the IP address of your computer is configured to obtain an IP address automatically and obtain DNS server address automatically. Make sure the default access you input is right.",
+      "generated": "The problem indicates that there may be an issue with the connection between your computer and the modem router or incorrect settings.\n\n1. Ensure the modem router is correctly connected to the computer and the corresponding LED indicators are lit.\n2. Verify that your computer's IP address and DNS server settings are set to obtain automatically.\n3. Confirm that the default access address you are using is correct.\n4. If the TCP/IP Protocol on your computer is set to a static IP address, change it to obtain an IP address automatically.",
+      "category": "troubleshooting",
+      "metrics": {
+        "rouge1_f1": 0.4748201438848921,
+        "semantic_similarity": 0.8197958469390869,
+        "token_overlap": 0.65625,
+        "latency": 5.619946241378784,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 0.9,
+          "groundedness": 1.0,
+          "overall": 0.95,
+          "average": 0.97
+        }
+      }
+    },
+    {
+      "question": "How do you recover access if you forgot the router's login password?",
+      "expected": "Web Management page password:\nRestore the modem router to its factory default settings and then set a new password using 1-15 characters.",
+      "generated": "1. Restore the modem router to its factory default settings by pressing and holding the WPS/RESET button on the rear panel for 8 seconds until all LEDs turn back on momentarily, then release the button.\n2. Once reset, visit http://tplinkmodem.net using a web browser.\n3. Set a new password using 1-15 characters when prompted.\n4. Log in with the new password you have set.",
+      "category": "procedural",
+      "metrics": {
+        "rouge1_f1": 0.41860465116279066,
+        "semantic_similarity": 0.8006823062896729,
+        "token_overlap": 0.8181818181818182,
+        "latency": 3.9646854400634766,
+        "llm_judge": {
+          "correctness": 0.9,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.95,
+          "average": 0.97
+        }
+      }
+    },
+    {
+      "question": "What does it mean if the ADSL LED is not lit on the router?",
+      "expected": "If the ADSL LED is off, please check your Internet connection first. Refer to Connect Your Modem Router for more information about how to make Internet connection correctly. If you have already made a right connection, please contact your ISP to make sure your Internet service is available now.",
+      "generated": "The ADSL LED not being lit indicates that the ADSL synchronization has failed.\n\nSolutions:\n1. Check your Internet connection by ensuring the ADSL splitter is correctly connected to the phone jack.\n2. Refer to the \"Connect Your Modem Router\" section for detailed instructions on making the Internet connection correctly.\n3. If the connection is correct, contact your ISP to confirm that your Internet service is currently available.",
+      "category": "factual",
+      "metrics": {
+        "rouge1_f1": 0.4482758620689655,
+        "semantic_similarity": 0.9088773131370544,
+        "token_overlap": 0.4594594594594595,
+        "latency": 5.301543712615967,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.95,
+          "average": 0.99
+        }
+      }
+    },
+    {
+      "question": "What are the possible causes if wireless devices cannot connect to the network?",
+      "expected": "1.\tAuthenticating problem, password mismatch. 1 ) Sometimes it will ask you to type in a PIN number when you connect to the wireless network for the first time. This PIN number is different from the Wireless Password/Network Security Key, usually you can only find it on the back of your wireless router/modem; 2 ) If you cannot find the PIN or PIN failed, you may choose “Connecting using a security key instead”, and then type in the Network Security Key/Wireless Password; 3 ) If it continues on saying network security key mismatch, it is suggested to confirm the wireless password on your wireless router/modem; Note: Wireless password/Network Security Key is case sensitive. 4 ) Connect to wireless network.",
+      "generated": "The problem indicates that there may be issues with the wireless network settings or the devices trying to connect.\n\n1. Ensure the wireless function is enabled on your device and the wireless adapter driver is installed and enabled.\n2. Check the wireless signal strength; if weak, move the router closer to the device.\n3. Change the wireless channel to 1, 6, or 11 to reduce interference.\n4. Confirm the wireless password on your router/modem, ensuring it matches the one entered on the device.",
+      "category": "troubleshooting",
+      "metrics": {
+        "rouge1_f1": 0.3267326732673268,
+        "semantic_similarity": 0.736956000328064,
+        "token_overlap": 0.22058823529411764,
+        "latency": 4.902513742446899,
+        "llm_judge": {
+          "correctness": 0.7,
+          "completeness": 0.5,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.75,
+          "average": 0.79
+        }
+      }
+    },
+    {
+      "question": "Why might bandwidth control not work as expected?",
+      "expected": "To use the bandwidth control feature, you’d better set static IP Address on each computer to be controlled or configure Address reservation on the modem router in order to manage easily.",
+      "generated": "The problem indicates that the bandwidth control feature may not be properly configured or applied.\n\n1. Ensure that static IP addresses are set for each computer or configure address reservation on the modem router to manage bandwidth control effectively.\n2. Verify that the correct total upstream and downstream bandwidth values provided by your ISP are entered in the Bandwidth Control settings.\n3. Check that controlling rules are correctly added for each computer, specifying the appropriate IP range and bandwidth allocation.\n4. Confirm that the Bandwidth Control feature is enabled and the correct line type (DSL) is selected.",
+      "category": "troubleshooting",
+      "metrics": {
+        "rouge1_f1": 0.31249999999999994,
+        "semantic_similarity": 0.7028859853744507,
+        "token_overlap": 0.7307692307692307,
+        "latency": 5.901407480239868,
+        "llm_judge": {
+          "correctness": 0.9,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.95,
+          "average": 0.97
+        }
+      }
+    },
+    {
+      "question": "What is the purpose of IP & MAC Binding feature?",
+      "expected": "IP & MAC Binding, namely, ARP (Address Resolution Protocol) Binding, is used to bind network device’s IP address to its MAC address. This will prevent ARP spoofing and other ARP attacks by denying network access to an device with matching IP address in the Binding list, but unrecognized MAC address.",
+      "generated": "The purpose of the IP & MAC Binding feature is to bind a network device’s IP address to its MAC address to prevent ARP spoofing and other ARP attacks.",
+      "category": "factual",
+      "metrics": {
+        "rouge1_f1": 0.5822784810126583,
+        "semantic_similarity": 0.89874267578125,
+        "token_overlap": 0.4473684210526316,
+        "latency": 4.617613077163696,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 0.75,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.95,
+          "average": 0.9400000000000001
+        }
+      }
+    },
+    {
+      "question": "What is Access Control and how does it differ from MAC Filtering?",
+      "expected": "Access Control is used to block or allow specific client devices to access your network (via wired or wireless) based on a list of blocked devices (Blacklist) or a list of allowed devices (Whitelist). MAC Filtering exploits the uniqueness of the MAC (Medium Access Control) address, a unique 12-digit hexadecimal address (for example, D8:5D:4C:B4:46:EA) of every network device, to determine if the device can or cannot access your wireless network.",
+      "generated": "Access Control is used to block or allow specific client devices to access your network (via wired or wireless) based on a list of blocked devices (Blacklist) or a list of allowed devices (Whitelist), while MAC Filtering determines if a device can access your wireless network by exploiting the uniqueness of the device's MAC address.",
+      "category": "procedural",
+      "metrics": {
+        "rouge1_f1": 0.768,
+        "semantic_similarity": 0.9619868993759155,
+        "token_overlap": 0.6530612244897959,
+        "latency": 3.679096221923828,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 1.0,
+          "relevance": 1.0,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.9800000000000001
+        }
+      }
+    },
+    {
+      "question": "How can you remotely access USB storage connected to the router?",
+      "expected": "You can access your USB disk outside the local area network. For example: Share photos and other large files with your friends without logging in to (and paying for) a photo-sharing site or email system. Get a safe backup for the materials for a presentation. Remove the files on your camera’s memory card from time to time during the journey. Note: If your ISP assigns a private WAN IP address (such as 192.168.x.x or 10.x.x.x), you cannot use this feature because private addresses are not routed on the Internet. Now different clients with Internet connection can access the USB disk: Computer • To download, open a web browser and type the server address ftp://<WAN IP address of the modem router>:<port number> (such as ftp:// 59.40.2.243:21) or ftp://<domain name of the modem router>:<port number> (such as ftp:// MyDomainName:21) in the address bar, then press Enter on the keyboard. • To upload, use a third-party app for network files management. Pad • Use a third-party app for network files management.",
+      "generated": "To remotely access USB storage connected to the router, follow these steps:\n\n1. Connect your USB storage device to the modem router’s USB port and wait for the USB LED to become solid.\n2. Ensure your ISP does not assign a private WAN IP address, as this feature requires a public IP.\n3. Open a web browser and type the server address in the format ftp://<WAN IP address of the modem router>:<port number> or ftp://<domain name of the modem router>:<port number>.\n4. Press Enter to access the USB storage.\n5. Use a third-party app for network files management if you need to upload files.",
+      "category": "procedural",
+      "metrics": {
+        "rouge1_f1": 0.463235294117647,
+        "semantic_similarity": 0.7605847120285034,
+        "token_overlap": 0.38095238095238093,
+        "latency": 2.3618011474609375,
+        "llm_judge": {
+          "correctness": 1.0,
+          "completeness": 0.9,
+          "relevance": 0.95,
+          "groundedness": 1.0,
+          "overall": 0.9,
+          "average": 0.95
+        }
+      }
+    }
+  ],
+  "config": {
+    "use_llm_judge": true,
+    "pipeline_k": 10,
+    "chunk_size": 800,
+    "chunk_overlap": 100,
+    "model": "gpt-4o"
+  },
+  "correlations": {
+    "rouge_vs_llm_overall": 0.30111439759472913,
+    "semantic_vs_llm_overall": 0.11414739079420344,
+    "rouge_vs_llm_correctness": 0.07598775444572013,
+    "semantic_vs_llm_correctness": -0.11595245866833659
+  }
+}

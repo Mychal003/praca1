@@ -202,7 +202,7 @@ def plot_llm_dimensions_radar(summary, output_dir):
     
     # Dodaj wartości przy punktach
     for angle, value, dim in zip(angles[:-1], values[:-1], dimensions):
-        ax.annotate(f'{value:.2f}', xy=(angle, value), xytext=(5, 5),
+        ax.annotate(f'{value:.3f}', xy=(angle, value), xytext=(5, 5),
                     textcoords='offset points', fontsize=10, fontweight='bold')
     
     plt.tight_layout()
